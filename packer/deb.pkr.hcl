@@ -69,13 +69,13 @@ source "amazon-ebs" "main" {
 }
 build {
     sources = ["source.amazon-ebs.main"]
-    provisioner "file" {
-        source = "/home/vagrant/public"
-        destination = "/home/admin/"
-    }
-    // provisioner "shell" {
-    //     inline = ["git clone -b jenkins https://github.com/scaleops/ami-hardening.git"]
+    // provisioner "file" {
+    //     source = "/home/vagrant/public"
+    //     destination = "/home/admin/"
     // }
+    provisioner "shell" {
+        inline = ["pwd", "git clone https://github.com/azam-sajjad/packer.git public"]
+    }
     provisioner "shell" {
         inline = ["cloud-init status --wait", "sudo lsblk", "sudo apt update", "sudo apt-get update"]
     }
@@ -85,7 +85,7 @@ build {
     provisioner "ansible-local" {
         playbook_file = "/home/${local.username}/public/ansible/deb-playbook.yml"
         extra_arguments = [
-        "--inventory-file=/home/vagrant//ansible/inventory/aws_ec2.yml"
+        "--inventory-file=/home/${local.username}/public/ansible/inventory/aws_ec2.yml"
       ]
     }
     provisioner "shell" {
