@@ -1,0 +1,7 @@
+- name: Run deb-cis Role
+  hosts: 127.0.0.1
+  connection: local
+  become: yes
+  ignore_errors: true
+  roles:
+    - deb-cis

@@ -1,0 +1,15 @@
+plugin: aws_ec2
+aws_profile: eurus-control
+regions:
+  - us-east-2
+hostnames:
+  - ip-address
+
+keyed_groups:
+  - prefix: os
+    key: tags.OS
+
+
+
+groups:
+  agents: "'wagent' in tags.VM"
