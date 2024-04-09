@@ -74,19 +74,19 @@ build {
     //     destination = "/home/admin/"
     // }
     provisioner "shell" {
-        inline = ["pwd", "git clone https://github.com/azam-sajjad/packer.git public"]
+        inline = ["cloud-init status --wait", "sudo lsblk", "sudo apt update", "sudo apt-get update", "sudo apt install -y git"]
     }
     provisioner "shell" {
-        inline = ["cloud-init status --wait", "sudo lsblk", "sudo apt update", "sudo apt-get update"]
+        inline = ["pwd", "git clone https://github.com/azam-sajjad/packer.git public"]
     }
     provisioner "shell" {
         inline = ["chmod u+x /home/${local.username}/public/scripts/deb/ansible.sh", "sudo bash /home/${local.username}/public/scripts/deb/ansible.sh"]
     }
+    provisioner "shell" {
+        inline = ["mkdir -p ~/.ansible/roles", "cp -r ~/public/ansible/roles/deb-cis ~/.ansible/roles/"]
+    }
     provisioner "ansible-local" {
-        playbook_file = "/home/${local.username}/public/ansible/deb-playbook.yml"
-        extra_arguments = [
-        "--inventory-file=/home/${local.username}/public/ansible/inventory/aws_ec2.yml"
-      ]
+        playbook_file = "/home/vagrant/tasks/8-CICD/Jenkins/ansible/deb-playbook.yml"
     }
     provisioner "shell" {
         inline = ["chmod u+x /home/${local.username}/public/scripts/deb/cleanup.sh", "sudo bash /home/${local.username}/public/scripts/deb/cleanup.sh"]
