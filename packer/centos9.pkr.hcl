@@ -81,7 +81,7 @@ build {
         inline = ["mkdir -p ~/public/logs/${var.date}/${local.distribution}-${local.version}", "PACKER_LOG=1"]
     }
     provisioner "file" {
-        source = "/home/vagrant/public"
+        source = "/home/ec2-user/ami"
         destination = "/home/${local.username}/"
     }
     provisioner "shell" {
