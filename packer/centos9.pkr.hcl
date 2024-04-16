@@ -82,26 +82,26 @@ source "amazon-ebs" "main" {
 build {
     sources = ["source.amazon-ebs.main"]
     provisioner "shell-local" {
-        inline = ["mkdir -p ~/public/logs/${var.date}/${local.distribution}-${local.version}", "PACKER_LOG=1"]
+        inline = ["mkdir -p ${var.dir}/logs/${var.date}/${local.distribution}-${local.version}", "PACKER_LOG=1"]
     }
     provisioner "file" {
         source = "${var.dir}"
-        destination = "/home/${local.username}/"
+        destination = "/home/${local.username}"
     }
     provisioner "shell" {
         inline = ["sudo lsblk"]
     }
     provisioner "shell" {
-        inline = ["chmod u+x /home/${local.username}/public/scripts/rpm/${local.distribution}${local.version}.sh", "sudo bash /home/${local.username}/public/scripts/rpm/${local.distribution}${local.version}.sh"]
+        inline = ["chmod u+x /home/${local.username}/packer/scripts/rpm/${local.distribution}${local.version}.sh", "sudo bash /home/${local.username}/packer/scripts/rpm/${local.distribution}${local.version}.sh"]
     }
     provisioner "shell" {
-        inline = ["mkdir -p ~/.ansible/roles", "cp -r ~/public/ansible/roles/* ~/.ansible/roles/"]
+        inline = ["mkdir -p ~/.ansible/roles", "cp -r ~/packer/ansible/roles/* ~/.ansible/roles/"]
     }
     provisioner "ansible-local" {
         playbook_file = "../ansible/rpm-playbook.yml"
     }
     provisioner "shell" {
-        inline = ["chmod u+x /home/${local.username}/public/scripts/rpm/cleanup.sh", "sudo bash /home/${local.username}/public/scripts/rpm/cleanup.sh"]
+        inline = ["chmod u+x /home/${local.username}/packer/scripts/rpm/cleanup.sh", "sudo bash /home/${local.username}/packer/scripts/rpm/cleanup.sh"]
     }
     provisioner "shell" {
         inline = ["rm -rf /home/${local.username}/*"]
