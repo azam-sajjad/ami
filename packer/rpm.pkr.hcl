@@ -16,19 +16,21 @@ packer {
 ################# # VARIABLES # ###########################
 variable "SourceAMIName" {
   type    = string
-  default = "amzn2-ami-ecs-hvm-2.0.*-x86_64-ebs"
+  // default = "al2023-ami-2023.*-kernel-6.1-x86_64"
+  // default = "amzn2-ami-kernel-5.10-hvm-2.0.*.0-x86_64-gp2"
+  // default = " (SupportedImages) - CentOS 7 x86_64 - LATEST - *-*"
+  default = "CentOS-Stream-ec2-9-*.x86_64-*"
 }
 variable "SourceAMIOwner" {
   type    = string
-  default = "591542846629"
+  // default = "137112412989" # amazonLinux
+  default = "679593333241"
 }
 locals {
-  linux_flavor = "rpm"          # "deb" -or- "rpm"
   username = "ec2-user"
-  // run_tag = "al2"               # for Ansible Inventory
-  distribution = "amazonLinux"  # for AMI naming
-  version = "2"                 # for AMI naming
-  date = "15-04-2024"           # for AMI naming
+  distribution = "centos"  # for AMI naming
+  version = "9"                 # for AMI naming
+  date = "17-04-2024"           # for AMI naming
 }
 ###########################################################
 
@@ -38,7 +40,7 @@ source "amazon-ebs" "main" {
     role_arn = "arn:aws:iam::059516066038:role/central-managed-AdministratorAccess"
   }
   region = "us-east-2"
-  ami_name = "ltscale-${local.distribution}${local.version}-${local.date}"
+  ami_name = "scaleops-${local.distribution}${local.version}-${local.date}"
   source_ami_filter {
     filters = {
         name = "${var.SourceAMIName}"
@@ -56,11 +58,7 @@ source "amazon-ebs" "main" {
   associate_public_ip_address = true
   ssh_interface = "public_ip"
   security_group_ids = ["sg-002f0ddc6172d0ce1"]
-  ami_block_device_mappings = {
-        device_name = "/dev/xvda"
-        volume_size = 8
-        delete_on_termination = true
-        }
+
   launch_block_device_mappings {
         device_name = "/dev/sdb"
         volume_size = 25
@@ -70,13 +68,10 @@ source "amazon-ebs" "main" {
         }
 
   tags = {
-        Name = "ltscale-${local.distribution}-${local.version}-${local.date}"
+        Name = "scaleops-${local.distribution}-${local.version}-${local.date}"
         Permission = "Allowed"
         Source_AMI = "${var.SourceAMIName}"
         }
-  // run_tags = {
-  //       OS = "${var.run_tag}"
-  //       }
 }
 ###########################################################
 
@@ -84,39 +79,31 @@ source "amazon-ebs" "main" {
 build {
     sources = ["source.amazon-ebs.main"]
     provisioner "shell-local" {
-        inline = ["mkdir -p ~/public/logs/${local.date}/${local.distribution}-${local.version}"]
-    }
-    provisioner "shell-local" {
-        inline = ["PACKER_LOG=1", "PACKER_LOG_PATH=~/public/logs/${local.date}/${local.distribution}-${local.version}/packerlog.txt"]
+        inline = ["mkdir -p ~/public/logs/${local.date}/${local.distribution}-${local.version}", "PACKER_LOG=1"]
     }
     provisioner "file" {
         source = "/home/vagrant/public"
         destination = "/home/${local.username}/"
     }
     provisioner "shell" {
-        inline = ["cloud-init status --wait", "sudo lsblk", "sudo apt update", "sudo apt-get update"]
+        inline = ["sudo lsblk"]
     }
     provisioner "shell" {
-        inline = ["chmod u+x /home/${local.username}/public/scripts/deb/ansible.sh", "sudo bash /home/${local.username}/public/scripts/deb/ansible.sh"]
+        inline = ["chmod u+x /home/${local.username}/public/scripts/rpm/${local.distribution}${local.version}.sh", "sudo bash /home/${local.username}/public/scripts/rpm/${local.distribution}${local.version}.sh"]
     }
     provisioner "shell" {
         inline = ["mkdir -p ~/.ansible/roles", "cp -r ~/public/ansible/roles/* ~/.ansible/roles/"]
     }
     provisioner "ansible-local" {
-        playbook_file = "../ansible/deb-playbook.yml"
+        playbook_file = "../ansible/rpm-playbook.yml"
     }
     provisioner "shell" {
-        inline = ["lynis audit system --pentest | tee -a ~/lynis.report"]
-    }
-    provisioner "file" {
-        source = "~/lynis.report"
-        destination = "../logs/${local.date}/${local.distribution}-${local.version}/lynis.report"
-        direction = "download"
-    }
-    provisioner "shell" {
-        inline = ["chmod u+x /home/${local.username}/public/scripts/deb/cleanup.sh", "sudo bash /home/${local.username}/public/scripts/deb/cleanup.sh"]
+        inline = ["chmod u+x /home/${local.username}/public/scripts/rpm/cleanup.sh", "sudo bash /home/${local.username}/public/scripts/rpm/cleanup.sh"]
     }
     provisioner "shell" {
         inline = ["rm -rf /home/${local.username}/*"]
+    }
+    provisioner "shell-local" {
+        inline = ["mv ./packerlog.txt ../logs/${local.date}/${local.distribution}-${local.version}/packerlog.txt"]
     }
 }

@@ -2,7 +2,7 @@
 # defaults file for deb-cis
 
 
-cis_partitions: false # creates Separate Partitions for /home | /var | /var/log | /var/tmp
+cis_partitions: true # creates Separate Partitions for /home | /var | /var/log | /var/tmp
 cis_section1:   true  # disable unused filesystems, tmpfs, checks partitions, sudo, selinux, /etc/issue
 cis_section2:   true  # services
 cis_section3:   true  # iptables / ufw / nftables
@@ -83,9 +83,9 @@ cis_rule_1_1_1_5: true  # Ensure mounting of hfsplus filesystems is disabled (Sc
 cis_rule_1_1_1_6: true  # Ensure mounting of squashfs filesystems is disabled (Scored) 
 cis_rule_1_1_1_7: true  # Ensure mounting of udf filesystems is disabled (Scored) 
 cis_rule_1_1_1_8: false # Ensure mounting of FAT filesystems is limited (Not Scored) 
-cis_rule_1_1_2  : true  # Ensure /tmp is configured (Scored) 
-cis_rule_1_1_3  : true  # Ensure nodev option set on /tmp partition (Scored) 
-cis_rule_1_1_4  : true  # Ensure nosuid option set on /tmp partition (Scored) 
+cis_rule_1_1_2  : false # Ensure /tmp is configured (Scored) 
+cis_rule_1_1_3  : false # Ensure nodev option set on /tmp partition (Scored) 
+cis_rule_1_1_4  : false # Ensure nosuid option set on /tmp partition (Scored) 
 cis_rule_1_1_5  : false # Ensure noexec option set on /tmp partition (Scored) 
 cis_rule_1_1_6  : true  # Ensure separate partition exists for /var (Scored)
 cis_rule_1_1_7  : true  # Ensure separate partition exists for /var/tmp (Scored) 

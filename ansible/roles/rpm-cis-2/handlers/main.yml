@@ -3,25 +3,25 @@
 
 
 # Section1
-- name: systemd restart tmp.mount
+- name: systemd start tmp.mount
   become: true
   systemd:
       name: tmp.mount
-      daemon_reload: true
+      daemon_reload: false
       enabled: true
       masked: false
-      state: reloaded
+      state: stopped
   when: ansible_virtualization_type != "docker"
   ignore_errors: "{{ cis_ignore_remount_errors }}"
 
-- name: systemd restart var-tmp.mount
+- name: systemd start var-tmp.mount
   become: true
   systemd:
       name: var-tmp.mount
       daemon_reload: true
       enabled: true
       masked: false
-      state: reloaded
+      state: started
   ignore_errors: "{{ cis_ignore_remount_errors }}"
 
 # Section2
@@ -93,7 +93,7 @@
 # Section4
 - name: generate new grub config
   become: true
-  command: grub-mkconfig -o /boot/grub2/grub.cfg
+  command: grub2-mkconfig -o /boot/grub2/grub.cfg
   notify: fix permissions after generate new grub config handler
 
 - name: fix permissions after generate new grub config handler

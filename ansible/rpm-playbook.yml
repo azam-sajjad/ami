@@ -1,6 +1,6 @@
 - name: Run rpm-cis Role
-  hosts: localhost
+  hosts: 127.0.0.1
   become: yes
   ignore_errors: true
   roles:
-    - rpm-cis
+    - rpm-cis-2

@@ -12,9 +12,11 @@ cis_section6:   true # 6.1,2-permissions
 cis_lynis_fix:  true # Lynis recommended fixes
 cis_section99:  false # lockdown access
 
-reboot_machine_after_completion: true
+reboot_machine_after_completion: false
 selinux_disable: false
 auditd_disable: false
+# 1.8 Apply upgrades (set to false if another patching system is in place)
+cis_apply_yum_upgrades: false
 
 #########################################################
 #########################################################
@@ -86,10 +88,10 @@ cis_rule_1_1_1_5: true  # Ensure mounting of hfsplus filesystems is disabled (Sc
 cis_rule_1_1_1_6: true  # Ensure mounting of squashfs filesystems is disabled (Scored) 
 cis_rule_1_1_1_7: true  # Ensure mounting of udf filesystems is disabled (Scored) 
 cis_rule_1_1_1_8: false # Ensure mounting of FAT filesystems is limited (Not Scored) 
-cis_rule_1_1_2  : false  # Ensure /tmp is configured (Scored) 
-cis_rule_1_1_3  : false  # Ensure nodev option set on /tmp partition (Scored) 
-cis_rule_1_1_4  : false  # Ensure nosuid option set on /tmp partition (Scored) 
-cis_rule_1_1_5  : false # Ensure noexec option set on /tmp partition (Scored) 
+cis_rule_1_1_2  : true  # Ensure /tmp is configured (Scored) 
+cis_rule_1_1_3  : true  # Ensure nodev option set on /tmp partition (Scored) 
+cis_rule_1_1_4  : true  # Ensure nosuid option set on /tmp partition (Scored) 
+cis_rule_1_1_5  : true # Ensure noexec option set on /tmp partition (Scored) 
 cis_rule_1_1_6  : true  # Ensure separate partition exists for /var (Scored)
 cis_rule_1_1_7  : true  # Ensure separate partition exists for /var/tmp (Scored) 
 cis_rule_1_1_8  : true  # Ensure nodev option set on /var/tmp partition (Scored) 
@@ -180,8 +182,6 @@ cis_vartmp:
   enabled: false
 
 
-# 1.8 Apply upgrades (set to false if another patching system is in place)
-cis_apply_upgrades: true
 
 
 

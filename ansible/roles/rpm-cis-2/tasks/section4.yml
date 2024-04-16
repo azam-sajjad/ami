@@ -1,34 +1,15 @@
 ---
-- name: "PRELIM | Run apt cache update"
-  apt:
-    update_cache: true
-  when:
-      - cis_apply_upgrades
-  tags:
-      - level1
-      - notscored
-      - patch
-      - rule_4.1.1
-      
 - name: "PRELIM | Section 4.1 | Configure System Accounting (auditd)"
-  apt:
+  yum:
     name: "{{ auditd_package[ansible_os_family] }}"
     state: present
   when:
       - not auditd_disable
-      - cis_rule_4_1_1
-  tags:
-      - level2
-      - scored
-      - patch
-      - auditd
-      - rule_4.1.1
 
 - name: "SCORED | 4.1.2 | PATCH | Ensure auditd is installed"
-  apt:
+  yum:
       name: audispd-plugins
       state: present
-    #   install_recommends: false
   when:
       - cis_rule_4_1_2
   tags:
@@ -457,10 +438,9 @@
 
 
 - name: "SCORED | 4.2.1.1 | PATCH | Ensure rsyslog is installed"
-  apt:
+  yum:
       name: rsyslog
       state: present
-      install_recommends: false
   when:
       - cis_rule_4_2_1_1
       - cis_syslog == "rsyslog"
