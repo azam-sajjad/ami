@@ -22,14 +22,9 @@ pipeline {
         AWS_DEFAULT_REGION="us-east-2"
         DATE="`date +%d-%m-%Y`"
     }
-    parameters {
-  choice choices: ['Amazon Linux 2', 'Amazon Linux 2023', 'Centos 7', 'Centos 9', 'Debian 10', 'Debian 12', 'Ubuntu 20', 'Ubuntu 22'], description: 'Select Distribution for Hardened AMI', name: 'Distribution'
+    parameters { 
+        choice(name: 'Distribution', choices:['amazonLinux2', 'amazonLinux2023', 'centos7', 'centos9', 'debian10', 'debian12', 'ubuntu20', 'ubuntu22'], description:'Select Distribution for Hardened AMI')
 }
-    parameters {
-        booleanParam(name: 'PLAN_TERRAFORM', defaultValue: false, description: 'Check to plan Terraform changes')
-        booleanParam(name: 'APPLY_TERRAFORM', defaultValue: false, description: 'Check to apply Terraform changes')
-        booleanParam(name: 'DESTROY_TERRAFORM', defaultValue: false, description: 'Check to destroy Terraform changes')
-    }
 
     stages {
         stage('Clone Repository') {
@@ -40,30 +35,15 @@ pipeline {
         }
 
 
-        stage('Build Centos 9 Image') {
+        stage('Build ${params.Distribution} Image') {
             steps {
                 script {
-                    if(params.centos 9) {
+                    if(params.Distribution) {
                         withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
-                            dir('packer/centos/9') {
-                                sh 'echo "========================= Creating Centos 9 Hardened AMI ========================="'
+                            dir('packer') {
+                                sh 'echo "========================= Creating ${params.Distribution} Hardened AMI ========================="'
                                 sh '/usr/bin/packer init .'
-                                sh '/usr/bin/packer build packer.pkr.hcl'
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        stage('Build Centos 7 Image') {
-            steps {
-                script {
-                    if(params.centos 7) {
-                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
-                            dir('packer/centos/7') {
-                                sh 'echo "========================= Creating Centos 7 Hardened AMI ========================="'
-                                sh '/usr/bin/packer init .'
-                                sh '/usr/bin/packer build packer.pkr.hcl'
+                                sh '/usr/bin/packer build ${params.Distribution}.pkr.hcl'
                             }
                         }
                     }
