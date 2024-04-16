@@ -86,22 +86,22 @@ build {
     }
     provisioner "file" {
         source = "${var.dir}"
-        destination = "/home/${local.username}"
+        destination = "/home/${local.username}/ami"
     }
     provisioner "shell" {
         inline = ["sudo lsblk"]
     }
     provisioner "shell" {
-        inline = ["chmod u+x /home/${local.username}/packer/scripts/rpm/${local.distribution}${local.version}.sh", "sudo bash /home/${local.username}/packer/scripts/rpm/${local.distribution}${local.version}.sh"]
+        inline = ["chmod u+x /home/${local.username}/ami/scripts/rpm/${local.distribution}${local.version}.sh", "sudo bash /home/${local.username}/ami/scripts/rpm/${local.distribution}${local.version}.sh"]
     }
     provisioner "shell" {
-        inline = ["mkdir -p ~/.ansible/roles", "cp -r ~/packer/ansible/roles/* ~/.ansible/roles/"]
+        inline = ["mkdir -p ~/.ansible/roles", "cp -r ~/ami/ansible/roles/* ~/.ansible/roles/"]
     }
     provisioner "ansible-local" {
         playbook_file = "../ansible/rpm-playbook.yml"
     }
     provisioner "shell" {
-        inline = ["chmod u+x /home/${local.username}/packer/scripts/rpm/cleanup.sh", "sudo bash /home/${local.username}/packer/scripts/rpm/cleanup.sh"]
+        inline = ["chmod u+x /home/${local.username}/ami/scripts/rpm/cleanup.sh", "sudo bash /home/${local.username}/ami/scripts/rpm/cleanup.sh"]
     }
     provisioner "shell" {
         inline = ["rm -rf /home/${local.username}/*"]
