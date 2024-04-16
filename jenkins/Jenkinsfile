@@ -34,7 +34,7 @@ pipeline {
             }
         }
 
-
+    }
         stage('Build ${params.Distribution} Image') {
             steps {
                 script {
