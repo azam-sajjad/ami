@@ -272,22 +272,7 @@
       force: true
       remote_src: true
   notify:
-      - systemd restart tmp.mount
-  when:
-      - cis_rule_1_1_2
-  tags:
-      - level2
-      - scored
-      - patch
-      - rule_1.1.2
-
-- name: "SCORED | 1.1.2 | PATCH | Ensure separate partition exists for /tmp | enable and start/restart tmp.mount"
-  systemd:
-      name: tmp.mount
-      daemon_reload: yes
-      enabled: yes
-      masked: no
-      state: started
+      - systemd start tmp.mount
   when:
       - cis_rule_1_1_2
   tags:
@@ -309,7 +294,7 @@
       - "{{ tmp_mount_file[ansible_os_family] }}"
       - /etc/systemd/system/tmp.mount
   notify:
-      - systemd restart tmp.mount
+      - systemd start tmp.mount
   when:
       - cis_rule_1_1_3
       - cis_rule_1_1_4
@@ -332,7 +317,7 @@
       - "{{ tmp_mount_file[ansible_os_family] }}"
       - /etc/systemd/system/tmp.mount
   notify:
-      - systemd restart tmp.mount
+      - systemd start tmp.mount
   when:
       - cis_rule_1_1_5
   tags:
@@ -1318,7 +1303,7 @@
     state: latest
 
   when:
-      - cis_apply_upgrades
+      - cis_apply_yum_upgrades
   tags:
       - level1
       - notscored

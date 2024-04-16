@@ -4,7 +4,7 @@
     update_cache: true
   changed_when: false
   when:
-      - cis_apply_upgrades
+      - cis_apply_yum_upgrades
   tags:
       - level1
       - scored

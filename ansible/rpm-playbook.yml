@@ -3,4 +3,4 @@
   become: yes
   ignore_errors: true
   roles:
-    - rpm-cis-2
+    - rpm-cis
