@@ -29,8 +29,7 @@ variable "date" {
 locals {
   username = "ec2-user"
   distribution = "centos" 
-  version = "9"              
-  date = "{{env `DATE`}}"   
+  version = "9"               
 }
 ###########################################################
 
@@ -40,7 +39,7 @@ source "amazon-ebs" "main" {
     role_arn = "arn:aws:iam::059516066038:role/central-managed-AdministratorAccess"
   }
   region = "us-east-2"
-  ami_name = "scaleops-${local.distribution}${local.version}-${local.date}"
+  ami_name = "scaleops-${local.distribution}${local.version}-${var.date}"
   source_ami_filter {
     filters = {
         name = "${var.SourceAMIName}"
@@ -68,7 +67,7 @@ source "amazon-ebs" "main" {
         }
 
   tags = {
-        Name = "scaleops-${local.distribution}-${local.version}-${local.date}"
+        Name = "scaleops-${local.distribution}-${local.version}-${var.date}"
         Permission = "Allowed"
         Source_AMI = "${var.SourceAMIName}"
         }
@@ -79,7 +78,7 @@ source "amazon-ebs" "main" {
 build {
     sources = ["source.amazon-ebs.main"]
     provisioner "shell-local" {
-        inline = ["mkdir -p ~/public/logs/${local.date}/${local.distribution}-${local.version}", "PACKER_LOG=1"]
+        inline = ["mkdir -p ~/public/logs/${var.date}/${local.distribution}-${local.version}", "PACKER_LOG=1"]
     }
     provisioner "file" {
         source = "/home/vagrant/public"
@@ -104,6 +103,6 @@ build {
         inline = ["rm -rf /home/${local.username}/*"]
     }
     provisioner "shell-local" {
-        inline = ["mv ./packerlog.txt ../logs/${local.date}/${local.distribution}-${local.version}/packerlog.txt"]
+        inline = ["mv ./packerlog.txt ../logs/${var.date}/${local.distribution}-${local.version}/packerlog.txt"]
     }
 }

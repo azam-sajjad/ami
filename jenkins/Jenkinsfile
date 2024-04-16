@@ -22,6 +22,37 @@ pipeline {
         AWS_DEFAULT_REGION="us-east-2"
         DATE="`date +%d-%m-%Y`"
     }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/azam-sajjad/packer.git'
+            }
+        }
+
+        stage('Build Image') {
+            steps {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
+                    dir('packer') {
+                        sh '''
+                        echo "========================= Creating centos9 Hardened AMI ========================="
+                        /usr/bin/packer init centos9.pkr.hcl
+                        /usr/bin/packer build centos9.pkr.hcl
+                        '''
+                    }
+                }
+            }
+        }
+    }
+}
+
+pipeline {
+    agent { label 'rhel' }
+    environment {
+        AWS_DEFAULT_REGION="us-east-2"
+        DATE="`date +%d-%m-%Y`"
+    }
     parameters { 
         choice(name: 'Distribution', choices:['amazonLinux2', 'amazonLinux2023', 'centos7', 'centos9', 'debian10', 'debian12', 'ubuntu20', 'ubuntu22'], description:'Select Distribution for Hardened AMI')
 }
@@ -34,16 +65,17 @@ pipeline {
             }
         }
 
-    }
         stage('Build ${params.Distribution} Image') {
             steps {
                 script {
                     if(params.Distribution) {
                         withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
                             dir('packer') {
-                                sh 'echo "========================= Creating Hardened AMI ========================="'
-                                sh '/usr/bin/packer init .'
-                                sh '/usr/bin/packer build ${params.Distribution}.pkr.hcl'
+                                sh '''
+                                echo "========================= Creating \"${params.Distribution}\" Hardened AMI ========================="
+                                /usr/bin/packer init \"${params.Distribution}\".pkr.hcl
+                                /usr/bin/packer build \"${params.Distribution}\".pkr.hcl
+                                '''
                             }
                         }
                     }
