@@ -41,7 +41,7 @@ pipeline {
                     if(params.Distribution) {
                         withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
                             dir('packer') {
-                                sh 'echo "========================= Creating ${params.Distribution} Hardened AMI ========================="'
+                                sh 'echo "========================= Creating Hardened AMI ========================="'
                                 sh '/usr/bin/packer init .'
                                 sh '/usr/bin/packer build ${params.Distribution}.pkr.hcl'
                             }
