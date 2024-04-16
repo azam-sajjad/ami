@@ -37,6 +37,10 @@ pipeline {
                     dir('packer') {
                         sh '''
                         echo "========================= Creating centos9 Hardened AMI ========================="
+                        cd ..
+                        export DIR=`pwd`
+                        cd packer
+                        export DATE=`date +%d-%m-%Y` 
                         /usr/bin/packer init centos9.pkr.hcl
                         /usr/bin/packer build centos9.pkr.hcl
                         '''

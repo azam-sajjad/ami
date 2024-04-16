@@ -26,6 +26,10 @@ variable "date" {
   type    = string
   default = env("DATE")
 }
+variable "dir" {
+  type    = string
+  default = env("DIR")
+}
 locals {
   username = "ec2-user"
   distribution = "centos" 
@@ -81,7 +85,7 @@ build {
         inline = ["mkdir -p ~/public/logs/${var.date}/${local.distribution}-${local.version}", "PACKER_LOG=1"]
     }
     provisioner "file" {
-        source = "/home/ec2-user/ami"
+        source = "${var.dir}"
         destination = "/home/${local.username}/"
     }
     provisioner "shell" {
