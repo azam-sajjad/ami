@@ -33,7 +33,7 @@ variable "dir" {
 locals {
   username = "ec2-user"
   distribution = "centos" 
-  version = "9.1"               
+  version = "99"               
 }
 ###########################################################
 
