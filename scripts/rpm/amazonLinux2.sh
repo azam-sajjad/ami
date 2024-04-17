@@ -1,6 +1,6 @@
 #!/bin/bash
 # install Ansible
-sudo yum -y update && sudo yum -y upgrade
+sudo yum clean all
 sudo yum install ansible -y
 sudo amazon-linux-extras install ansible2 -y
 ansible-galaxy collection install ansible.posix
