@@ -32,8 +32,7 @@ variable "dir" {
 }
 locals {
   username = "admin"
-  distribution = "debian"  
-  version = "12"                          
+  distribution = "debian10"                           
 }
 ###########################################################
 
@@ -43,7 +42,7 @@ source "amazon-ebs" "main" {
     role_arn = "arn:aws:iam::059516066038:role/central-managed-AdministratorAccess"
   }
   region = "us-east-2"
-  ami_name = "ltscale-${local.distribution}${local.version}-${local.date}"
+  ami_name = "ltscale-${local.distribution}-${local.date}"
   source_ami_filter {
     filters = {
         name = "${var.SourceAMIName}"
@@ -75,7 +74,7 @@ source "amazon-ebs" "main" {
         }
 
   tags = {
-        Name = "ltscale-${local.distribution}-${local.version}-${local.date}"
+        Name = "ltscale-${local.distribution}-${local.date}"
         Permission = "Allowed"
         Source_AMI = "${var.SourceAMIName}"
         }
@@ -86,7 +85,7 @@ source "amazon-ebs" "main" {
 build {
     sources = ["source.amazon-ebs.main"]
     provisioner "shell-local" {
-        inline = ["mkdir -p ${var.dir}/logs/${var.date}/${local.distribution}-${local.version}", "PACKER_LOG=1"]
+        inline = ["mkdir -p ${var.dir}/logs/${var.date}/${local.distribution}", "PACKER_LOG=1"]
     }
     provisioner "file" {
         source = "${var.dir}"
@@ -96,7 +95,7 @@ build {
         inline = ["sudo lsblk"]
     }
     provisioner "shell" {
-        inline = ["chmod u+x /home/${local.username}/ami/scripts/rpm/${local.distribution}${local.version}.sh", "sudo bash /home/${local.username}/ami/scripts/rpm/${local.distribution}${local.version}.sh"]
+        inline = ["chmod u+x /home/${local.username}/ami/scripts/rpm/${local.distribution}.sh", "sudo bash /home/${local.username}/ami/scripts/rpm/${local.distribution}.sh"]
     }
     provisioner "shell" {
         inline = ["mkdir -p ~/.ansible/roles", "cp -r ~/ami/ansible/roles/* ~/.ansible/roles/"]
@@ -111,6 +110,6 @@ build {
         inline = ["rm -rf /home/${local.username}/*"]
     }
     provisioner "shell-local" {
-        inline = ["mv ./packerlog.txt ../logs/${var.date}/${local.distribution}-${local.version}/packerlog.txt"]
+        inline = ["mv ./packerlog.txt ../logs/${var.date}/${local.distribution}/packerlog.txt"]
     }
 }
