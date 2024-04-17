@@ -16,13 +16,11 @@ packer {
 ################# # VARIABLES # ###########################
 variable "SourceAMIName" {
   type    = string
-  default = env("amiNAME")
-  // default = " (SupportedImages) - CentOS 7 x86_64 - LATEST - *-*"
+  default = "amzn2-ami-kernel-5.10-hvm-2.0.*.0-x86_64-gp2"
 }
 variable "SourceAMIOwner" {
   type    = string
-  default = env("amiOWNER")
-  // default = "679593333241"
+  default = "137112412989" 
 }
 variable "date" {
   type    = string
@@ -33,9 +31,9 @@ variable "dir" {
   default = env("DIR")
 }
 locals {
-  username = "centos"
-  distribution = "centos" 
-  version = "7"               
+  username = "ec2-user"
+  distribution = "amazonLinux" 
+  version = "2"                
 }
 ###########################################################
 

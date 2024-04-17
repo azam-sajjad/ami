@@ -16,13 +16,11 @@ packer {
 ################# # VARIABLES # ###########################
 variable "SourceAMIName" {
   type    = string
-  default = env("amiNAME")
-  // default = " (SupportedImages) - CentOS 7 x86_64 - LATEST - *-*"
+  default = "debian-12-amd64-*-*"
 }
 variable "SourceAMIOwner" {
   type    = string
-  default = env("amiOWNER")
-  // default = "679593333241"
+  default = "136693071363"
 }
 variable "date" {
   type    = string
@@ -33,9 +31,9 @@ variable "dir" {
   default = env("DIR")
 }
 locals {
-  username = "centos"
-  distribution = "centos" 
-  version = "7"               
+  username = "admin"
+  distribution = "debian"  
+  version = "12"                          
 }
 ###########################################################
 
@@ -45,7 +43,7 @@ source "amazon-ebs" "main" {
     role_arn = "arn:aws:iam::059516066038:role/central-managed-AdministratorAccess"
   }
   region = "us-east-2"
-  ami_name = "scaleops-${local.distribution}${local.version}-${var.date}"
+  ami_name = "ltscale-${local.distribution}${local.version}-${local.date}"
   source_ami_filter {
     filters = {
         name = "${var.SourceAMIName}"
@@ -63,7 +61,11 @@ source "amazon-ebs" "main" {
   associate_public_ip_address = true
   ssh_interface = "public_ip"
   security_group_ids = ["sg-002f0ddc6172d0ce1"]
-
+  ami_block_device_mappings = {
+        device_name = "/dev/xvda"
+        volume_size = 8
+        delete_on_termination = true
+        }
   launch_block_device_mappings {
         device_name = "/dev/sdb"
         volume_size = 25
@@ -73,7 +75,7 @@ source "amazon-ebs" "main" {
         }
 
   tags = {
-        Name = "scaleops-${local.distribution}-${local.version}-${var.date}"
+        Name = "ltscale-${local.distribution}-${local.version}-${local.date}"
         Permission = "Allowed"
         Source_AMI = "${var.SourceAMIName}"
         }
@@ -100,7 +102,7 @@ build {
         inline = ["mkdir -p ~/.ansible/roles", "cp -r ~/ami/ansible/roles/* ~/.ansible/roles/"]
     }
     provisioner "ansible-local" {
-        playbook_file = "../ansible/rpm-playbook.yml"
+        playbook_file = "../ansible/deb-playbook.yml"
     }
     provisioner "shell" {
         inline = ["chmod u+x /home/${local.username}/ami/scripts/rpm/cleanup.sh", "sudo bash /home/${local.username}/ami/scripts/rpm/cleanup.sh"]
