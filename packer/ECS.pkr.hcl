@@ -14,13 +14,21 @@ packer {
 
 ###########################################################
 ################# # VARIABLES # ###########################
-variable "source_ami_id" {
+variable "vpc_id" {
+  type    = string
+  default = env("VPC_ID")
+}
+variable "subnet_id" {
+  type    = string
+  default = env("SUBNET_ID")
+}
+variable "ami_id" {
   type    = string
   default = env("AMI_ID")
 }
 variable "region" {
   type    = string
-  default = env("AWS_DEFAULT_REGION")
+  default = env("AWS_REGION")
 }
 variable "date" {
   type    = string
@@ -43,11 +51,11 @@ source "amazon-ebs" "main" {
   }
   region = "${var.region}"
   ami_name = "scaleops-${local.distribution}-${var.date}"
-  source_ami = "${var.source_ami_id}"
+  source_ami = "${var.ami_id}"
   instance_type = "t2.micro"
   ssh_username = "${local.username}"
-  vpc_id = "vpc-038428d5c25e95813"
-  subnet_id = "subnet-07c042f521955cb1e"
+  vpc_id = "${var.vpc_id}"
+  subnet_id = "${var.subnet_id}"
   associate_public_ip_address = true
   ssh_interface = "public_ip"
   security_group_ids = ["sg-002f0ddc6172d0ce1"]

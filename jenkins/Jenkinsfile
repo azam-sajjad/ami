@@ -4,7 +4,10 @@ pipeline {
         AWS_DEFAULT_REGION="us-east-2"
     }
     parameters { 
-        choice(name: 'Distribution', choices:['ECS', 'EKS', 'amazonLinux2', 'amazonLinux2023', 'centos7', 'centos9', 'debian10', 'debian12', 'ubuntu20', 'ubuntu22'], description:'Select Distribution for Hardened AMI')
+        choice(name: 'AWS_REGION', choices:['us-east-1', 'us-east-2', 'us-west-1', 'us-west-2', 'ap-south-1', 'ap-northeast-3', 'ap-northeast-2', 'ap-southeast-1', 'ap-southeast-2', 'ca-central-1', 'eu-central-1', 'eu-west-1', 'eu-west-2', 'eu-west-3', 'eu-north-1', 'sa-east-1'], description:'Select AWS_REGION for Hardened AMI')
+}
+    parameters { 
+        choice(name: 'DISTRIBUTION', choices:['ECS', 'EKS', 'amazonLinux2', 'amazonLinux2023', 'centos7', 'centos9', 'debian10', 'debian12', 'ubuntu20', 'ubuntu22'], description:'Select DISTRIBUTION for Hardened AMI')
 }
     stages {
         stage('Clone Repository') {
@@ -16,7 +19,7 @@ pipeline {
         stage('Building ECS Image') {
             when {
                     expression {
-                        return params.Distribution == 'ECS'
+                        return params.DISTRIBUTION == 'ECS'
                     }
                 }
             steps {
@@ -24,13 +27,15 @@ pipeline {
                     dir('packer') {
                         sh """
                         cd ..
-                        export AMI_ID=`aws ssm get-parameters --names /aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id --region ${AWS_DEFAULT_REGION} --query "Parameters[0].Value" --output text`
+                        export VPC_ID=`aws ec2 describe-vpcs  --vpc-ids --filters "Name=is-default,Values=true" --query "Vpcs[*].VpcId" --output text --region ${params.AWS_REGION}`
+                        export SUBNET_ID=`aws ec2 describe-subnets --filters "Name=vpc-id,Values=${VPC}" --query "Subnets[*].SubnetId" --output text --region ${params.AWS_REGION} | awk '{print $1}'`
+                        export AMI_ID=`aws ssm get-parameters --names /aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id --region ${params.AWS_REGION} --query "Parameters[0].Value" --output text`
                         export DIR=`pwd`
                         export DATE=`date +%d-%m-%Y`
                         cd packer
-                        echo "========================= Creating ${params.Distribution} Hardened AMI ========================="
-                        /usr/bin/packer init ${params.Distribution}.pkr.hcl
-                        /usr/bin/packer build ${params.Distribution}.pkr.hcl
+                        echo "========================= Creating ${params.DISTRIBUTION} Hardened AMI ========================="
+                        /usr/bin/packer init ${params.DISTRIBUTION}.pkr.hcl
+                        /usr/bin/packer build ${params.DISTRIBUTION}.pkr.hcl
                         """
                     }
                 }
@@ -39,7 +44,7 @@ pipeline {
         stage('Building EKS Image') {
             when {
                     expression {
-                        return params.Distribution == 'EKS'
+                        return params.DISTRIBUTION == 'EKS'
                     }
                 }
             steps {
@@ -47,13 +52,15 @@ pipeline {
                     dir('packer') {
                         sh """
                         cd ..
-                        export AMI_ID=`aws ssm get-parameter --name /aws/service/eks/optimized-ami/1.29/amazon-linux-2/recommended/image_id --region ${AWS_DEFAULT_REGION} --query "Parameter.Value" --output text`
+                        export VPC_ID=`aws ec2 describe-vpcs  --vpc-ids --filters "Name=is-default,Values=true" --query "Vpcs[*].VpcId" --output text --region ${params.AWS_REGION}`
+                        export SUBNET_ID=`aws ec2 describe-subnets --filters "Name=vpc-id,Values=${VPC}" --query "Subnets[*].SubnetId" --output text --region ${params.AWS_REGION} | awk '{print $1}'`
+                        export AMI_ID=`aws ssm get-parameter --name /aws/service/eks/optimized-ami/1.29/amazon-linux-2/recommended/image_id --region ${params.AWS_REGION} --query "Parameter.Value" --output text`
                         export DIR=`pwd`
                         export DATE=`date +%d-%m-%Y`
                         cd packer
-                        echo "========================= Creating ${params.Distribution} Hardened AMI ========================="
-                        /usr/bin/packer init ${params.Distribution}.pkr.hcl
-                        /usr/bin/packer build ${params.Distribution}.pkr.hcl
+                        echo "========================= Creating ${params.DISTRIBUTION} Hardened AMI ========================="
+                        /usr/bin/packer init ${params.DISTRIBUTION}.pkr.hcl
+                        /usr/bin/packer build ${params.DISTRIBUTION}.pkr.hcl
                         """
                     }
                 }
@@ -65,12 +72,14 @@ pipeline {
                     dir('packer') {
                         sh """
                         cd ..
+                        export VPC_ID=`aws ec2 describe-vpcs  --vpc-ids --filters "Name=is-default,Values=true" --query "Vpcs[*].VpcId" --output text --region ${params.AWS_REGION}`
+                        export SUBNET_ID=`aws ec2 describe-subnets --filters "Name=vpc-id,Values=${VPC}" --query "Subnets[*].SubnetId" --output text --region ${params.AWS_REGION} | awk '{print $1}'`
                         export DIR=`pwd`
                         export DATE=`date +%d-%m-%Y`
                         cd packer
-                        echo "========================= Creating ${params.Distribution} Hardened AMI ========================="
-                        /usr/bin/packer init ${params.Distribution}.pkr.hcl
-                        /usr/bin/packer build ${params.Distribution}.pkr.hcl
+                        echo "========================= Creating ${params.DISTRIBUTION} Hardened AMI ========================="
+                        /usr/bin/packer init ${params.DISTRIBUTION}.pkr.hcl
+                        /usr/bin/packer build ${params.DISTRIBUTION}.pkr.hcl
                         """
                     }
                 }
