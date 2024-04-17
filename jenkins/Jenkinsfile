@@ -47,7 +47,7 @@ pipeline {
                     dir('packer') {
                         sh """
                         cd ..
-                        export AMI_ID=`aws ssm get-parameter --name /aws/service/eks/optimized-ami/1.29/amazon-linux-2/recommended/image_id ${AWS_DEFAULT_REGION} --query "Parameter.Value" --output text`
+                        export AMI_ID=`aws ssm get-parameter --name /aws/service/eks/optimized-ami/1.29/amazon-linux-2/recommended/image_id --region ${AWS_DEFAULT_REGION} --query "Parameter.Value" --output text`
                         export DIR=`pwd`
                         export DATE=`date +%d-%m-%Y`
                         cd packer
