@@ -1,77 +1,78 @@
 pipeline {
     agent { label 'rhel' }
     environment {
-        AWS_DEFAULT_REGION=""
+        AWS_DEFAULT_REGION="us-east-2"
     }
     parameters { 
         choice(name: 'Distribution', choices:['ECS', 'EKS', 'amazonLinux2', 'amazonLinux2023', 'centos7', 'centos9', 'debian10', 'debian12', 'ubuntu20', 'ubuntu22'], description:'Select Distribution for Hardened AMI')
 }
     stages {
-    stage('Clone Repository') {
-        steps {
-            git branch: 'main',
-                url: 'https://github.com/azam-sajjad/ami.git'
-        }
-    }
-    stage('Building ECS Image') {
-        when {
-                expression {
-                    return params.Distribution == 'ECS'
-                }
-            }
-        steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
-                dir('packer') {
-                    sh """
-                    cd ..
-                    export AMI_ID=`aws ssm get-parameters --names /aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id --region ${AWS_DEFAULT_REGION} --query "Parameters[0].Value" --output text`
-                    export DIR=`pwd`
-                    cd packer
-                    echo "========================= Creating ${params.Distribution} Hardened AMI ========================="
-                    export DATE=`date +%d-%m-%Y`
-                    /usr/bin/packer init ${params.Distribution}.pkr.hcl
-                    /usr/bin/packer build ${params.Distribution}.pkr.hcl
-                    """
-                }
+        stage('Clone Repository') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/azam-sajjad/ami.git'
             }
         }
-    }
-    stage('Building EKS Image') {
-        when {
-                expression {
-                    return params.Distribution == 'EKS'
+        stage('Building ECS Image') {
+            when {
+                    expression {
+                        return params.Distribution == 'ECS'
+                    }
                 }
-            }
-        steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
-                dir('packer') {
-                    sh """
-                    cd ..
-                    export AMI_ID=`aws ssm get-parameter --name /aws/service/eks/optimized-ami/1.29/amazon-linux-2/recommended/image_id ${AWS_DEFAULT_REGION} --query "Parameter.Value" --output text`
-                    export DIR=`pwd`
-                    cd packer
-                    echo "========================= Creating ${params.Distribution} Hardened AMI ========================="
-                    export DATE=`date +%d-%m-%Y`
-                    /usr/bin/packer init ${params.Distribution}.pkr.hcl
-                    /usr/bin/packer build ${params.Distribution}.pkr.hcl
-                    """
+            steps {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
+                    dir('packer') {
+                        sh """
+                        cd ..
+                        export AMI_ID=`aws ssm get-parameters --names /aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id --region ${AWS_DEFAULT_REGION} --query "Parameters[0].Value" --output text`
+                        export DIR=`pwd`
+                        export DATE=`date +%d-%m-%Y`
+                        cd packer
+                        echo "========================= Creating ${params.Distribution} Hardened AMI ========================="
+                        /usr/bin/packer init ${params.Distribution}.pkr.hcl
+                        /usr/bin/packer build ${params.Distribution}.pkr.hcl
+                        """
+                    }
                 }
             }
         }
-    }
-    stage('Build General Image') {
-        steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
-                dir('packer') {
-                    sh """
-                    cd ..
-                    export DIR=`pwd`
-                    cd packer
-                    echo "========================= Creating ${params.Distribution} Hardened AMI ========================="
-                    export DATE=`date +%d-%m-%Y`
-                    /usr/bin/packer init ${params.Distribution}.pkr.hcl
-                    /usr/bin/packer build ${params.Distribution}.pkr.hcl
-                    """
+        stage('Building EKS Image') {
+            when {
+                    expression {
+                        return params.Distribution == 'EKS'
+                    }
+                }
+            steps {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
+                    dir('packer') {
+                        sh """
+                        cd ..
+                        export AMI_ID=`aws ssm get-parameter --name /aws/service/eks/optimized-ami/1.29/amazon-linux-2/recommended/image_id ${AWS_DEFAULT_REGION} --query "Parameter.Value" --output text`
+                        export DIR=`pwd`
+                        export DATE=`date +%d-%m-%Y`
+                        cd packer
+                        echo "========================= Creating ${params.Distribution} Hardened AMI ========================="
+                        /usr/bin/packer init ${params.Distribution}.pkr.hcl
+                        /usr/bin/packer build ${params.Distribution}.pkr.hcl
+                        """
+                    }
+                }
+            }
+        }
+        stage('Build General Image') {
+            steps {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
+                    dir('packer') {
+                        sh """
+                        cd ..
+                        export DIR=`pwd`
+                        export DATE=`date +%d-%m-%Y`
+                        cd packer
+                        echo "========================= Creating ${params.Distribution} Hardened AMI ========================="
+                        /usr/bin/packer init ${params.Distribution}.pkr.hcl
+                        /usr/bin/packer build ${params.Distribution}.pkr.hcl
+                        """
+                    }
                 }
             }
         }
