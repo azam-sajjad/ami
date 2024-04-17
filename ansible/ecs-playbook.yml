@@ -1,6 +1,0 @@
-- name: Run ecs-eks Role
-  hosts: 127.0.0.1
-  become: yes
-  ignore_errors: true
-  roles:
-    - ecs-eks
