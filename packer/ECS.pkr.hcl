@@ -87,7 +87,4 @@ build {
     provisioner "shell" {
         inline = ["rm -rf /home/${local.username}/*"]
     }
-    provisioner "shell-local" {
-        inline = ["mv ./packerlog.txt ../logs/${var.date}/${local.distribution}/packerlog.txt"]
-    }
 }
