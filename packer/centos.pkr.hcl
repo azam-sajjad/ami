@@ -66,6 +66,7 @@ source "amazon-ebs" "main" {
   subnet_id = "${var.subnet_id}"
   associate_public_ip_address = true
   ssh_interface = "public_ip"
+
   launch_block_device_mappings {
         device_name = "/dev/sdb"
         volume_size = 25
@@ -85,7 +86,7 @@ source "amazon-ebs" "main" {
 build {
     sources = ["source.amazon-ebs.main"]
     provisioner "shell-local" {
-        inline = ["PACKER_LOG=1"]
+        inline = ["mkdir -p ${var.dir}/logs/${var.date}/${var.distribution}${var.version}", "PACKER_LOG=1"]
     }
     provisioner "file" {
         source = "${var.dir}"
@@ -95,18 +96,21 @@ build {
         inline = ["sudo lsblk"]
     }
     provisioner "shell" {
-        inline = ["chmod u+x /home/${var.username}/ami/scripts/deb/${var.distribution}.sh", "sudo bash /home/${var.username}/ami/scripts/deb/${var.distribution}.sh"]
+        inline = ["chmod u+x /home/${var.username}/ami/scripts/rpm/${var.distribution}.sh", "sudo bash /home/${var.username}/ami/scripts/rpm/${var.distribution}.sh"]
     }
     provisioner "shell" {
         inline = ["mkdir -p ~/.ansible/roles", "cp -r ~/ami/ansible/roles/* ~/.ansible/roles/"]
     }
     provisioner "ansible-local" {
-        playbook_file = "../ansible/deb-playbook.yml"
+        playbook_file = "../ansible/rpm-playbook.yml"
     }
     provisioner "shell" {
-        inline = ["chmod u+x /home/${var.username}/ami/scripts/deb/cleanup.sh", "sudo bash /home/${var.username}/ami/scripts/deb/cleanup.sh"]
+        inline = ["chmod u+x /home/${var.username}/ami/scripts/rpm/cleanup.sh", "sudo bash /home/${var.username}/ami/scripts/rpm/cleanup.sh"]
     }
     provisioner "shell" {
         inline = ["rm -rf /home/${var.username}/*"]
+    }
+    provisioner "shell-local" {
+        inline = ["mv ./packerlog.txt ../logs/${var.date}/${var.distribution}${var.version}/packerlog.txt"]
     }
 }

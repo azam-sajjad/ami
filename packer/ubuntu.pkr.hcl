@@ -85,7 +85,7 @@ source "amazon-ebs" "main" {
 build {
     sources = ["source.amazon-ebs.main"]
     provisioner "shell-local" {
-        inline = ["mkdir -p ${var.dir}/logs/${var.date}/${var.distribution}${var.version}", "PACKER_LOG=1"]
+        inline = ["PACKER_LOG=1"]
     }
     provisioner "file" {
         source = "${var.dir}"
@@ -108,8 +108,5 @@ build {
     }
     provisioner "shell" {
         inline = ["rm -rf /home/${var.username}/*"]
-    }
-    provisioner "shell-local" {
-        inline = ["mv ./packerlog.txt ../logs/${var.date}/${var.distribution}${var.version}/packerlog.txt"]
     }
 }

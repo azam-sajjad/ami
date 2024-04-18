@@ -118,5 +118,65 @@ pipeline {
                 }
             }
         }
+        stage('Building Centos 7 Image') {
+            when {
+                allOf {
+                    expression {
+                            return params.DISTRIBUTION == 'centos'
+                            return params.DISTRIBUTION == '7'
+                        }
+                    }
+                }
+            steps {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
+                    dir('packer') {
+                        sh """
+                        cd ..
+                        export VPC_ID=`aws ec2 describe-vpcs  --vpc-ids --filters "Name=is-default,Values=true" --query "Vpcs[*].VpcId" --output text --region ${params.AWS_REGION}`
+                        export SUBNET_ID=`aws ec2 describe-subnets --filters "Name=vpc-id,Values=${env.VPC_ID}" --query "Subnets[*].SubnetId" --output text --region ${params.AWS_REGION} | awk '{print \$1}'`
+                        export AMI_ID_NAME_DATE=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='*SupportedImages) - ${params.DISTRIBUTION} ${params.VERSION}*'  --query 'sort_by(Images, &Name)[-1].[ImageId,Name,CreationDate]' --output text --region ${params.AWS_REGION} --owners 679593333241`
+                        export AMI_ID=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='*SupportedImages) - ${params.DISTRIBUTION} ${params.VERSION}*  --query 'sort_by(Images, &Name)[-1].[ImageId]' --output text --region ${params.AWS_REGION} --owners 679593333241`
+                        export DIR=`pwd`
+                        export DATE=`date +%d-%m-%Y`
+                        export USERNAME="centos"
+                        cd packer
+                        echo '========================= Creating ${params.DISTRIBUTION} Hardened AMI ========================='
+                        /usr/bin/packer init ${params.DISTRIBUTION}.pkr.hcl
+                        /usr/bin/packer build ${params.DISTRIBUTION}.pkr.hcl
+                        """
+                    }
+                }
+            }
+        }
+        stage('Building Centos Stream Image') {
+            when {
+                allOf {
+                    expression {
+                            return params.DISTRIBUTION == 'centos'
+                            return params.DISTRIBUTION != '7'
+                        }
+                    }
+                }
+            steps {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
+                    dir('packer') {
+                        sh """
+                        cd ..
+                        export VPC_ID=`aws ec2 describe-vpcs  --vpc-ids --filters "Name=is-default,Values=true" --query "Vpcs[*].VpcId" --output text --region ${params.AWS_REGION}`
+                        export SUBNET_ID=`aws ec2 describe-subnets --filters "Name=vpc-id,Values=${env.VPC_ID}" --query "Subnets[*].SubnetId" --output text --region ${params.AWS_REGION} | awk '{print \$1}'`
+                        export AMI_ID_NAME_DATE=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='${params.DISTRIBUTION}--Stream-ec2-${params.VERSION}*'  --query 'sort_by(Images, &Name)[-1].[ImageId,Name,CreationDate]' --output text --region ${params.AWS_REGION} --owners 679593333241`
+                        export AMI_ID=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='${params.DISTRIBUTION}--Stream-ec2-${params.VERSION}*'  --query 'sort_by(Images, &Name)[-1].[ImageId]' --output text --region ${params.AWS_REGION} --owners 679593333241`
+                        export DIR=`pwd`
+                        export DATE=`date +%d-%m-%Y`
+                        export USERNAME="ec2-user"
+                        cd packer
+                        echo '========================= Creating ${params.DISTRIBUTION} Hardened AMI ========================='
+                        /usr/bin/packer init ${params.DISTRIBUTION}.pkr.hcl
+                        /usr/bin/packer build ${params.DISTRIBUTION}.pkr.hcl
+                        """
+                    }
+                }
+            }
+        }
     }
 }
