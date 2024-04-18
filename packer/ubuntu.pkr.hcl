@@ -66,11 +66,6 @@ source "amazon-ebs" "main" {
   subnet_id = "${var.subnet_id}"
   associate_public_ip_address = true
   ssh_interface = "public_ip"
-  ami_block_device_mappings = {
-        device_name = "/dev/xvda"
-        volume_size = 8
-        delete_on_termination = true
-        }
   launch_block_device_mappings {
         device_name = "/dev/sdb"
         volume_size = 25
