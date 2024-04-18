@@ -105,8 +105,8 @@ build {
     }
     provisioner "shell" {
         inline = ["# uninstall Ansible and Remove PPA",
-                  "sudo apt -y remove --purge ansible"
-                  "sudo apt-add-repository --remove ppa:ansible/ansible"
+                  "sudo apt -y remove --purge ansible",
+                  "sudo apt-add-repository --remove ppa:ansible/ansible",
                   "sudo apt -y autoremove",
                   "rm -rf /home/${var.username}/*"
                   ]

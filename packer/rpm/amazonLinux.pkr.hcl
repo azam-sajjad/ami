@@ -50,6 +50,7 @@ variable "version" {
   type    = string
   default = env("VERSION")
 }
+
 ###########################################################
 
 source "amazon-ebs" "main" {
@@ -66,6 +67,7 @@ source "amazon-ebs" "main" {
   subnet_id = "${var.subnet_id}"
   associate_public_ip_address = true
   ssh_interface = "public_ip"
+
   launch_block_device_mappings {
         device_name = "/dev/sdb"
         volume_size = 25
@@ -75,7 +77,7 @@ source "amazon-ebs" "main" {
         }
 
   tags = {
-        Name = "scaleops-${var.distribution}${var.version}-${var.date}"
+        Name = "scaleops-${var.distribution}-${var.date}"
         Permission = "Allowed"
         }
 }
@@ -95,20 +97,15 @@ build {
         inline = ["sudo lsblk"]
     }
     provisioner "shell" {
-        inline = ["chmod u+x /home/${var.username}/ami/scripts/deb/${var.distribution}.sh", "sudo bash /home/${var.username}/ami/scripts/deb/${var.distribution}.sh"]
+        inline = ["chmod u+x /home/${var.username}/ami/scripts/rpm/${var.distribution}.sh", "sudo bash /home/${var.username}/ami/scripts/rpm/${var.distribution}.sh"]
     }
     provisioner "shell" {
         inline = ["mkdir -p ~/.ansible/roles", "cp -r ~/ami/ansible/roles/* ~/.ansible/roles/"]
     }
     provisioner "ansible-local" {
-        playbook_file = "../ansible/deb-playbook.yml"
+        playbook_file = "../ansible/rpm-playbook.yml"
     }
     provisioner "shell" {
-        inline = ["# uninstall Ansible and Remove PPA",
-                  "sudo apt -y remove --purge ansible",
-                  "sudo apt-add-repository --remove ppa:ansible/ansible",
-                  "sudo apt -y autoremove",
-                  "rm -rf /home/${var.username}/*"
-                  ]
+        inline = ["sudo amazon-linux-extras remove ansible2 -y || exit 1", "sudo yum remove ansible -y || exit 1", "rm -rf /home/${var.username}/*"]
     }
 }
