@@ -8,6 +8,8 @@ sudo apt install ansible
 # sudo apt -y install python3.8 python3-pip
 # sudo pip3 --version
 # sudo pip3 install ansible
+echo $PATH
+which ansible
 mkdir -p ~/.ansible/roles
 mkdir -p ~/.ansible/collections/ansible_collections
 ansible-galaxy collection install ansible.posix
