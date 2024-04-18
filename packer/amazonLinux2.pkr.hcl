@@ -87,7 +87,7 @@ source "amazon-ebs" "main" {
 build {
     sources = ["source.amazon-ebs.main"]
     provisioner "shell-local" {
-        inline = ["mkdir -p ${var.dir}/logs/${var.date}/${var.distribution}", "PACKER_LOG=1"]
+        inline = ["PACKER_LOG=1"]
     }
     provisioner "file" {
         source = "${var.dir}"
@@ -106,12 +106,6 @@ build {
         playbook_file = "../ansible/rpm-playbook.yml"
     }
     provisioner "shell" {
-        inline = ["chmod u+x /home/${var.username}/ami/scripts/rpm/cleanup.sh", "sudo bash /home/${var.username}/ami/scripts/rpm/cleanup.sh"]
-    }
-    provisioner "shell" {
-        inline = ["rm -rf /home/${var.username}/*"]
-    }
-    provisioner "shell-local" {
-        inline = ["mv ./packerlog.txt ../logs/${var.date}/${var.distribution}/packerlog.txt"]
+        inline = ["sudo amazon-linux-extras remove ansible2 -y", "rm -rf /home/${var.username}/*"]
     }
 }

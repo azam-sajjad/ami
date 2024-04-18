@@ -105,9 +105,6 @@ build {
         playbook_file = "../ansible/rpm-playbook.yml"
     }
     provisioner "shell" {
-        inline = ["chmod u+x /home/${var.username}/ami/scripts/rpm/cleanup.sh", "sudo bash /home/${var.username}/ami/scripts/rpm/cleanup.sh"]
-    }
-    provisioner "shell" {
-        inline = ["rm -rf /home/${var.username}/*"]
+        inline = ["sudo yum -y remove ansible", "rm -rf /home/${var.username}/*"]
     }
 }
