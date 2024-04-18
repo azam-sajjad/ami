@@ -4,7 +4,10 @@ sudo yum clean all
 sudo yum config-manager --set-enabled crb
 sudo yum install epel-release epel-next-release
 sudo yum-config-manager --enable epel
+sudo yum install ansible -y
 sudo yum install ansible-core -y
+echo $PATH
+which ansible
 ansible-galaxy collection install ansible.posix
 ansible-galaxy collection install community.general
 sudo mkdir -p /usr/share/ansible/collections

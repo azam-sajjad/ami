@@ -140,7 +140,7 @@ pipeline {
                         export AMI_ID=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='*SupportedImages) - ${params.DISTRIBUTION} ${params.VERSION}*'  --query 'sort_by(Images, &Name)[-1].[ImageId]' --output text --region ${params.AWS_REGION} --owners 679593333241`
                         export DIR=`pwd`
                         export DATE=`date +%d-%m-%Y`
-                        export USERNAME="CentOS"
+                        export USERNAME="centos"
                         cd packer
                         echo '========================= Creating ${params.DISTRIBUTION} Hardened AMI ========================='
                         /usr/bin/packer init ${params.DISTRIBUTION}.pkr.hcl
