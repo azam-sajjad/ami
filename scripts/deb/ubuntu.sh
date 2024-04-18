@@ -5,6 +5,7 @@ sudo apt -y install software-properties-common
 sudo apt-add-repository ppa:ansible/ansible
 sudo apt -y update
 sudo apt-get install ansible -y
+mkdir -p /home/ubuntu/.ansible/collections/ansible_collections
 ansible-galaxy collection install ansible.posix
 ansible-galaxy collection install community.general
 # install ssm agent
