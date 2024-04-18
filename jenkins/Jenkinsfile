@@ -2,7 +2,7 @@ pipeline {
     agent { label 'rhel' }
     parameters { 
         choice(name: 'AWS_REGION', choices:['us-east-1', 'us-east-2', 'us-west-1', 'us-west-2', 'ap-south-1', 'ap-northeast-3', 'ap-northeast-2', 'ap-southeast-1', 'ap-southeast-2', 'ca-central-1', 'eu-central-1', 'eu-west-1', 'eu-west-2', 'eu-west-3', 'eu-north-1', 'sa-east-1'], description:'Select AWS_REGION for Hardened AMI')
-        choice(name: 'DISTRIBUTION', choices:['ECS', 'EKS', 'amazonLinux', 'centos', 'debian', 'ubuntu'], description:'Select DISTRIBUTION for Hardened AMI')
+        choice(name: 'DISTRIBUTION', choices:['ECS', 'EKS', 'amazonLinux', 'CentOS', 'debian', 'ubuntu'], description:'Select DISTRIBUTION for Hardened AMI')
         string description: """Skip for ECS/EKS - Input Major Release Version for General Distributions e.g. when selecting ubuntu, you may input 18 or 20 or 22
         for AmazonLinux, 2 or 2023
         """, name: 'VERSION'
@@ -118,12 +118,14 @@ pipeline {
                 }
             }
         }
-        stage('Building Centos 7 Image') {
+        stage('Building CentOS 7 Image') {
             when {
                 allOf {
                     expression {
-                            return params.DISTRIBUTION == 'centos'
-                            return params.DISTRIBUTION == '7'
+                            return params.DISTRIBUTION == 'CentOS'
+                        }
+                    expression {
+                            return params.VERSION == '7'
                         }
                     }
                 }
@@ -135,10 +137,10 @@ pipeline {
                         export VPC_ID=`aws ec2 describe-vpcs  --vpc-ids --filters "Name=is-default,Values=true" --query "Vpcs[*].VpcId" --output text --region ${params.AWS_REGION}`
                         export SUBNET_ID=`aws ec2 describe-subnets --filters "Name=vpc-id,Values=${env.VPC_ID}" --query "Subnets[*].SubnetId" --output text --region ${params.AWS_REGION} | awk '{print \$1}'`
                         export AMI_ID_NAME_DATE=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='*SupportedImages) - ${params.DISTRIBUTION} ${params.VERSION}*'  --query 'sort_by(Images, &Name)[-1].[ImageId,Name,CreationDate]' --output text --region ${params.AWS_REGION} --owners 679593333241`
-                        export AMI_ID=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='*SupportedImages) - ${params.DISTRIBUTION} ${params.VERSION}*  --query 'sort_by(Images, &Name)[-1].[ImageId]' --output text --region ${params.AWS_REGION} --owners 679593333241`
+                        export AMI_ID=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='*SupportedImages) - ${params.DISTRIBUTION} ${params.VERSION}*'  --query 'sort_by(Images, &Name)[-1].[ImageId]' --output text --region ${params.AWS_REGION} --owners 679593333241`
                         export DIR=`pwd`
                         export DATE=`date +%d-%m-%Y`
-                        export USERNAME="centos"
+                        export USERNAME="CentOS"
                         cd packer
                         echo '========================= Creating ${params.DISTRIBUTION} Hardened AMI ========================='
                         /usr/bin/packer init ${params.DISTRIBUTION}.pkr.hcl
@@ -148,12 +150,14 @@ pipeline {
                 }
             }
         }
-        stage('Building Centos Stream Image') {
+        stage('Building CentOS Stream Image') {
             when {
                 allOf {
                     expression {
-                            return params.DISTRIBUTION == 'centos'
-                            return params.DISTRIBUTION != '7'
+                            return params.DISTRIBUTION == 'CentOS'
+                        }
+                    expression {
+                            return params.VERSION != '7'
                         }
                     }
                 }
@@ -164,8 +168,8 @@ pipeline {
                         cd ..
                         export VPC_ID=`aws ec2 describe-vpcs  --vpc-ids --filters "Name=is-default,Values=true" --query "Vpcs[*].VpcId" --output text --region ${params.AWS_REGION}`
                         export SUBNET_ID=`aws ec2 describe-subnets --filters "Name=vpc-id,Values=${env.VPC_ID}" --query "Subnets[*].SubnetId" --output text --region ${params.AWS_REGION} | awk '{print \$1}'`
-                        export AMI_ID_NAME_DATE=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='${params.DISTRIBUTION}--Stream-ec2-${params.VERSION}*'  --query 'sort_by(Images, &Name)[-1].[ImageId,Name,CreationDate]' --output text --region ${params.AWS_REGION} --owners 679593333241`
-                        export AMI_ID=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='${params.DISTRIBUTION}--Stream-ec2-${params.VERSION}*'  --query 'sort_by(Images, &Name)[-1].[ImageId]' --output text --region ${params.AWS_REGION} --owners 679593333241`
+                        export AMI_ID_NAME_DATE=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='${params.DISTRIBUTION}-Stream-ec2-${params.VERSION}*'  --query 'sort_by(Images, &Name)[-1].[ImageId,Name,CreationDate]' --output text --region ${params.AWS_REGION} --owners 679593333241`
+                        export AMI_ID=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='${params.DISTRIBUTION}-Stream-ec2-${params.VERSION}*'  --query 'sort_by(Images, &Name)[-1].[ImageId]' --output text --region ${params.AWS_REGION} --owners 679593333241`
                         export DIR=`pwd`
                         export DATE=`date +%d-%m-%Y`
                         export USERNAME="ec2-user"
