@@ -31,7 +31,7 @@ pipeline {
                         export DIR=`pwd`
                         export DATE=`date +%d-%m-%Y`
                         cd packer
-                        echo '========================= Creating ${params.DISTRIBUTION} Hardened AMI ========================='
+                        echo '========================= Building ${params.DISTRIBUTION} Hardened AMI ========================='
                         /usr/bin/packer init ${params.DISTRIBUTION}.pkr.hcl
                         /usr/bin/packer build ${params.DISTRIBUTION}.pkr.hcl
                         """
@@ -56,7 +56,7 @@ pipeline {
                         export DIR=`pwd`
                         export DATE=`date +%d-%m-%Y`
                         cd packer
-                        echo '========================= Creating ${params.DISTRIBUTION} Hardened AMI ========================='
+                        echo '========================= Building ${params.DISTRIBUTION} Hardened AMI ========================='
                         /usr/bin/packer init ${params.DISTRIBUTION}.pkr.hcl
                         /usr/bin/packer build ${params.DISTRIBUTION}.pkr.hcl
                         """
@@ -83,7 +83,7 @@ pipeline {
                         export DATE=`date +%d-%m-%Y`
                         export USERNAME="ubuntu"
                         cd packer
-                        echo '========================= Creating ${params.DISTRIBUTION} Hardened AMI ========================='
+                        echo '========================= Building ${params.DISTRIBUTION} Hardened AMI ========================='
                         /usr/bin/packer init ${params.DISTRIBUTION}.pkr.hcl
                         /usr/bin/packer build ${params.DISTRIBUTION}.pkr.hcl
                         """
@@ -110,7 +110,7 @@ pipeline {
                         export DATE=`date +%d-%m-%Y`
                         export USERNAME="admin"
                         cd packer
-                        echo '========================= Creating ${params.DISTRIBUTION} Hardened AMI ========================='
+                        echo '========================= Building ${params.DISTRIBUTION} Hardened AMI ========================='
                         /usr/bin/packer init ${params.DISTRIBUTION}.pkr.hcl
                         /usr/bin/packer build ${params.DISTRIBUTION}.pkr.hcl
                         """
@@ -142,7 +142,7 @@ pipeline {
                         export DATE=`date +%d-%m-%Y`
                         export USERNAME="centos"
                         cd packer
-                        echo '========================= Creating ${params.DISTRIBUTION} Hardened AMI ========================='
+                        echo '========================= Building ${params.DISTRIBUTION} 7 Hardened AMI ========================='
                         /usr/bin/packer init ${params.DISTRIBUTION}.pkr.hcl
                         /usr/bin/packer build ${params.DISTRIBUTION}.pkr.hcl
                         """
@@ -174,7 +174,7 @@ pipeline {
                         export DATE=`date +%d-%m-%Y`
                         export USERNAME="ec2-user"
                         cd packer
-                        echo '========================= Creating ${params.DISTRIBUTION} Stream Hardened AMI ========================='
+                        echo '========================= Building ${params.DISTRIBUTION} Stream Hardened AMI ========================='
                         /usr/bin/packer init ${params.DISTRIBUTION}.pkr.hcl
                         /usr/bin/packer build ${params.DISTRIBUTION}.pkr.hcl
                         """

@@ -38,19 +38,18 @@ variable "dir" {
   type    = string
   default = env("DIR")
 }
-variable "distribution" {
-  type    = string
-  default = env("DISTRIBUTION")
-}
 variable "username" {
   type    = string
   default = env("USERNAME")
 }
-
-  default = "amzn2-ami-kernel-5.10-hvm-2.0.*.0-x86_64-gp2"
-
-
-  default = "137112412989" 
+variable "distribution" {
+  type    = string
+  default = env("DISTRIBUTION")
+}
+variable "version" {
+  type    = string
+  default = env("VERSION")
+}
 
 ###########################################################
 
@@ -60,10 +59,10 @@ source "amazon-ebs" "main" {
     role_arn = "arn:aws:iam::059516066038:role/central-managed-AdministratorAccess"
   }
   region = "${var.region}"
-  ami_name = "scaleops-${local.distribution}-${var.date}"
+  ami_name = "scaleops-${var.distribution}${var.version}-${var.date}"
   source_ami = "${var.ami_id}"
   instance_type = "t2.micro"
-  ssh_username = "${local.username}"
+  ssh_username = "${var.username}"
   vpc_id = "${var.vpc_id}"
   subnet_id = "${var.subnet_id}"
   associate_public_ip_address = true
@@ -78,7 +77,7 @@ source "amazon-ebs" "main" {
         }
 
   tags = {
-        Name = "scaleops-${local.distribution}-${var.date}"
+        Name = "scaleops-${var.distribution}-${var.date}"
         Permission = "Allowed"
         }
 }
