@@ -174,7 +174,7 @@ pipeline {
                         export DATE=`date +%d-%m-%Y`
                         export USERNAME="ec2-user"
                         cd packer
-                        echo '========================= Creating ${params.DISTRIBUTION} Hardened AMI ========================='
+                        echo '========================= Creating ${params.DISTRIBUTION} Stream Hardened AMI ========================='
                         /usr/bin/packer init ${params.DISTRIBUTION}.pkr.hcl
                         /usr/bin/packer build ${params.DISTRIBUTION}.pkr.hcl
                         """
