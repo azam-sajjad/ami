@@ -1,14 +1,16 @@
 pipeline {
     agent { label 'rhel' }
-    environment {
-        AWS_DEFAULT_REGION="us-east-2"
-    }
     parameters { 
         choice(name: 'AWS_REGION', choices:['us-east-1', 'us-east-2', 'us-west-1', 'us-west-2', 'ap-south-1', 'ap-northeast-3', 'ap-northeast-2', 'ap-southeast-1', 'ap-southeast-2', 'ca-central-1', 'eu-central-1', 'eu-west-1', 'eu-west-2', 'eu-west-3', 'eu-north-1', 'sa-east-1'], description:'Select AWS_REGION for Hardened AMI')
 }
     parameters { 
-        choice(name: 'DISTRIBUTION', choices:['ECS', 'EKS', 'amazonLinux2', 'amazonLinux2023', 'centos7', 'centos9', 'debian10', 'debian12', 'ubuntu20', 'ubuntu22'], description:'Select DISTRIBUTION for Hardened AMI')
+        choice(name: 'DISTRIBUTION', choices:['ECS', 'EKS', 'amazonLinux', 'centos', 'debian', 'ubuntu'], description:'Select DISTRIBUTION for Hardened AMI')
 }
+    parameters {
+        string description: '''Input Major Release Version e.g. when selecting ubuntu, you may input 18 or 20 or 22
+        for AmazonLinux, 2 or 2023
+        ''', name: 'VERSION'
+    }
     stages {
         stage('Clone Repository') {
             steps {
@@ -68,13 +70,36 @@ pipeline {
         }
         stage('Building ${params.DISTRIBUTION} Image') {
             when {
-                allOf {
-                    // branch "master"
-                    // environment(name: "ENV", value: "production")
-                    // tag "release-*"
-                    expression {
-                        return params.DISTRIBUTION != 'EKS'
-                        return params.DISTRIBUTION != 'ECS'
+                expression {
+                        return params.DISTRIBUTION == 'ubuntu'
+                    }
+                }
+            steps {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
+                    dir('packer') {
+                        sh """
+                        cd ..
+                        export VPC_ID=`aws ec2 describe-vpcs  --vpc-ids --filters "Name=is-default,Values=true" --query "Vpcs[*].VpcId" --output text --region ${params.AWS_REGION}`
+                        export SUBNET_ID=`aws ec2 describe-subnets --filters "Name=vpc-id,Values=${VPC}" --query "Subnets[*].SubnetId" --output text --region ${params.AWS_REGION} | awk '{print $1}'`
+                        export AMI_ID_DATE=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='ubuntu/images/hvm-ssd/${params.DISTRIBUTION}-*-${params.VERSION}.*'  --query 'sort_by(Images, &Name)[-1].[ImageId,CreationDate]' --output text --region ${params.AWS_REGION} --owners 099720109477`
+                        echo $AMI_ID_DATE
+                        export AMI_ID=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='ubuntu/images/hvm-ssd/${params.DISTRIBUTION}-*-${params.VERSION}.*'  --query 'sort_by(Images, &Name)[-1].[ImageId]' --output text --region ${params.AWS_REGION} --owners 099720109477`
+                        export DIR=`pwd`
+                        export DATE=`date +%d-%m-%Y`
+                        export USERNAME=ubuntu
+                        cd packer
+                        echo "========================= Creating ${params.DISTRIBUTION} Hardened AMI ========================="
+                        /usr/bin/packer init ${params.DISTRIBUTION}.pkr.hcl
+                        /usr/bin/packer build ${params.DISTRIBUTION}.pkr.hcl
+                        """
+                    }
+                }
+            }
+        }
+        stage('Building ${params.DISTRIBUTION} Image') {
+            when {
+                expression {
+                        return params.DISTRIBUTION == 'debian'
                     }
                 }
             }
@@ -85,8 +110,12 @@ pipeline {
                         cd ..
                         export VPC_ID=`aws ec2 describe-vpcs  --vpc-ids --filters "Name=is-default,Values=true" --query "Vpcs[*].VpcId" --output text --region ${params.AWS_REGION}`
                         export SUBNET_ID=`aws ec2 describe-subnets --filters "Name=vpc-id,Values=${VPC}" --query "Subnets[*].SubnetId" --output text --region ${params.AWS_REGION} | awk '{print $1}'`
+                        export AMI_ID_DATE=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='*${params.DISTRIBUTION}-${params.VERSION}-amd*'  --query 'sort_by(Images, &Name)[-1].[ImageId,CreationDate]' --output text --region ${params.AWS_REGION} --owners 136693071363`
+                        echo $AMI_ID_DATE
+                        export AMI_ID=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='*${params.DISTRIBUTION}-${params.VERSION}-amd*'  --query 'sort_by(Images, &Name)[-1].[ImageId]' --output text --region ${params.AWS_REGION} --owners 136693071363`
                         export DIR=`pwd`
                         export DATE=`date +%d-%m-%Y`
+                        export USERNAME=admin
                         cd packer
                         echo "========================= Creating ${params.DISTRIBUTION} Hardened AMI ========================="
                         /usr/bin/packer init ${params.DISTRIBUTION}.pkr.hcl
