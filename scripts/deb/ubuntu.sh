@@ -9,6 +9,7 @@ sudo apt install ansible -y
 # sudo pip3 --version
 # sudo pip3 install ansible
 ls -alh ~/
+pwd
 echo $PATH
 which ansible
 mkdir -p ~/.ansible/roles
