@@ -61,7 +61,7 @@ source "amazon-ebs" "main" {
   ami_name = "scaleops-${var.distribution}${var.version}-${var.date}"
   source_ami = "${var.ami_id}"
   instance_type = "t2.micro"
-  ssh_username = "${local.username}"
+  ssh_username = "${var.username}"
   vpc_id = "${var.vpc_id}"
   subnet_id = "${var.subnet_id}"
   associate_public_ip_address = true
@@ -89,13 +89,13 @@ build {
     }
     provisioner "file" {
         source = "${var.dir}"
-        destination = "/home/${local.username}/ami"
+        destination = "/home/${var.username}/ami"
     }
     provisioner "shell" {
         inline = ["sudo lsblk"]
     }
     provisioner "shell" {
-        inline = ["chmod u+x /home/${local.username}/ami/scripts/rpm/${var.distribution}.sh", "sudo bash /home/${local.username}/ami/scripts/rpm/${var.distribution}.sh"]
+        inline = ["chmod u+x /home/${var.username}/ami/scripts/rpm/${var.distribution}.sh", "sudo bash /home/${var.username}/ami/scripts/rpm/${var.distribution}.sh"]
     }
     provisioner "shell" {
         inline = ["mkdir -p ~/.ansible/roles", "cp -r ~/ami/ansible/roles/* ~/.ansible/roles/"]
@@ -104,10 +104,10 @@ build {
         playbook_file = "../ansible/deb-playbook.yml"
     }
     provisioner "shell" {
-        inline = ["chmod u+x /home/${local.username}/ami/scripts/rpm/cleanup.sh", "sudo bash /home/${local.username}/ami/scripts/rpm/cleanup.sh"]
+        inline = ["chmod u+x /home/${var.username}/ami/scripts/rpm/cleanup.sh", "sudo bash /home/${var.username}/ami/scripts/rpm/cleanup.sh"]
     }
     provisioner "shell" {
-        inline = ["rm -rf /home/${local.username}/*"]
+        inline = ["rm -rf /home/${var.username}/*"]
     }
     provisioner "shell-local" {
         inline = ["mv ./packerlog.txt ../logs/${var.date}/${var.distribution}${var.version}/packerlog.txt"]
