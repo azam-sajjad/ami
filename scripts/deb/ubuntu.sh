@@ -4,7 +4,7 @@ sudo apt -y update && sudo apt -y upgrade
 sudo apt -y install software-properties-common
 sudo apt-add-repository ppa:ansible/ansible
 sudo apt -y update
-sudo yum -y install python3 python3-pip
+sudo apt -y install python3 python3-pip
 sudo pip3 install ansible
 mkdir -p ~/.ansible/roles
 mkdir -p ~/.ansible/collections/ansible_collections
