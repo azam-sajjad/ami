@@ -77,7 +77,7 @@ pipeline {
                         cd ..
                         export VPC_ID=`aws ec2 describe-vpcs  --vpc-ids --filters "Name=is-default,Values=true" --query "Vpcs[*].VpcId" --output text --region ${params.AWS_REGION}`
                         export SUBNET_ID=`aws ec2 describe-subnets --filters "Name=vpc-id,Values=${env.VPC_ID}" --query "Subnets[*].SubnetId" --output text --region ${params.AWS_REGION} | awk '{print \$1}'`
-                        export AMI_ID_DATE=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='ubuntu/images/hvm-ssd/${params.DISTRIBUTION}-*-${params.VERSION}.*'  --query 'sort_by(Images, &Name)[-1].[ImageId,CreationDate]' --output text --region ${params.AWS_REGION} --owners 099720109477`
+                        export AMI_ID_NAME_DATE=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='ubuntu/images/hvm-ssd/${params.DISTRIBUTION}-*-${params.VERSION}.*'  --query 'sort_by(Images, &Name)[-1].[ImageId,Name,CreationDate]' --output text --region ${params.AWS_REGION} --owners 099720109477`
                         export AMI_ID=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='ubuntu/images/hvm-ssd/${params.DISTRIBUTION}-*-${params.VERSION}.*'  --query 'sort_by(Images, &Name)[-1].[ImageId]' --output text --region ${params.AWS_REGION} --owners 099720109477`
                         export DIR=`pwd`
                         export DATE=`date +%d-%m-%Y`
@@ -104,7 +104,7 @@ pipeline {
                         cd ..
                         export VPC_ID=`aws ec2 describe-vpcs  --vpc-ids --filters "Name=is-default,Values=true" --query "Vpcs[*].VpcId" --output text --region ${params.AWS_REGION}`
                         export SUBNET_ID=`aws ec2 describe-subnets --filters "Name=vpc-id,Values=${env.VPC_ID}" --query "Subnets[*].SubnetId" --output text --region ${params.AWS_REGION} | awk '{print \$1}'`
-                        export AMI_ID_DATE=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='*${params.DISTRIBUTION}-${params.VERSION}-amd*'  --query 'sort_by(Images, &Name)[-1].[ImageId,CreationDate]' --output text --region ${params.AWS_REGION} --owners 136693071363`
+                        export AMI_ID_NAME_DATE=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='*${params.DISTRIBUTION}-${params.VERSION}-amd*'  --query 'sort_by(Images, &Name)[-1].[ImageId,Name,CreationDate]' --output text --region ${params.AWS_REGION} --owners 136693071363`
                         export AMI_ID=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='*${params.DISTRIBUTION}-${params.VERSION}-amd*'  --query 'sort_by(Images, &Name)[-1].[ImageId]' --output text --region ${params.AWS_REGION} --owners 136693071363`
                         export DIR=`pwd`
                         export DATE=`date +%d-%m-%Y`
