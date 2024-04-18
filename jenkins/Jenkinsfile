@@ -66,7 +66,18 @@ pipeline {
                 }
             }
         }
-        stage('Build General Image') {
+        stage('Building ${params.DISTRIBUTION} Image') {
+            when {
+                allOf {
+                    // branch "master"
+                    // environment(name: "ENV", value: "production")
+                    // tag "release-*"
+                    expression {
+                        return params.DISTRIBUTION != 'EKS'
+                        return params.DISTRIBUTION != 'ECS'
+                    }
+                }
+            }
             steps {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
                     dir('packer') {

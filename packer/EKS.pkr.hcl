@@ -58,7 +58,6 @@ source "amazon-ebs" "main" {
   subnet_id = "${var.subnet_id}"
   associate_public_ip_address = true
   ssh_interface = "public_ip"
-  security_group_ids = ["sg-002f0ddc6172d0ce1"]
 
   tags = {
         Name = "scaleops-${local.distribution}-${var.date}"
