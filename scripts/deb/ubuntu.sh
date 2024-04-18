@@ -7,7 +7,6 @@ sudo apt -y update
 sudo apt-get install ansible -y
 mkdir -p ~/.ansible/roles
 mkdir -p ~/.ansible/collections/ansible_collections
-sudo chmod -R a+rwx ~/.ansible
 ansible-galaxy collection install ansible.posix
 ansible-galaxy collection install community.general
 # install ssm agent
