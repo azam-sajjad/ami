@@ -99,10 +99,10 @@ pipeline {
                         export DIR=`pwd`
                         export DATE=`date +%d-%m-%Y`
                         export USERNAME="ec2-user"
-                        echo 'PARTITIONS=$PARTITIONS'
-                        echo 'OPENPORTS=$OPENPORTS'
-                        echo 'LYNIS=$LYNIS'
-                        echo 'LOCKDOWN=$LOCKDOWN'
+                        export 'PARTITIONS=$PARTITIONS'
+                        export 'OPENPORTS=$OPENPORTS'
+                        export 'LYNIS=$LYNIS'
+                        export 'LOCKDOWN=$LOCKDOWN'
                         cd packer
                         echo '========================= Building Amazon Linux 2 AMI ========================='
                         /usr/bin/packer init rpm/${params.DISTRIBUTION}.pkr.hcl
@@ -135,10 +135,10 @@ pipeline {
                         export DIR=`pwd`
                         export DATE=`date +%d-%m-%Y`
                         export USERNAME="ec2-user"
-                        echo 'PARTITIONS=$PARTITIONS'
-                        echo 'OPENPORTS=$OPENPORTS'
-                        echo 'LYNIS=$LYNIS'
-                        echo 'LOCKDOWN=$LOCKDOWN'
+                        export 'PARTITIONS=$PARTITIONS'
+                        export 'OPENPORTS=$OPENPORTS'
+                        export 'LYNIS=$LYNIS'
+                        export 'LOCKDOWN=$LOCKDOWN'
                         cd packer
                         echo '========================= Building Amazon Linux 2023 AMI ========================='
                         /usr/bin/packer init rpm/${params.DISTRIBUTION}.pkr.hcl

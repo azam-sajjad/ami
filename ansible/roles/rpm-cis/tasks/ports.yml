@@ -1,5 +1,5 @@
 ---
-- name: "OPEN CUSTOM PORT | Allow Port"
+- name: "OPEN CUSTOM PORT | Allow Port1"
   iptables:
     chain: INPUT
     protocol: tcp
@@ -11,7 +11,7 @@
   tags:
       - cis_open_port1
 
-- name: "OPEN CUSTOM PORT | Allow Port"
+- name: "OPEN CUSTOM PORT | Allow Port2"
   iptables:
     chain: INPUT
     protocol: tcp

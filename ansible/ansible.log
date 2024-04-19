@@ -1547,3 +1547,980 @@ localhost does not match 'all'
 2024-04-19 17:50:07,606 p=20727 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'sudo -H -S -n  -u root /bin/sh -c '"'"'echo BECOME-SUCCESS-wombhwdfywfkujqydmeuevulznbsrlyy ; /usr/local/bin/python3.8 /home/vagrant/.ansible/tmp/ansible-tmp-1713531007.5363796-20727-101227507950366/AnsiballZ_synchronize.py'"'"' && sleep 0'
 2024-04-19 17:50:07,667 p=20499 u=vagrant n=ansible |  [ERROR]: User interrupted execution
 
+2024-04-19 17:58:22,707 p=20875 u=vagrant n=ansible | ansible-playbook [core 2.13.13]
+  config file = /home/vagrant/ami/ansible/ansible.cfg
+  configured module search path = ['/home/vagrant/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /home/vagrant/.local/lib/python3.8/site-packages/ansible
+  ansible collection location = /home/vagrant/.ansible/collections/ansible_collections
+  executable location = /home/vagrant/.local/bin/ansible-playbook
+  python version = 3.8.18 (default, Apr  2 2024, 06:07:33) [GCC 4.8.5 20150623 (Red Hat 4.8.5-44)]
+  jinja version = 3.1.3
+  libyaml = True
+2024-04-19 17:58:22,707 p=20875 u=vagrant n=ansible | Using /home/vagrant/ami/ansible/ansible.cfg as config file
+2024-04-19 17:58:22,707 p=20875 u=vagrant n=ansible | [DEPRECATION WARNING]: [defaults]callback_whitelist option, normalizing names to new standard, use 
+callbacks_enabled instead. This feature will be removed from ansible-core in version 2.15. 
+Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2024-04-19 17:58:22,712 p=20875 u=vagrant n=ansible | redirecting (type: inventory) ansible.builtin.aws_ec2 to amazon.aws.aws_ec2
+2024-04-19 17:58:22,773 p=20875 u=vagrant n=ansible | host_list declined parsing /etc/ansible/hosts as it did not pass its verify_file() method
+2024-04-19 17:58:22,773 p=20875 u=vagrant n=ansible | Skipping due to inventory source not existing or not being readable by the current user
+2024-04-19 17:58:22,773 p=20875 u=vagrant n=ansible | script declined parsing /etc/ansible/hosts as it did not pass its verify_file() method
+2024-04-19 17:58:22,773 p=20875 u=vagrant n=ansible | auto declined parsing /etc/ansible/hosts as it did not pass its verify_file() method
+2024-04-19 17:58:22,773 p=20875 u=vagrant n=ansible | Skipping due to inventory source not existing or not being readable by the current user
+2024-04-19 17:58:22,773 p=20875 u=vagrant n=ansible | yaml declined parsing /etc/ansible/hosts as it did not pass its verify_file() method
+2024-04-19 17:58:22,773 p=20875 u=vagrant n=ansible | Skipping due to inventory source not existing or not being readable by the current user
+2024-04-19 17:58:22,773 p=20875 u=vagrant n=ansible | ini declined parsing /etc/ansible/hosts as it did not pass its verify_file() method
+2024-04-19 17:58:22,773 p=20875 u=vagrant n=ansible | Skipping due to inventory source not existing or not being readable by the current user
+2024-04-19 17:58:22,773 p=20875 u=vagrant n=ansible | toml declined parsing /etc/ansible/hosts as it did not pass its verify_file() method
+2024-04-19 17:58:22,773 p=20875 u=vagrant n=ansible | Skipping due to inventory source not existing or not being readable by the current user
+2024-04-19 17:58:22,773 p=20875 u=vagrant n=ansible | constructed declined parsing /etc/ansible/hosts as it did not pass its verify_file() method
+2024-04-19 17:58:22,773 p=20875 u=vagrant n=ansible | Skipping due to inventory source not existing or not being readable by the current user
+2024-04-19 17:58:22,773 p=20875 u=vagrant n=ansible | ansible_collections.amazon.aws.plugins.inventory.aws_ec2 declined parsing /etc/ansible/hosts as it did not pass its verify_file() method
+2024-04-19 17:58:22,773 p=20875 u=vagrant n=ansible | [WARNING]: No inventory was parsed, only implicit localhost is available
+
+2024-04-19 17:58:22,775 p=20875 u=vagrant n=ansible | [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit
+localhost does not match 'all'
+
+2024-04-19 17:58:22,832 p=20875 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.sysctl to ansible.posix.sysctl
+2024-04-19 17:58:22,833 p=20875 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.sysctl to ansible.posix.sysctl
+2024-04-19 17:58:22,842 p=20875 u=vagrant n=ansible | redirecting (type: callback) ansible.builtin.profile_tasks to ansible.posix.profile_tasks
+2024-04-19 17:58:22,843 p=20875 u=vagrant n=ansible | Skipping callback 'default', as we already have a stdout callback.
+2024-04-19 17:58:22,843 p=20875 u=vagrant n=ansible | Skipping callback 'minimal', as we already have a stdout callback.
+2024-04-19 17:58:22,843 p=20875 u=vagrant n=ansible | Skipping callback 'oneline', as we already have a stdout callback.
+2024-04-19 17:58:22,843 p=20875 u=vagrant n=ansible | PLAYBOOK: rpm-playbook.yml *************************************************************************
+2024-04-19 17:58:22,843 p=20875 u=vagrant n=ansible | 1 plays in rpm-playbook.yml
+2024-04-19 17:58:22,845 p=20875 u=vagrant n=ansible | PLAY [Run rpm-cis Role] ****************************************************************************
+2024-04-19 17:58:22,852 p=20875 u=vagrant n=ansible | TASK [Gathering Facts] *****************************************************************************
+2024-04-19 17:58:22,852 p=20875 u=vagrant n=ansible | Friday 19 April 2024  17:58:22 +0500 (0:00:00.009)       0:00:00.009 ********** 
+2024-04-19 17:58:22,860 p=20881 u=vagrant n=ansible | <127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: vagrant
+2024-04-19 17:58:22,861 p=20881 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'echo ~vagrant && sleep 0'
+2024-04-19 17:58:22,865 p=20881 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/vagrant/.ansible/tmp `"&& mkdir "` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531502.8655214-20881-105288861529227 `" && echo ansible-tmp-1713531502.8655214-20881-105288861529227="` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531502.8655214-20881-105288861529227 `" ) && sleep 0'
+2024-04-19 17:58:23,035 p=20881 u=vagrant n=ansible | Using module file /home/vagrant/.local/lib/python3.8/site-packages/ansible/modules/setup.py
+2024-04-19 17:58:23,037 p=20881 u=vagrant n=ansible | <127.0.0.1> PUT /home/vagrant/.ansible/tmp/ansible-local-20875rp77mn4a/tmptxeadi92 TO /home/vagrant/.ansible/tmp/ansible-tmp-1713531502.8655214-20881-105288861529227/AnsiballZ_setup.py
+2024-04-19 17:58:23,037 p=20881 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/vagrant/.ansible/tmp/ansible-tmp-1713531502.8655214-20881-105288861529227/ /home/vagrant/.ansible/tmp/ansible-tmp-1713531502.8655214-20881-105288861529227/AnsiballZ_setup.py && sleep 0'
+2024-04-19 17:58:23,042 p=20881 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'sudo -H -S -n  -u root /bin/sh -c '"'"'echo BECOME-SUCCESS-jprwcrntrbntssltjhcarxcqjuyhopbm ; /usr/local/bin/python3.8 /home/vagrant/.ansible/tmp/ansible-tmp-1713531502.8655214-20881-105288861529227/AnsiballZ_setup.py'"'"' && sleep 0'
+2024-04-19 17:58:23,491 p=20881 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/vagrant/.ansible/tmp/ansible-tmp-1713531502.8655214-20881-105288861529227/ > /dev/null 2>&1 && sleep 0'
+2024-04-19 17:58:23,503 p=20875 u=vagrant n=ansible | ok: [127.0.0.1]
+2024-04-19 17:58:23,507 p=20875 u=vagrant n=ansible | META: ran handlers
+2024-04-19 17:58:23,510 p=20875 u=vagrant n=ansible | TASK [rpm-cis : Check OS version and family] *******************************************************
+2024-04-19 17:58:23,510 p=20875 u=vagrant n=ansible | Friday 19 April 2024  17:58:23 +0500 (0:00:00.658)       0:00:00.667 ********** 
+2024-04-19 17:58:23,522 p=20875 u=vagrant n=ansible | skipping: [127.0.0.1] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2024-04-19 17:58:23,525 p=20875 u=vagrant n=ansible | TASK [rpm-cis : Check ansible version] *************************************************************
+2024-04-19 17:58:23,525 p=20875 u=vagrant n=ansible | Friday 19 April 2024  17:58:23 +0500 (0:00:00.015)       0:00:00.682 ********** 
+2024-04-19 17:58:23,537 p=20875 u=vagrant n=ansible | skipping: [127.0.0.1] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2024-04-19 17:58:23,541 p=20875 u=vagrant n=ansible | TASK [rpm-cis : include_tasks] *********************************************************************
+2024-04-19 17:58:23,541 p=20875 u=vagrant n=ansible | Friday 19 April 2024  17:58:23 +0500 (0:00:00.015)       0:00:00.698 ********** 
+2024-04-19 17:58:23,574 p=20875 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.parted to community.general.parted
+2024-04-19 17:58:23,600 p=20875 u=vagrant n=ansible | redirecting (type: modules) community.general.parted to community.general.system.parted
+2024-04-19 17:58:23,601 p=20875 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.filesystem to community.general.filesystem
+2024-04-19 17:58:23,601 p=20875 u=vagrant n=ansible | redirecting (type: modules) community.general.filesystem to community.general.system.filesystem
+2024-04-19 17:58:23,602 p=20875 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:58:23,603 p=20875 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:58:23,603 p=20875 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:58:23,604 p=20875 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.parted to community.general.parted
+2024-04-19 17:58:23,604 p=20875 u=vagrant n=ansible | redirecting (type: modules) community.general.parted to community.general.system.parted
+2024-04-19 17:58:23,604 p=20875 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.filesystem to community.general.filesystem
+2024-04-19 17:58:23,604 p=20875 u=vagrant n=ansible | redirecting (type: modules) community.general.filesystem to community.general.system.filesystem
+2024-04-19 17:58:23,605 p=20875 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:58:23,605 p=20875 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:58:23,605 p=20875 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:58:23,606 p=20875 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.parted to community.general.parted
+2024-04-19 17:58:23,606 p=20875 u=vagrant n=ansible | redirecting (type: modules) community.general.parted to community.general.system.parted
+2024-04-19 17:58:23,607 p=20875 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.filesystem to community.general.filesystem
+2024-04-19 17:58:23,607 p=20875 u=vagrant n=ansible | redirecting (type: modules) community.general.filesystem to community.general.system.filesystem
+2024-04-19 17:58:23,607 p=20875 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:58:23,607 p=20875 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:58:23,608 p=20875 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:58:23,609 p=20875 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.parted to community.general.parted
+2024-04-19 17:58:23,609 p=20875 u=vagrant n=ansible | redirecting (type: modules) community.general.parted to community.general.system.parted
+2024-04-19 17:58:23,609 p=20875 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.filesystem to community.general.filesystem
+2024-04-19 17:58:23,609 p=20875 u=vagrant n=ansible | redirecting (type: modules) community.general.filesystem to community.general.system.filesystem
+2024-04-19 17:58:23,610 p=20875 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:58:23,610 p=20875 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:58:23,610 p=20875 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:58:23,611 p=20875 u=vagrant n=ansible | included: /home/vagrant/ami/ansible/roles/rpm-cis/tasks/section1-partitions.yml for 127.0.0.1
+2024-04-19 17:58:23,617 p=20875 u=vagrant n=ansible | TASK [rpm-cis : PRELIM | Run yum cache update] *****************************************************
+2024-04-19 17:58:23,617 p=20875 u=vagrant n=ansible | Friday 19 April 2024  17:58:23 +0500 (0:00:00.076)       0:00:00.774 ********** 
+2024-04-19 17:58:23,628 p=20875 u=vagrant n=ansible | skipping: [127.0.0.1] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2024-04-19 17:58:23,630 p=20875 u=vagrant n=ansible | TASK [rpm-cis : PRELIM | Install Rsync and Parted] *************************************************
+2024-04-19 17:58:23,631 p=20875 u=vagrant n=ansible | Friday 19 April 2024  17:58:23 +0500 (0:00:00.013)       0:00:00.787 ********** 
+2024-04-19 17:58:23,640 p=20940 u=vagrant n=ansible | <127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: vagrant
+2024-04-19 17:58:23,640 p=20940 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'echo ~vagrant && sleep 0'
+2024-04-19 17:58:23,645 p=20940 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/vagrant/.ansible/tmp `"&& mkdir "` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531503.6451197-20940-154147346563598 `" && echo ansible-tmp-1713531503.6451197-20940-154147346563598="` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531503.6451197-20940-154147346563598 `" ) && sleep 0'
+2024-04-19 17:58:23,758 p=20940 u=vagrant n=ansible | Using module file /home/vagrant/.local/lib/python3.8/site-packages/ansible/modules/yum.py
+2024-04-19 17:58:23,759 p=20940 u=vagrant n=ansible | <127.0.0.1> PUT /home/vagrant/.ansible/tmp/ansible-local-20875rp77mn4a/tmpvtf3rizn TO /home/vagrant/.ansible/tmp/ansible-tmp-1713531503.6451197-20940-154147346563598/AnsiballZ_yum.py
+2024-04-19 17:58:23,759 p=20940 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/vagrant/.ansible/tmp/ansible-tmp-1713531503.6451197-20940-154147346563598/ /home/vagrant/.ansible/tmp/ansible-tmp-1713531503.6451197-20940-154147346563598/AnsiballZ_yum.py && sleep 0'
+2024-04-19 17:58:23,764 p=20940 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'sudo -H -S -n  -u root /bin/sh -c '"'"'echo BECOME-SUCCESS-mrqhmbabnokapnoawhgkcevzktxvqqsy ; /usr/local/bin/python3.8 /home/vagrant/.ansible/tmp/ansible-tmp-1713531503.6451197-20940-154147346563598/AnsiballZ_yum.py'"'"' && sleep 0'
+2024-04-19 17:58:24,079 p=20940 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/vagrant/.ansible/tmp/ansible-tmp-1713531503.6451197-20940-154147346563598/ > /dev/null 2>&1 && sleep 0'
+2024-04-19 17:58:24,087 p=20875 u=vagrant n=ansible | ok: [127.0.0.1] => {
+    "changed": false,
+    "invocation": {
+        "module_args": {
+            "allow_downgrade": false,
+            "autoremove": false,
+            "bugfix": false,
+            "cacheonly": false,
+            "conf_file": null,
+            "disable_excludes": null,
+            "disable_gpg_check": false,
+            "disable_plugin": [],
+            "disablerepo": [],
+            "download_dir": null,
+            "download_only": false,
+            "enable_plugin": [],
+            "enablerepo": [],
+            "exclude": [],
+            "install_repoquery": true,
+            "install_weak_deps": true,
+            "installroot": "/",
+            "list": null,
+            "lock_timeout": 30,
+            "name": [
+                "rsync",
+                "parted"
+            ],
+            "releasever": null,
+            "security": false,
+            "skip_broken": false,
+            "sslverify": true,
+            "state": "present",
+            "update_cache": false,
+            "update_only": false,
+            "use_backend": "auto",
+            "validate_certs": true
+        }
+    },
+    "msg": "",
+    "rc": 0,
+    "results": [
+        "rsync-3.1.2-12.el7_9.x86_64 providing rsync is already installed",
+        "parted-3.1-32.el7.x86_64 providing parted is already installed"
+    ]
+}
+2024-04-19 17:58:24,091 p=20875 u=vagrant n=ansible | TASK [rpm-cis : SCORED | PARTITIONS | 1.1.13 | HOME | PATCH | Ensure separate partition exists for /home] ***
+2024-04-19 17:58:24,091 p=20875 u=vagrant n=ansible | Friday 19 April 2024  17:58:24 +0500 (0:00:00.460)       0:00:01.247 ********** 
+2024-04-19 17:58:24,101 p=20966 u=vagrant n=ansible | <127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: vagrant
+2024-04-19 17:58:24,102 p=20966 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'echo ~vagrant && sleep 0'
+2024-04-19 17:58:24,107 p=20966 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/vagrant/.ansible/tmp `"&& mkdir "` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.107121-20966-238049697396962 `" && echo ansible-tmp-1713531504.107121-20966-238049697396962="` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.107121-20966-238049697396962 `" ) && sleep 0'
+2024-04-19 17:58:24,169 p=20966 u=vagrant n=ansible | Using module file /home/vagrant/.local/lib/python3.8/site-packages/ansible/modules/command.py
+2024-04-19 17:58:24,170 p=20966 u=vagrant n=ansible | <127.0.0.1> PUT /home/vagrant/.ansible/tmp/ansible-local-20875rp77mn4a/tmpfupo5jxg TO /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.107121-20966-238049697396962/AnsiballZ_command.py
+2024-04-19 17:58:24,170 p=20966 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.107121-20966-238049697396962/ /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.107121-20966-238049697396962/AnsiballZ_command.py && sleep 0'
+2024-04-19 17:58:24,175 p=20966 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'sudo -H -S -n  -u root /bin/sh -c '"'"'echo BECOME-SUCCESS-vhjfrnsxpypftrryuxlippfpwjlsrlju ; /usr/local/bin/python3.8 /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.107121-20966-238049697396962/AnsiballZ_command.py'"'"' && sleep 0'
+2024-04-19 17:58:24,282 p=20966 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.107121-20966-238049697396962/ > /dev/null 2>&1 && sleep 0'
+2024-04-19 17:58:24,290 p=20875 u=vagrant n=ansible | ok: [127.0.0.1] => {
+    "changed": false,
+    "cmd": "mount | grep \"on /home \"",
+    "delta": "0:00:00.006350",
+    "end": "2024-04-19 17:58:24.274097",
+    "failed_when_result": false,
+    "invocation": {
+        "module_args": {
+            "_raw_params": "mount | grep \"on /home \"",
+            "_uses_shell": true,
+            "argv": null,
+            "chdir": null,
+            "creates": null,
+            "executable": null,
+            "removes": null,
+            "stdin": null,
+            "stdin_add_newline": true,
+            "strip_empty_ends": true,
+            "warn": false
+        }
+    },
+    "msg": "non-zero return code",
+    "rc": 1,
+    "start": "2024-04-19 17:58:24.267747",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "",
+    "stdout_lines": []
+}
+2024-04-19 17:58:24,293 p=20875 u=vagrant n=ansible | TASK [rpm-cis : PARTITIONS | 1.1.13 | HOME | Create /home Partition with Parted] *******************
+2024-04-19 17:58:24,293 p=20875 u=vagrant n=ansible | Friday 19 April 2024  17:58:24 +0500 (0:00:00.202)       0:00:01.450 ********** 
+2024-04-19 17:58:24,305 p=20993 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.parted to community.general.parted
+2024-04-19 17:58:24,306 p=20993 u=vagrant n=ansible | redirecting (type: modules) community.general.parted to community.general.system.parted
+2024-04-19 17:58:24,307 p=20993 u=vagrant n=ansible | <127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: vagrant
+2024-04-19 17:58:24,307 p=20993 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'echo ~vagrant && sleep 0'
+2024-04-19 17:58:24,311 p=20993 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/vagrant/.ansible/tmp `"&& mkdir "` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.311533-20993-246025795200914 `" && echo ansible-tmp-1713531504.311533-20993-246025795200914="` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.311533-20993-246025795200914 `" ) && sleep 0'
+2024-04-19 17:58:24,317 p=20993 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.parted to community.general.parted
+2024-04-19 17:58:24,318 p=20993 u=vagrant n=ansible | redirecting (type: modules) community.general.parted to community.general.system.parted
+2024-04-19 17:58:24,376 p=20993 u=vagrant n=ansible | Using module file /home/vagrant/.local/lib/python3.8/site-packages/ansible_collections/community/general/plugins/modules/system/parted.py
+2024-04-19 17:58:24,376 p=20993 u=vagrant n=ansible | <127.0.0.1> PUT /home/vagrant/.ansible/tmp/ansible-local-20875rp77mn4a/tmpugyzi_cu TO /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.311533-20993-246025795200914/AnsiballZ_parted.py
+2024-04-19 17:58:24,376 p=20993 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.311533-20993-246025795200914/ /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.311533-20993-246025795200914/AnsiballZ_parted.py && sleep 0'
+2024-04-19 17:58:24,381 p=20993 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'sudo -H -S -n  -u root /bin/sh -c '"'"'echo BECOME-SUCCESS-ptytnivzjzwzleofmylbuewfrhvsevjt ; /usr/local/bin/python3.8 /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.311533-20993-246025795200914/AnsiballZ_parted.py'"'"' && sleep 0'
+2024-04-19 17:58:24,493 p=20993 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.311533-20993-246025795200914/ > /dev/null 2>&1 && sleep 0'
+2024-04-19 17:58:24,500 p=20875 u=vagrant n=ansible | fatal: [127.0.0.1]: FAILED! => {
+    "changed": false,
+    "err": "Error: Could not stat device /dev/xvdb - No such file or directory.\n",
+    "invocation": {
+        "module_args": {
+            "align": "optimal",
+            "device": "/dev/xvdb",
+            "flags": null,
+            "fs_type": null,
+            "label": "gpt",
+            "name": "GPT",
+            "number": 1,
+            "part_end": "5GiB",
+            "part_start": "0%",
+            "part_type": "primary",
+            "resize": false,
+            "state": "present",
+            "unit": "GiB"
+        }
+    },
+    "msg": "Error while getting device information with parted script: '/sbin/parted -s -m /dev/xvdb -- unit 'GiB' print'",
+    "out": "",
+    "rc": 1
+}
+2024-04-19 17:58:24,500 p=20875 u=vagrant n=ansible | ...ignoring
+2024-04-19 17:58:24,504 p=20875 u=vagrant n=ansible | TASK [rpm-cis : PARTITIONS | 1.1.13 | HOME | Create /home Filesystem] ******************************
+2024-04-19 17:58:24,504 p=20875 u=vagrant n=ansible | Friday 19 April 2024  17:58:24 +0500 (0:00:00.211)       0:00:01.661 ********** 
+2024-04-19 17:58:24,515 p=21019 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.filesystem to community.general.filesystem
+2024-04-19 17:58:24,516 p=21019 u=vagrant n=ansible | redirecting (type: modules) community.general.filesystem to community.general.system.filesystem
+2024-04-19 17:58:24,516 p=21019 u=vagrant n=ansible | <127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: vagrant
+2024-04-19 17:58:24,517 p=21019 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'echo ~vagrant && sleep 0'
+2024-04-19 17:58:24,522 p=21019 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/vagrant/.ansible/tmp `"&& mkdir "` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.5223322-21019-30553034825596 `" && echo ansible-tmp-1713531504.5223322-21019-30553034825596="` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.5223322-21019-30553034825596 `" ) && sleep 0'
+2024-04-19 17:58:24,529 p=21019 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.filesystem to community.general.filesystem
+2024-04-19 17:58:24,529 p=21019 u=vagrant n=ansible | redirecting (type: modules) community.general.filesystem to community.general.system.filesystem
+2024-04-19 17:58:24,587 p=21019 u=vagrant n=ansible | Using module file /home/vagrant/.local/lib/python3.8/site-packages/ansible_collections/community/general/plugins/modules/system/filesystem.py
+2024-04-19 17:58:24,588 p=21019 u=vagrant n=ansible | <127.0.0.1> PUT /home/vagrant/.ansible/tmp/ansible-local-20875rp77mn4a/tmpxj1xtu5k TO /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.5223322-21019-30553034825596/AnsiballZ_filesystem.py
+2024-04-19 17:58:24,588 p=21019 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.5223322-21019-30553034825596/ /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.5223322-21019-30553034825596/AnsiballZ_filesystem.py && sleep 0'
+2024-04-19 17:58:24,593 p=21019 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'sudo -H -S -n  -u root /bin/sh -c '"'"'echo BECOME-SUCCESS-ymebmucxsgcgtsmexphclwkeyxqqyaem ; /usr/local/bin/python3.8 /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.5223322-21019-30553034825596/AnsiballZ_filesystem.py'"'"' && sleep 0'
+2024-04-19 17:58:24,703 p=21019 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.5223322-21019-30553034825596/ > /dev/null 2>&1 && sleep 0'
+2024-04-19 17:58:24,711 p=20875 u=vagrant n=ansible | fatal: [127.0.0.1]: FAILED! => {
+    "changed": false,
+    "invocation": {
+        "module_args": {
+            "dev": "/dev/xvdb1",
+            "force": false,
+            "fstype": "ext4",
+            "opts": null,
+            "resizefs": false,
+            "state": "present"
+        }
+    },
+    "msg": "Device /dev/xvdb1 not found."
+}
+2024-04-19 17:58:24,712 p=20875 u=vagrant n=ansible | ...ignoring
+2024-04-19 17:58:24,714 p=20875 u=vagrant n=ansible | TASK [rpm-cis : PARTITIONS | 1.1.13 | HOME | Create /home Backup Directory] ************************
+2024-04-19 17:58:24,714 p=20875 u=vagrant n=ansible | Friday 19 April 2024  17:58:24 +0500 (0:00:00.210)       0:00:01.871 ********** 
+2024-04-19 17:58:24,726 p=21043 u=vagrant n=ansible | <127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: vagrant
+2024-04-19 17:58:24,727 p=21043 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'echo ~vagrant && sleep 0'
+2024-04-19 17:58:24,731 p=21043 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/vagrant/.ansible/tmp `"&& mkdir "` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.7311594-21043-192809224575284 `" && echo ansible-tmp-1713531504.7311594-21043-192809224575284="` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.7311594-21043-192809224575284 `" ) && sleep 0'
+2024-04-19 17:58:24,797 p=21043 u=vagrant n=ansible | Using module file /home/vagrant/.local/lib/python3.8/site-packages/ansible/modules/file.py
+2024-04-19 17:58:24,797 p=21043 u=vagrant n=ansible | <127.0.0.1> PUT /home/vagrant/.ansible/tmp/ansible-local-20875rp77mn4a/tmp1bpltz2m TO /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.7311594-21043-192809224575284/AnsiballZ_file.py
+2024-04-19 17:58:24,798 p=21043 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.7311594-21043-192809224575284/ /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.7311594-21043-192809224575284/AnsiballZ_file.py && sleep 0'
+2024-04-19 17:58:24,803 p=21043 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'sudo -H -S -n  -u root /bin/sh -c '"'"'echo BECOME-SUCCESS-gdsmtagzrkqcbmikywawkknwqdqsvexk ; /usr/local/bin/python3.8 /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.7311594-21043-192809224575284/AnsiballZ_file.py'"'"' && sleep 0'
+2024-04-19 17:58:24,913 p=21043 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.7311594-21043-192809224575284/ > /dev/null 2>&1 && sleep 0'
+2024-04-19 17:58:24,921 p=20875 u=vagrant n=ansible | ok: [127.0.0.1] => {
+    "changed": false,
+    "diff": {
+        "after": {
+            "path": "/mnt/init/home"
+        },
+        "before": {
+            "path": "/mnt/init/home"
+        }
+    },
+    "gid": 0,
+    "group": "root",
+    "invocation": {
+        "module_args": {
+            "_diff_peek": null,
+            "_original_basename": null,
+            "access_time": null,
+            "access_time_format": "%Y%m%d%H%M.%S",
+            "attributes": null,
+            "follow": true,
+            "force": false,
+            "group": "root",
+            "mode": null,
+            "modification_time": null,
+            "modification_time_format": "%Y%m%d%H%M.%S",
+            "owner": "root",
+            "path": "/mnt/init/home",
+            "recurse": false,
+            "selevel": null,
+            "serole": null,
+            "setype": null,
+            "seuser": null,
+            "src": null,
+            "state": "directory",
+            "unsafe_writes": false
+        }
+    },
+    "mode": "0755",
+    "owner": "root",
+    "path": "/mnt/init/home",
+    "secontext": "unconfined_u:object_r:mnt_t:s0",
+    "size": 21,
+    "state": "directory",
+    "uid": 0
+}
+2024-04-19 17:58:24,925 p=20875 u=vagrant n=ansible | TASK [rpm-cis : PARTITIONS | 1.1.13 | HOME | Mount Partition to /mnt/init/home] ********************
+2024-04-19 17:58:24,925 p=20875 u=vagrant n=ansible | Friday 19 April 2024  17:58:24 +0500 (0:00:00.210)       0:00:02.082 ********** 
+2024-04-19 17:58:24,936 p=21068 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:58:24,937 p=21068 u=vagrant n=ansible | <127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: vagrant
+2024-04-19 17:58:24,937 p=21068 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'echo ~vagrant && sleep 0'
+2024-04-19 17:58:24,943 p=21068 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/vagrant/.ansible/tmp `"&& mkdir "` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.9427915-21068-212327395068316 `" && echo ansible-tmp-1713531504.9427915-21068-212327395068316="` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.9427915-21068-212327395068316 `" ) && sleep 0'
+2024-04-19 17:58:24,949 p=21068 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:58:25,008 p=21068 u=vagrant n=ansible | Using module file /home/vagrant/.local/lib/python3.8/site-packages/ansible_collections/ansible/posix/plugins/modules/mount.py
+2024-04-19 17:58:25,009 p=21068 u=vagrant n=ansible | <127.0.0.1> PUT /home/vagrant/.ansible/tmp/ansible-local-20875rp77mn4a/tmp24sqouke TO /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.9427915-21068-212327395068316/AnsiballZ_mount.py
+2024-04-19 17:58:25,009 p=21068 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.9427915-21068-212327395068316/ /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.9427915-21068-212327395068316/AnsiballZ_mount.py && sleep 0'
+2024-04-19 17:58:25,014 p=21068 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'sudo -H -S -n  -u root /bin/sh -c '"'"'echo BECOME-SUCCESS-afbhiaafaxmvnvprjtfcwuzvwpfwsqvc ; /usr/local/bin/python3.8 /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.9427915-21068-212327395068316/AnsiballZ_mount.py'"'"' && sleep 0'
+2024-04-19 17:58:25,133 p=21068 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/vagrant/.ansible/tmp/ansible-tmp-1713531504.9427915-21068-212327395068316/ > /dev/null 2>&1 && sleep 0'
+2024-04-19 17:58:25,142 p=20875 u=vagrant n=ansible | fatal: [127.0.0.1]: FAILED! => {
+    "changed": false,
+    "invocation": {
+        "module_args": {
+            "backup": false,
+            "boot": true,
+            "dump": "0",
+            "fstab": null,
+            "fstype": "ext4",
+            "opts": "defaults,noexec,nosuid,nodev",
+            "passno": "0",
+            "path": "/mnt/init/home",
+            "src": "/dev/xvdb1",
+            "state": "mounted"
+        }
+    },
+    "msg": "Error mounting /mnt/init/home: mount: special device /dev/xvdb1 does not exist\n"
+}
+2024-04-19 17:58:25,142 p=20875 u=vagrant n=ansible | ...ignoring
+2024-04-19 17:58:25,148 p=20875 u=vagrant n=ansible | TASK [rpm-cis : PARTITIONS | 1.1.13 | HOME | Sync /home to /mnt/init/home] *************************
+2024-04-19 17:58:25,148 p=20875 u=vagrant n=ansible | Friday 19 April 2024  17:58:25 +0500 (0:00:00.223)       0:00:02.305 ********** 
+2024-04-19 17:58:25,169 p=21094 u=vagrant n=ansible | <127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: vagrant
+2024-04-19 17:58:25,169 p=21094 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'echo ~vagrant && sleep 0'
+2024-04-19 17:58:25,174 p=21094 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/vagrant/.ansible/tmp `"&& mkdir "` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531505.1742377-21094-100151860551857 `" && echo ansible-tmp-1713531505.1742377-21094-100151860551857="` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531505.1742377-21094-100151860551857 `" ) && sleep 0'
+2024-04-19 17:58:25,237 p=21094 u=vagrant n=ansible | Using module file /home/vagrant/.local/lib/python3.8/site-packages/ansible_collections/ansible/posix/plugins/modules/synchronize.py
+2024-04-19 17:58:25,237 p=21094 u=vagrant n=ansible | <127.0.0.1> PUT /home/vagrant/.ansible/tmp/ansible-local-20875rp77mn4a/tmpcz5wrv3r TO /home/vagrant/.ansible/tmp/ansible-tmp-1713531505.1742377-21094-100151860551857/AnsiballZ_synchronize.py
+2024-04-19 17:58:25,238 p=21094 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/vagrant/.ansible/tmp/ansible-tmp-1713531505.1742377-21094-100151860551857/ /home/vagrant/.ansible/tmp/ansible-tmp-1713531505.1742377-21094-100151860551857/AnsiballZ_synchronize.py && sleep 0'
+2024-04-19 17:58:25,243 p=21094 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'sudo -H -S -n  -u root /bin/sh -c '"'"'echo BECOME-SUCCESS-pfivpsvdqdbqnuaqlnnbmfcdetkzyiwd ; /usr/local/bin/python3.8 /home/vagrant/.ansible/tmp/ansible-tmp-1713531505.1742377-21094-100151860551857/AnsiballZ_synchronize.py'"'"' && sleep 0'
+2024-04-19 17:58:25,407 p=20875 u=vagrant n=ansible |  [ERROR]: User interrupted execution
+
+2024-04-19 17:58:54,899 p=21124 u=vagrant n=ansible | ansible-playbook [core 2.13.13]
+  config file = /home/vagrant/ami/ansible/ansible.cfg
+  configured module search path = ['/home/vagrant/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /home/vagrant/.local/lib/python3.8/site-packages/ansible
+  ansible collection location = /home/vagrant/.ansible/collections/ansible_collections
+  executable location = /home/vagrant/.local/bin/ansible-playbook
+  python version = 3.8.18 (default, Apr  2 2024, 06:07:33) [GCC 4.8.5 20150623 (Red Hat 4.8.5-44)]
+  jinja version = 3.1.3
+  libyaml = True
+2024-04-19 17:58:54,899 p=21124 u=vagrant n=ansible | Using /home/vagrant/ami/ansible/ansible.cfg as config file
+2024-04-19 17:58:54,900 p=21124 u=vagrant n=ansible | [DEPRECATION WARNING]: [defaults]callback_whitelist option, normalizing names to new standard, use 
+callbacks_enabled instead. This feature will be removed from ansible-core in version 2.15. 
+Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2024-04-19 17:58:54,906 p=21124 u=vagrant n=ansible | redirecting (type: inventory) ansible.builtin.aws_ec2 to amazon.aws.aws_ec2
+2024-04-19 17:58:54,964 p=21124 u=vagrant n=ansible | host_list declined parsing /etc/ansible/hosts as it did not pass its verify_file() method
+2024-04-19 17:58:54,964 p=21124 u=vagrant n=ansible | Skipping due to inventory source not existing or not being readable by the current user
+2024-04-19 17:58:54,964 p=21124 u=vagrant n=ansible | script declined parsing /etc/ansible/hosts as it did not pass its verify_file() method
+2024-04-19 17:58:54,964 p=21124 u=vagrant n=ansible | auto declined parsing /etc/ansible/hosts as it did not pass its verify_file() method
+2024-04-19 17:58:54,964 p=21124 u=vagrant n=ansible | Skipping due to inventory source not existing or not being readable by the current user
+2024-04-19 17:58:54,964 p=21124 u=vagrant n=ansible | yaml declined parsing /etc/ansible/hosts as it did not pass its verify_file() method
+2024-04-19 17:58:54,964 p=21124 u=vagrant n=ansible | Skipping due to inventory source not existing or not being readable by the current user
+2024-04-19 17:58:54,964 p=21124 u=vagrant n=ansible | ini declined parsing /etc/ansible/hosts as it did not pass its verify_file() method
+2024-04-19 17:58:54,964 p=21124 u=vagrant n=ansible | Skipping due to inventory source not existing or not being readable by the current user
+2024-04-19 17:58:54,964 p=21124 u=vagrant n=ansible | toml declined parsing /etc/ansible/hosts as it did not pass its verify_file() method
+2024-04-19 17:58:54,964 p=21124 u=vagrant n=ansible | Skipping due to inventory source not existing or not being readable by the current user
+2024-04-19 17:58:54,964 p=21124 u=vagrant n=ansible | constructed declined parsing /etc/ansible/hosts as it did not pass its verify_file() method
+2024-04-19 17:58:54,964 p=21124 u=vagrant n=ansible | Skipping due to inventory source not existing or not being readable by the current user
+2024-04-19 17:58:54,964 p=21124 u=vagrant n=ansible | ansible_collections.amazon.aws.plugins.inventory.aws_ec2 declined parsing /etc/ansible/hosts as it did not pass its verify_file() method
+2024-04-19 17:58:54,964 p=21124 u=vagrant n=ansible | [WARNING]: No inventory was parsed, only implicit localhost is available
+
+2024-04-19 17:58:54,966 p=21124 u=vagrant n=ansible | [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit
+localhost does not match 'all'
+
+2024-04-19 17:58:55,023 p=21124 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.sysctl to ansible.posix.sysctl
+2024-04-19 17:58:55,024 p=21124 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.sysctl to ansible.posix.sysctl
+2024-04-19 17:58:55,034 p=21124 u=vagrant n=ansible | redirecting (type: callback) ansible.builtin.profile_tasks to ansible.posix.profile_tasks
+2024-04-19 17:58:55,034 p=21124 u=vagrant n=ansible | Skipping callback 'default', as we already have a stdout callback.
+2024-04-19 17:58:55,034 p=21124 u=vagrant n=ansible | Skipping callback 'minimal', as we already have a stdout callback.
+2024-04-19 17:58:55,034 p=21124 u=vagrant n=ansible | Skipping callback 'oneline', as we already have a stdout callback.
+2024-04-19 17:58:55,034 p=21124 u=vagrant n=ansible | PLAYBOOK: rpm-playbook.yml *************************************************************************
+2024-04-19 17:58:55,035 p=21124 u=vagrant n=ansible | 1 plays in rpm-playbook.yml
+2024-04-19 17:58:55,037 p=21124 u=vagrant n=ansible | PLAY [Run rpm-cis Role] ****************************************************************************
+2024-04-19 17:58:55,043 p=21124 u=vagrant n=ansible | TASK [Gathering Facts] *****************************************************************************
+2024-04-19 17:58:55,044 p=21124 u=vagrant n=ansible | Friday 19 April 2024  17:58:55 +0500 (0:00:00.009)       0:00:00.009 ********** 
+2024-04-19 17:58:55,050 p=21130 u=vagrant n=ansible | <127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: vagrant
+2024-04-19 17:58:55,051 p=21130 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'echo ~vagrant && sleep 0'
+2024-04-19 17:58:55,056 p=21130 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/vagrant/.ansible/tmp `"&& mkdir "` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531535.0563111-21130-160634052690825 `" && echo ansible-tmp-1713531535.0563111-21130-160634052690825="` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531535.0563111-21130-160634052690825 `" ) && sleep 0'
+2024-04-19 17:58:55,222 p=21130 u=vagrant n=ansible | Using module file /home/vagrant/.local/lib/python3.8/site-packages/ansible/modules/setup.py
+2024-04-19 17:58:55,223 p=21130 u=vagrant n=ansible | <127.0.0.1> PUT /home/vagrant/.ansible/tmp/ansible-local-21124r8zoxci4/tmpqru3wpxt TO /home/vagrant/.ansible/tmp/ansible-tmp-1713531535.0563111-21130-160634052690825/AnsiballZ_setup.py
+2024-04-19 17:58:55,223 p=21130 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/vagrant/.ansible/tmp/ansible-tmp-1713531535.0563111-21130-160634052690825/ /home/vagrant/.ansible/tmp/ansible-tmp-1713531535.0563111-21130-160634052690825/AnsiballZ_setup.py && sleep 0'
+2024-04-19 17:58:55,229 p=21130 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'sudo -H -S -n  -u root /bin/sh -c '"'"'echo BECOME-SUCCESS-ugopxcjzzkccmfxatadyxopqoybvhzhb ; /usr/local/bin/python3.8 /home/vagrant/.ansible/tmp/ansible-tmp-1713531535.0563111-21130-160634052690825/AnsiballZ_setup.py'"'"' && sleep 0'
+2024-04-19 17:58:55,676 p=21130 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/vagrant/.ansible/tmp/ansible-tmp-1713531535.0563111-21130-160634052690825/ > /dev/null 2>&1 && sleep 0'
+2024-04-19 17:58:55,689 p=21124 u=vagrant n=ansible | ok: [127.0.0.1]
+2024-04-19 17:58:55,692 p=21124 u=vagrant n=ansible | META: ran handlers
+2024-04-19 17:58:55,695 p=21124 u=vagrant n=ansible | TASK [rpm-cis : Check OS version and family] *******************************************************
+2024-04-19 17:58:55,695 p=21124 u=vagrant n=ansible | Friday 19 April 2024  17:58:55 +0500 (0:00:00.651)       0:00:00.660 ********** 
+2024-04-19 17:58:55,706 p=21124 u=vagrant n=ansible | skipping: [127.0.0.1] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2024-04-19 17:58:55,709 p=21124 u=vagrant n=ansible | TASK [rpm-cis : Check ansible version] *************************************************************
+2024-04-19 17:58:55,709 p=21124 u=vagrant n=ansible | Friday 19 April 2024  17:58:55 +0500 (0:00:00.014)       0:00:00.675 ********** 
+2024-04-19 17:58:55,721 p=21124 u=vagrant n=ansible | skipping: [127.0.0.1] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2024-04-19 17:58:55,725 p=21124 u=vagrant n=ansible | TASK [rpm-cis : include_tasks] *********************************************************************
+2024-04-19 17:58:55,725 p=21124 u=vagrant n=ansible | Friday 19 April 2024  17:58:55 +0500 (0:00:00.015)       0:00:00.690 ********** 
+2024-04-19 17:58:55,749 p=21124 u=vagrant n=ansible | skipping: [127.0.0.1] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2024-04-19 17:58:55,752 p=21124 u=vagrant n=ansible | TASK [rpm-cis : include_tasks] *********************************************************************
+2024-04-19 17:58:55,753 p=21124 u=vagrant n=ansible | Friday 19 April 2024  17:58:55 +0500 (0:00:00.027)       0:00:00.718 ********** 
+2024-04-19 17:58:55,798 p=21124 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.modprobe to community.general.modprobe
+2024-04-19 17:58:55,809 p=21124 u=vagrant n=ansible | redirecting (type: modules) community.general.modprobe to community.general.system.modprobe
+2024-04-19 17:58:55,810 p=21124 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.modprobe to community.general.modprobe
+2024-04-19 17:58:55,810 p=21124 u=vagrant n=ansible | redirecting (type: modules) community.general.modprobe to community.general.system.modprobe
+2024-04-19 17:58:55,811 p=21124 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.modprobe to community.general.modprobe
+2024-04-19 17:58:55,811 p=21124 u=vagrant n=ansible | redirecting (type: modules) community.general.modprobe to community.general.system.modprobe
+2024-04-19 17:58:55,812 p=21124 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.modprobe to community.general.modprobe
+2024-04-19 17:58:55,812 p=21124 u=vagrant n=ansible | redirecting (type: modules) community.general.modprobe to community.general.system.modprobe
+2024-04-19 17:58:55,812 p=21124 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.modprobe to community.general.modprobe
+2024-04-19 17:58:55,812 p=21124 u=vagrant n=ansible | redirecting (type: modules) community.general.modprobe to community.general.system.modprobe
+2024-04-19 17:58:55,813 p=21124 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.modprobe to community.general.modprobe
+2024-04-19 17:58:55,813 p=21124 u=vagrant n=ansible | redirecting (type: modules) community.general.modprobe to community.general.system.modprobe
+2024-04-19 17:58:55,813 p=21124 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.modprobe to community.general.modprobe
+2024-04-19 17:58:55,813 p=21124 u=vagrant n=ansible | redirecting (type: modules) community.general.modprobe to community.general.system.modprobe
+2024-04-19 17:58:55,814 p=21124 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.modprobe to community.general.modprobe
+2024-04-19 17:58:55,814 p=21124 u=vagrant n=ansible | redirecting (type: modules) community.general.modprobe to community.general.system.modprobe
+2024-04-19 17:58:55,814 p=21124 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.ini_file to community.general.ini_file
+2024-04-19 17:58:55,814 p=21124 u=vagrant n=ansible | redirecting (type: modules) community.general.ini_file to community.general.files.ini_file
+2024-04-19 17:58:55,815 p=21124 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.ini_file to community.general.ini_file
+2024-04-19 17:58:55,816 p=21124 u=vagrant n=ansible | redirecting (type: modules) community.general.ini_file to community.general.files.ini_file
+2024-04-19 17:58:55,816 p=21124 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:58:55,817 p=21124 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:58:55,818 p=21124 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:58:55,819 p=21124 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.modprobe to community.general.modprobe
+2024-04-19 17:58:55,819 p=21124 u=vagrant n=ansible | redirecting (type: modules) community.general.modprobe to community.general.system.modprobe
+2024-04-19 17:58:55,824 p=21124 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.sysctl to ansible.posix.sysctl
+2024-04-19 17:58:55,825 p=21124 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.sysctl to ansible.posix.sysctl
+2024-04-19 17:58:55,827 p=21124 u=vagrant n=ansible | included: /home/vagrant/ami/ansible/roles/rpm-cis/tasks/section1.yml for 127.0.0.1
+2024-04-19 17:58:55,834 p=21124 u=vagrant n=ansible | TASK [rpm-cis : PRELIM | Run yum cache update] *****************************************************
+2024-04-19 17:58:55,834 p=21124 u=vagrant n=ansible | Friday 19 April 2024  17:58:55 +0500 (0:00:00.081)       0:00:00.799 ********** 
+2024-04-19 17:58:55,844 p=21189 u=vagrant n=ansible | <127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: vagrant
+2024-04-19 17:58:55,844 p=21189 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'echo ~vagrant && sleep 0'
+2024-04-19 17:58:55,848 p=21189 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/vagrant/.ansible/tmp `"&& mkdir "` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531535.8484447-21189-130060309808796 `" && echo ansible-tmp-1713531535.8484447-21189-130060309808796="` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531535.8484447-21189-130060309808796 `" ) && sleep 0'
+2024-04-19 17:58:55,961 p=21189 u=vagrant n=ansible | Using module file /home/vagrant/.local/lib/python3.8/site-packages/ansible/modules/yum.py
+2024-04-19 17:58:55,961 p=21189 u=vagrant n=ansible | <127.0.0.1> PUT /home/vagrant/.ansible/tmp/ansible-local-21124r8zoxci4/tmpnjdawyus TO /home/vagrant/.ansible/tmp/ansible-tmp-1713531535.8484447-21189-130060309808796/AnsiballZ_yum.py
+2024-04-19 17:58:55,962 p=21189 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/vagrant/.ansible/tmp/ansible-tmp-1713531535.8484447-21189-130060309808796/ /home/vagrant/.ansible/tmp/ansible-tmp-1713531535.8484447-21189-130060309808796/AnsiballZ_yum.py && sleep 0'
+2024-04-19 17:58:55,966 p=21189 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'sudo -H -S -n  -u root /bin/sh -c '"'"'echo BECOME-SUCCESS-unruxhsdpjrwaqisulrmdaaucnqeoene ; /usr/local/bin/python3.8 /home/vagrant/.ansible/tmp/ansible-tmp-1713531535.8484447-21189-130060309808796/AnsiballZ_yum.py'"'"' && sleep 0'
+2024-04-19 17:58:56,357 p=21189 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/vagrant/.ansible/tmp/ansible-tmp-1713531535.8484447-21189-130060309808796/ > /dev/null 2>&1 && sleep 0'
+2024-04-19 17:58:56,365 p=21124 u=vagrant n=ansible | ok: [127.0.0.1] => {
+    "changed": false,
+    "invocation": {
+        "module_args": {
+            "allow_downgrade": false,
+            "autoremove": false,
+            "bugfix": false,
+            "cacheonly": false,
+            "conf_file": null,
+            "disable_excludes": null,
+            "disable_gpg_check": false,
+            "disable_plugin": [],
+            "disablerepo": [],
+            "download_dir": null,
+            "download_only": false,
+            "enable_plugin": [],
+            "enablerepo": [],
+            "exclude": [],
+            "install_repoquery": true,
+            "install_weak_deps": true,
+            "installroot": "/",
+            "list": null,
+            "lock_timeout": 30,
+            "name": [],
+            "releasever": null,
+            "security": false,
+            "skip_broken": false,
+            "sslverify": true,
+            "state": "present",
+            "update_cache": true,
+            "update_only": false,
+            "use_backend": "auto",
+            "validate_certs": true
+        }
+    },
+    "msg": "Cache updated",
+    "rc": 0,
+    "results": []
+}
+2024-04-19 17:58:56,368 p=21124 u=vagrant n=ansible | TASK [rpm-cis : SCORED | 1.1.1.1 | PATCH | Ensure mounting of cramfs filesystems is disabled] ******
+2024-04-19 17:58:56,368 p=21124 u=vagrant n=ansible | Friday 19 April 2024  17:58:56 +0500 (0:00:00.534)       0:00:01.333 ********** 
+2024-04-19 17:58:56,378 p=21216 u=vagrant n=ansible | <127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: vagrant
+2024-04-19 17:58:56,379 p=21216 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'echo ~vagrant && sleep 0'
+2024-04-19 17:58:56,383 p=21216 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/vagrant/.ansible/tmp `"&& mkdir "` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.3830788-21216-161896639504488 `" && echo ansible-tmp-1713531536.3830788-21216-161896639504488="` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.3830788-21216-161896639504488 `" ) && sleep 0'
+2024-04-19 17:58:56,447 p=21216 u=vagrant n=ansible | Using module file /home/vagrant/.local/lib/python3.8/site-packages/ansible/modules/lineinfile.py
+2024-04-19 17:58:56,447 p=21216 u=vagrant n=ansible | <127.0.0.1> PUT /home/vagrant/.ansible/tmp/ansible-local-21124r8zoxci4/tmpwsemrhlh TO /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.3830788-21216-161896639504488/AnsiballZ_lineinfile.py
+2024-04-19 17:58:56,448 p=21216 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.3830788-21216-161896639504488/ /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.3830788-21216-161896639504488/AnsiballZ_lineinfile.py && sleep 0'
+2024-04-19 17:58:56,453 p=21216 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'sudo -H -S -n  -u root /bin/sh -c '"'"'echo BECOME-SUCCESS-zjjvovsldvlkehbslwfyquwkgyujtmss ; /usr/local/bin/python3.8 /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.3830788-21216-161896639504488/AnsiballZ_lineinfile.py'"'"' && sleep 0'
+2024-04-19 17:58:56,565 p=21216 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.3830788-21216-161896639504488/ > /dev/null 2>&1 && sleep 0'
+2024-04-19 17:58:56,573 p=21124 u=vagrant n=ansible | ok: [127.0.0.1] => {
+    "backup": "",
+    "changed": false,
+    "diff": [
+        {
+            "after": "",
+            "after_header": "/etc/modprobe.d/CIS.conf (content)",
+            "before": "",
+            "before_header": "/etc/modprobe.d/CIS.conf (content)"
+        },
+        {
+            "after_header": "/etc/modprobe.d/CIS.conf (file attributes)",
+            "before_header": "/etc/modprobe.d/CIS.conf (file attributes)"
+        }
+    ],
+    "invocation": {
+        "module_args": {
+            "attributes": null,
+            "backrefs": false,
+            "backup": false,
+            "create": true,
+            "dest": "/etc/modprobe.d/CIS.conf",
+            "firstmatch": false,
+            "group": "root",
+            "insertafter": null,
+            "insertbefore": null,
+            "line": "install cramfs /bin/true",
+            "mode": 420,
+            "owner": "root",
+            "path": "/etc/modprobe.d/CIS.conf",
+            "regexp": "^(#)?install cramfs(\\s|$)",
+            "search_string": null,
+            "selevel": null,
+            "serole": null,
+            "setype": null,
+            "seuser": null,
+            "state": "present",
+            "unsafe_writes": false,
+            "validate": null
+        }
+    },
+    "msg": ""
+}
+2024-04-19 17:58:56,577 p=21124 u=vagrant n=ansible | TASK [rpm-cis : SCORED | 1.1.1.1 | PATCH | Remove cramfs module] ***********************************
+2024-04-19 17:58:56,577 p=21124 u=vagrant n=ansible | Friday 19 April 2024  17:58:56 +0500 (0:00:00.209)       0:00:01.543 ********** 
+2024-04-19 17:58:56,587 p=21241 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.modprobe to community.general.modprobe
+2024-04-19 17:58:56,587 p=21241 u=vagrant n=ansible | redirecting (type: modules) community.general.modprobe to community.general.system.modprobe
+2024-04-19 17:58:56,588 p=21241 u=vagrant n=ansible | <127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: vagrant
+2024-04-19 17:58:56,589 p=21241 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'echo ~vagrant && sleep 0'
+2024-04-19 17:58:56,593 p=21241 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/vagrant/.ansible/tmp `"&& mkdir "` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.5933707-21241-64658706993775 `" && echo ansible-tmp-1713531536.5933707-21241-64658706993775="` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.5933707-21241-64658706993775 `" ) && sleep 0'
+2024-04-19 17:58:56,600 p=21241 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.modprobe to community.general.modprobe
+2024-04-19 17:58:56,600 p=21241 u=vagrant n=ansible | redirecting (type: modules) community.general.modprobe to community.general.system.modprobe
+2024-04-19 17:58:56,658 p=21241 u=vagrant n=ansible | Using module file /home/vagrant/.local/lib/python3.8/site-packages/ansible_collections/community/general/plugins/modules/system/modprobe.py
+2024-04-19 17:58:56,658 p=21241 u=vagrant n=ansible | <127.0.0.1> PUT /home/vagrant/.ansible/tmp/ansible-local-21124r8zoxci4/tmpnk7vbvzo TO /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.5933707-21241-64658706993775/AnsiballZ_modprobe.py
+2024-04-19 17:58:56,659 p=21241 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.5933707-21241-64658706993775/ /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.5933707-21241-64658706993775/AnsiballZ_modprobe.py && sleep 0'
+2024-04-19 17:58:56,664 p=21241 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'sudo -H -S -n  -u root /bin/sh -c '"'"'echo BECOME-SUCCESS-hrmncdvzcawjigpilrqnklmgemymwwmb ; /usr/local/bin/python3.8 /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.5933707-21241-64658706993775/AnsiballZ_modprobe.py'"'"' && sleep 0'
+2024-04-19 17:58:56,773 p=21241 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.5933707-21241-64658706993775/ > /dev/null 2>&1 && sleep 0'
+2024-04-19 17:58:56,780 p=21124 u=vagrant n=ansible | ok: [127.0.0.1] => {
+    "changed": false,
+    "invocation": {
+        "module_args": {
+            "name": "cramfs",
+            "params": "",
+            "state": "absent"
+        }
+    },
+    "name": "cramfs",
+    "params": "",
+    "state": "absent"
+}
+2024-04-19 17:58:56,783 p=21124 u=vagrant n=ansible | TASK [rpm-cis : SCORED | 1.1.1.2 | PATCH | Ensure mounting of freevxfs filesystems is disabled] ****
+2024-04-19 17:58:56,783 p=21124 u=vagrant n=ansible | Friday 19 April 2024  17:58:56 +0500 (0:00:00.205)       0:00:01.749 ********** 
+2024-04-19 17:58:56,794 p=21267 u=vagrant n=ansible | <127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: vagrant
+2024-04-19 17:58:56,794 p=21267 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'echo ~vagrant && sleep 0'
+2024-04-19 17:58:56,798 p=21267 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/vagrant/.ansible/tmp `"&& mkdir "` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.7987638-21267-110838138962362 `" && echo ansible-tmp-1713531536.7987638-21267-110838138962362="` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.7987638-21267-110838138962362 `" ) && sleep 0'
+2024-04-19 17:58:56,806 p=21267 u=vagrant n=ansible | Using module file /home/vagrant/.local/lib/python3.8/site-packages/ansible/modules/lineinfile.py
+2024-04-19 17:58:56,807 p=21267 u=vagrant n=ansible | <127.0.0.1> PUT /home/vagrant/.ansible/tmp/ansible-local-21124r8zoxci4/tmpfmm_s46i TO /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.7987638-21267-110838138962362/AnsiballZ_lineinfile.py
+2024-04-19 17:58:56,807 p=21267 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.7987638-21267-110838138962362/ /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.7987638-21267-110838138962362/AnsiballZ_lineinfile.py && sleep 0'
+2024-04-19 17:58:56,812 p=21267 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'sudo -H -S -n  -u root /bin/sh -c '"'"'echo BECOME-SUCCESS-ozkdtgsbbiboiqpeyhoijhfsabbcnqza ; /usr/local/bin/python3.8 /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.7987638-21267-110838138962362/AnsiballZ_lineinfile.py'"'"' && sleep 0'
+2024-04-19 17:58:56,918 p=21267 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.7987638-21267-110838138962362/ > /dev/null 2>&1 && sleep 0'
+2024-04-19 17:58:56,925 p=21124 u=vagrant n=ansible | ok: [127.0.0.1] => {
+    "backup": "",
+    "changed": false,
+    "diff": [
+        {
+            "after": "",
+            "after_header": "/etc/modprobe.d/CIS.conf (content)",
+            "before": "",
+            "before_header": "/etc/modprobe.d/CIS.conf (content)"
+        },
+        {
+            "after_header": "/etc/modprobe.d/CIS.conf (file attributes)",
+            "before_header": "/etc/modprobe.d/CIS.conf (file attributes)"
+        }
+    ],
+    "invocation": {
+        "module_args": {
+            "attributes": null,
+            "backrefs": false,
+            "backup": false,
+            "create": true,
+            "dest": "/etc/modprobe.d/CIS.conf",
+            "firstmatch": false,
+            "group": null,
+            "insertafter": null,
+            "insertbefore": null,
+            "line": "install freevxfs /bin/true",
+            "mode": null,
+            "owner": null,
+            "path": "/etc/modprobe.d/CIS.conf",
+            "regexp": "^(#)?install freevxfs",
+            "search_string": null,
+            "selevel": null,
+            "serole": null,
+            "setype": null,
+            "seuser": null,
+            "state": "present",
+            "unsafe_writes": false,
+            "validate": null
+        }
+    },
+    "msg": ""
+}
+2024-04-19 17:58:56,928 p=21124 u=vagrant n=ansible | TASK [rpm-cis : SCORED | 1.1.1.2 | PATCH | Remove freevxfs module] *********************************
+2024-04-19 17:58:56,928 p=21124 u=vagrant n=ansible | Friday 19 April 2024  17:58:56 +0500 (0:00:00.145)       0:00:01.894 ********** 
+2024-04-19 17:58:56,938 p=21292 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.modprobe to community.general.modprobe
+2024-04-19 17:58:56,938 p=21292 u=vagrant n=ansible | redirecting (type: modules) community.general.modprobe to community.general.system.modprobe
+2024-04-19 17:58:56,939 p=21292 u=vagrant n=ansible | <127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: vagrant
+2024-04-19 17:58:56,939 p=21292 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'echo ~vagrant && sleep 0'
+2024-04-19 17:58:56,944 p=21292 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/vagrant/.ansible/tmp `"&& mkdir "` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.944384-21292-152136904868418 `" && echo ansible-tmp-1713531536.944384-21292-152136904868418="` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.944384-21292-152136904868418 `" ) && sleep 0'
+2024-04-19 17:58:56,952 p=21292 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.modprobe to community.general.modprobe
+2024-04-19 17:58:56,952 p=21292 u=vagrant n=ansible | redirecting (type: modules) community.general.modprobe to community.general.system.modprobe
+2024-04-19 17:58:56,953 p=21292 u=vagrant n=ansible | Using module file /home/vagrant/.local/lib/python3.8/site-packages/ansible_collections/community/general/plugins/modules/system/modprobe.py
+2024-04-19 17:58:56,954 p=21292 u=vagrant n=ansible | <127.0.0.1> PUT /home/vagrant/.ansible/tmp/ansible-local-21124r8zoxci4/tmpoe35q8yt TO /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.944384-21292-152136904868418/AnsiballZ_modprobe.py
+2024-04-19 17:58:56,954 p=21292 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.944384-21292-152136904868418/ /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.944384-21292-152136904868418/AnsiballZ_modprobe.py && sleep 0'
+2024-04-19 17:58:56,959 p=21292 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'sudo -H -S -n  -u root /bin/sh -c '"'"'echo BECOME-SUCCESS-islqgkzjncgudbwgoelpimcxkgynhhym ; /usr/local/bin/python3.8 /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.944384-21292-152136904868418/AnsiballZ_modprobe.py'"'"' && sleep 0'
+2024-04-19 17:58:57,062 p=21292 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/vagrant/.ansible/tmp/ansible-tmp-1713531536.944384-21292-152136904868418/ > /dev/null 2>&1 && sleep 0'
+2024-04-19 17:58:57,069 p=21124 u=vagrant n=ansible | ok: [127.0.0.1] => {
+    "changed": false,
+    "invocation": {
+        "module_args": {
+            "name": "freevxfs",
+            "params": "",
+            "state": "absent"
+        }
+    },
+    "name": "freevxfs",
+    "params": "",
+    "state": "absent"
+}
+2024-04-19 17:58:57,072 p=21124 u=vagrant n=ansible | TASK [rpm-cis : SCORED | 1.1.1.3 | PATCH | Ensure mounting of jffs2 filesystems is disabled] *******
+2024-04-19 17:58:57,073 p=21124 u=vagrant n=ansible | Friday 19 April 2024  17:58:57 +0500 (0:00:00.144)       0:00:02.038 ********** 
+2024-04-19 17:58:57,083 p=21318 u=vagrant n=ansible | <127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: vagrant
+2024-04-19 17:58:57,083 p=21318 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'echo ~vagrant && sleep 0'
+2024-04-19 17:58:57,088 p=21318 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/vagrant/.ansible/tmp `"&& mkdir "` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531537.0883853-21318-41300097760866 `" && echo ansible-tmp-1713531537.0883853-21318-41300097760866="` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531537.0883853-21318-41300097760866 `" ) && sleep 0'
+2024-04-19 17:58:57,096 p=21318 u=vagrant n=ansible | Using module file /home/vagrant/.local/lib/python3.8/site-packages/ansible/modules/lineinfile.py
+2024-04-19 17:58:57,097 p=21318 u=vagrant n=ansible | <127.0.0.1> PUT /home/vagrant/.ansible/tmp/ansible-local-21124r8zoxci4/tmpjpbpxocq TO /home/vagrant/.ansible/tmp/ansible-tmp-1713531537.0883853-21318-41300097760866/AnsiballZ_lineinfile.py
+2024-04-19 17:58:57,097 p=21318 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/vagrant/.ansible/tmp/ansible-tmp-1713531537.0883853-21318-41300097760866/ /home/vagrant/.ansible/tmp/ansible-tmp-1713531537.0883853-21318-41300097760866/AnsiballZ_lineinfile.py && sleep 0'
+2024-04-19 17:58:57,103 p=21318 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'sudo -H -S -n  -u root /bin/sh -c '"'"'echo BECOME-SUCCESS-zwinoyifzimwqdqsdutzsskrjiomxvux ; /usr/local/bin/python3.8 /home/vagrant/.ansible/tmp/ansible-tmp-1713531537.0883853-21318-41300097760866/AnsiballZ_lineinfile.py'"'"' && sleep 0'
+2024-04-19 17:58:57,205 p=21318 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/vagrant/.ansible/tmp/ansible-tmp-1713531537.0883853-21318-41300097760866/ > /dev/null 2>&1 && sleep 0'
+2024-04-19 17:58:57,213 p=21124 u=vagrant n=ansible | ok: [127.0.0.1] => {
+    "backup": "",
+    "changed": false,
+    "diff": [
+        {
+            "after": "",
+            "after_header": "/etc/modprobe.d/CIS.conf (content)",
+            "before": "",
+            "before_header": "/etc/modprobe.d/CIS.conf (content)"
+        },
+        {
+            "after_header": "/etc/modprobe.d/CIS.conf (file attributes)",
+            "before_header": "/etc/modprobe.d/CIS.conf (file attributes)"
+        }
+    ],
+    "invocation": {
+        "module_args": {
+            "attributes": null,
+            "backrefs": false,
+            "backup": false,
+            "create": true,
+            "dest": "/etc/modprobe.d/CIS.conf",
+            "firstmatch": false,
+            "group": null,
+            "insertafter": null,
+            "insertbefore": null,
+            "line": "install jffs2 /bin/true",
+            "mode": null,
+            "owner": null,
+            "path": "/etc/modprobe.d/CIS.conf",
+            "regexp": "^(#)?install jffs2(\\s|$)",
+            "search_string": null,
+            "selevel": null,
+            "serole": null,
+            "setype": null,
+            "seuser": null,
+            "state": "present",
+            "unsafe_writes": false,
+            "validate": null
+        }
+    },
+    "msg": ""
+}
+2024-04-19 17:58:57,216 p=21124 u=vagrant n=ansible | TASK [rpm-cis : SCORED | 1.1.1.3 | PATCH | Remove jffs2 module] ************************************
+2024-04-19 17:58:57,216 p=21124 u=vagrant n=ansible | Friday 19 April 2024  17:58:57 +0500 (0:00:00.143)       0:00:02.181 ********** 
+2024-04-19 17:58:57,226 p=21343 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.modprobe to community.general.modprobe
+2024-04-19 17:58:57,226 p=21343 u=vagrant n=ansible | redirecting (type: modules) community.general.modprobe to community.general.system.modprobe
+2024-04-19 17:58:57,227 p=21343 u=vagrant n=ansible | <127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: vagrant
+2024-04-19 17:58:57,227 p=21343 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'echo ~vagrant && sleep 0'
+2024-04-19 17:58:57,231 p=21343 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/vagrant/.ansible/tmp `"&& mkdir "` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531537.2313144-21343-186684961352497 `" && echo ansible-tmp-1713531537.2313144-21343-186684961352497="` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531537.2313144-21343-186684961352497 `" ) && sleep 0'
+2024-04-19 17:58:57,239 p=21343 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.modprobe to community.general.modprobe
+2024-04-19 17:58:57,239 p=21343 u=vagrant n=ansible | redirecting (type: modules) community.general.modprobe to community.general.system.modprobe
+2024-04-19 17:58:57,240 p=21343 u=vagrant n=ansible | Using module file /home/vagrant/.local/lib/python3.8/site-packages/ansible_collections/community/general/plugins/modules/system/modprobe.py
+2024-04-19 17:58:57,241 p=21343 u=vagrant n=ansible | <127.0.0.1> PUT /home/vagrant/.ansible/tmp/ansible-local-21124r8zoxci4/tmp_o5ny4sx TO /home/vagrant/.ansible/tmp/ansible-tmp-1713531537.2313144-21343-186684961352497/AnsiballZ_modprobe.py
+2024-04-19 17:58:57,241 p=21343 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/vagrant/.ansible/tmp/ansible-tmp-1713531537.2313144-21343-186684961352497/ /home/vagrant/.ansible/tmp/ansible-tmp-1713531537.2313144-21343-186684961352497/AnsiballZ_modprobe.py && sleep 0'
+2024-04-19 17:58:57,246 p=21343 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'sudo -H -S -n  -u root /bin/sh -c '"'"'echo BECOME-SUCCESS-qqdrptwyrabayywocywcyuowcdhatlyc ; /usr/local/bin/python3.8 /home/vagrant/.ansible/tmp/ansible-tmp-1713531537.2313144-21343-186684961352497/AnsiballZ_modprobe.py'"'"' && sleep 0'
+2024-04-19 17:58:57,350 p=21343 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/vagrant/.ansible/tmp/ansible-tmp-1713531537.2313144-21343-186684961352497/ > /dev/null 2>&1 && sleep 0'
+2024-04-19 17:58:57,358 p=21124 u=vagrant n=ansible | ok: [127.0.0.1] => {
+    "changed": false,
+    "invocation": {
+        "module_args": {
+            "name": "jffs2",
+            "params": "",
+            "state": "absent"
+        }
+    },
+    "name": "jffs2",
+    "params": "",
+    "state": "absent"
+}
+2024-04-19 17:58:57,360 p=21124 u=vagrant n=ansible | TASK [rpm-cis : SCORED | 1.1.1.4 | PATCH | Ensure mounting of hfs filesystems is disabled] *********
+2024-04-19 17:58:57,361 p=21124 u=vagrant n=ansible | Friday 19 April 2024  17:58:57 +0500 (0:00:00.144)       0:00:02.326 ********** 
+2024-04-19 17:58:57,372 p=21369 u=vagrant n=ansible | <127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: vagrant
+2024-04-19 17:58:57,372 p=21369 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'echo ~vagrant && sleep 0'
+2024-04-19 17:58:57,376 p=21369 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/vagrant/.ansible/tmp `"&& mkdir "` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531537.3767025-21369-149209892080733 `" && echo ansible-tmp-1713531537.3767025-21369-149209892080733="` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531537.3767025-21369-149209892080733 `" ) && sleep 0'
+2024-04-19 17:58:57,384 p=21369 u=vagrant n=ansible | Using module file /home/vagrant/.local/lib/python3.8/site-packages/ansible/modules/lineinfile.py
+2024-04-19 17:58:57,385 p=21369 u=vagrant n=ansible | <127.0.0.1> PUT /home/vagrant/.ansible/tmp/ansible-local-21124r8zoxci4/tmpuu1d1fen TO /home/vagrant/.ansible/tmp/ansible-tmp-1713531537.3767025-21369-149209892080733/AnsiballZ_lineinfile.py
+2024-04-19 17:58:57,385 p=21369 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/vagrant/.ansible/tmp/ansible-tmp-1713531537.3767025-21369-149209892080733/ /home/vagrant/.ansible/tmp/ansible-tmp-1713531537.3767025-21369-149209892080733/AnsiballZ_lineinfile.py && sleep 0'
+2024-04-19 17:58:57,391 p=21369 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'sudo -H -S -n  -u root /bin/sh -c '"'"'echo BECOME-SUCCESS-acgxvnptewfpbdqkikzlwitnxcjdeomb ; /usr/local/bin/python3.8 /home/vagrant/.ansible/tmp/ansible-tmp-1713531537.3767025-21369-149209892080733/AnsiballZ_lineinfile.py'"'"' && sleep 0'
+2024-04-19 17:58:57,403 p=21369 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/vagrant/.ansible/tmp/ansible-tmp-1713531537.3767025-21369-149209892080733/ > /dev/null 2>&1 && sleep 0'
+2024-04-19 17:58:57,405 p=21124 u=vagrant n=ansible |  [ERROR]: User interrupted execution
+
+2024-04-19 17:59:58,853 p=21397 u=vagrant n=ansible | ansible-playbook [core 2.13.13]
+  config file = /home/vagrant/ami/ansible/ansible.cfg
+  configured module search path = ['/home/vagrant/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /home/vagrant/.local/lib/python3.8/site-packages/ansible
+  ansible collection location = /home/vagrant/.ansible/collections/ansible_collections
+  executable location = /home/vagrant/.local/bin/ansible-playbook
+  python version = 3.8.18 (default, Apr  2 2024, 06:07:33) [GCC 4.8.5 20150623 (Red Hat 4.8.5-44)]
+  jinja version = 3.1.3
+  libyaml = True
+2024-04-19 17:59:58,854 p=21397 u=vagrant n=ansible | Using /home/vagrant/ami/ansible/ansible.cfg as config file
+2024-04-19 17:59:58,854 p=21397 u=vagrant n=ansible | [DEPRECATION WARNING]: [defaults]callback_whitelist option, normalizing names to new standard, use 
+callbacks_enabled instead. This feature will be removed from ansible-core in version 2.15. 
+Deprecation warnings can be disabled by setting deprecation_warnings=False in ansible.cfg.
+2024-04-19 17:59:58,859 p=21397 u=vagrant n=ansible | redirecting (type: inventory) ansible.builtin.aws_ec2 to amazon.aws.aws_ec2
+2024-04-19 17:59:58,918 p=21397 u=vagrant n=ansible | host_list declined parsing /etc/ansible/hosts as it did not pass its verify_file() method
+2024-04-19 17:59:58,918 p=21397 u=vagrant n=ansible | Skipping due to inventory source not existing or not being readable by the current user
+2024-04-19 17:59:58,918 p=21397 u=vagrant n=ansible | script declined parsing /etc/ansible/hosts as it did not pass its verify_file() method
+2024-04-19 17:59:58,918 p=21397 u=vagrant n=ansible | auto declined parsing /etc/ansible/hosts as it did not pass its verify_file() method
+2024-04-19 17:59:58,918 p=21397 u=vagrant n=ansible | Skipping due to inventory source not existing or not being readable by the current user
+2024-04-19 17:59:58,918 p=21397 u=vagrant n=ansible | yaml declined parsing /etc/ansible/hosts as it did not pass its verify_file() method
+2024-04-19 17:59:58,918 p=21397 u=vagrant n=ansible | Skipping due to inventory source not existing or not being readable by the current user
+2024-04-19 17:59:58,918 p=21397 u=vagrant n=ansible | ini declined parsing /etc/ansible/hosts as it did not pass its verify_file() method
+2024-04-19 17:59:58,918 p=21397 u=vagrant n=ansible | Skipping due to inventory source not existing or not being readable by the current user
+2024-04-19 17:59:58,918 p=21397 u=vagrant n=ansible | toml declined parsing /etc/ansible/hosts as it did not pass its verify_file() method
+2024-04-19 17:59:58,918 p=21397 u=vagrant n=ansible | Skipping due to inventory source not existing or not being readable by the current user
+2024-04-19 17:59:58,918 p=21397 u=vagrant n=ansible | constructed declined parsing /etc/ansible/hosts as it did not pass its verify_file() method
+2024-04-19 17:59:58,918 p=21397 u=vagrant n=ansible | Skipping due to inventory source not existing or not being readable by the current user
+2024-04-19 17:59:58,918 p=21397 u=vagrant n=ansible | ansible_collections.amazon.aws.plugins.inventory.aws_ec2 declined parsing /etc/ansible/hosts as it did not pass its verify_file() method
+2024-04-19 17:59:58,918 p=21397 u=vagrant n=ansible | [WARNING]: No inventory was parsed, only implicit localhost is available
+
+2024-04-19 17:59:58,920 p=21397 u=vagrant n=ansible | [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit
+localhost does not match 'all'
+
+2024-04-19 17:59:58,977 p=21397 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.sysctl to ansible.posix.sysctl
+2024-04-19 17:59:58,978 p=21397 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.sysctl to ansible.posix.sysctl
+2024-04-19 17:59:58,988 p=21397 u=vagrant n=ansible | redirecting (type: callback) ansible.builtin.profile_tasks to ansible.posix.profile_tasks
+2024-04-19 17:59:58,988 p=21397 u=vagrant n=ansible | Skipping callback 'default', as we already have a stdout callback.
+2024-04-19 17:59:58,988 p=21397 u=vagrant n=ansible | Skipping callback 'minimal', as we already have a stdout callback.
+2024-04-19 17:59:58,988 p=21397 u=vagrant n=ansible | Skipping callback 'oneline', as we already have a stdout callback.
+2024-04-19 17:59:58,988 p=21397 u=vagrant n=ansible | PLAYBOOK: rpm-playbook.yml *************************************************************************
+2024-04-19 17:59:58,988 p=21397 u=vagrant n=ansible | 1 plays in rpm-playbook.yml
+2024-04-19 17:59:58,991 p=21397 u=vagrant n=ansible | PLAY [Run rpm-cis Role] ****************************************************************************
+2024-04-19 17:59:58,997 p=21397 u=vagrant n=ansible | TASK [Gathering Facts] *****************************************************************************
+2024-04-19 17:59:58,997 p=21397 u=vagrant n=ansible | Friday 19 April 2024  17:59:58 +0500 (0:00:00.009)       0:00:00.009 ********** 
+2024-04-19 17:59:59,006 p=21403 u=vagrant n=ansible | <127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: vagrant
+2024-04-19 17:59:59,006 p=21403 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'echo ~vagrant && sleep 0'
+2024-04-19 17:59:59,011 p=21403 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/vagrant/.ansible/tmp `"&& mkdir "` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531599.0112283-21403-109989329984709 `" && echo ansible-tmp-1713531599.0112283-21403-109989329984709="` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531599.0112283-21403-109989329984709 `" ) && sleep 0'
+2024-04-19 17:59:59,179 p=21403 u=vagrant n=ansible | Using module file /home/vagrant/.local/lib/python3.8/site-packages/ansible/modules/setup.py
+2024-04-19 17:59:59,179 p=21403 u=vagrant n=ansible | <127.0.0.1> PUT /home/vagrant/.ansible/tmp/ansible-local-21397u8exzkla/tmp6anh7tks TO /home/vagrant/.ansible/tmp/ansible-tmp-1713531599.0112283-21403-109989329984709/AnsiballZ_setup.py
+2024-04-19 17:59:59,179 p=21403 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/vagrant/.ansible/tmp/ansible-tmp-1713531599.0112283-21403-109989329984709/ /home/vagrant/.ansible/tmp/ansible-tmp-1713531599.0112283-21403-109989329984709/AnsiballZ_setup.py && sleep 0'
+2024-04-19 17:59:59,186 p=21403 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'sudo -H -S -n  -u root /bin/sh -c '"'"'echo BECOME-SUCCESS-kahusegxugtoxyivpgumiyjsmeqzglvk ; /usr/local/bin/python3.8 /home/vagrant/.ansible/tmp/ansible-tmp-1713531599.0112283-21403-109989329984709/AnsiballZ_setup.py'"'"' && sleep 0'
+2024-04-19 17:59:59,623 p=21403 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/vagrant/.ansible/tmp/ansible-tmp-1713531599.0112283-21403-109989329984709/ > /dev/null 2>&1 && sleep 0'
+2024-04-19 17:59:59,636 p=21397 u=vagrant n=ansible | ok: [127.0.0.1]
+2024-04-19 17:59:59,639 p=21397 u=vagrant n=ansible | META: ran handlers
+2024-04-19 17:59:59,642 p=21397 u=vagrant n=ansible | TASK [rpm-cis : Check OS version and family] *******************************************************
+2024-04-19 17:59:59,642 p=21397 u=vagrant n=ansible | Friday 19 April 2024  17:59:59 +0500 (0:00:00.644)       0:00:00.654 ********** 
+2024-04-19 17:59:59,654 p=21397 u=vagrant n=ansible | skipping: [127.0.0.1] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2024-04-19 17:59:59,657 p=21397 u=vagrant n=ansible | TASK [rpm-cis : Check ansible version] *************************************************************
+2024-04-19 17:59:59,657 p=21397 u=vagrant n=ansible | Friday 19 April 2024  17:59:59 +0500 (0:00:00.014)       0:00:00.668 ********** 
+2024-04-19 17:59:59,670 p=21397 u=vagrant n=ansible | skipping: [127.0.0.1] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2024-04-19 17:59:59,672 p=21397 u=vagrant n=ansible | TASK [rpm-cis : include_tasks] *********************************************************************
+2024-04-19 17:59:59,673 p=21397 u=vagrant n=ansible | Friday 19 April 2024  17:59:59 +0500 (0:00:00.015)       0:00:00.684 ********** 
+2024-04-19 17:59:59,704 p=21397 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.parted to community.general.parted
+2024-04-19 17:59:59,731 p=21397 u=vagrant n=ansible | redirecting (type: modules) community.general.parted to community.general.system.parted
+2024-04-19 17:59:59,732 p=21397 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.filesystem to community.general.filesystem
+2024-04-19 17:59:59,732 p=21397 u=vagrant n=ansible | redirecting (type: modules) community.general.filesystem to community.general.system.filesystem
+2024-04-19 17:59:59,733 p=21397 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:59:59,734 p=21397 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:59:59,734 p=21397 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:59:59,735 p=21397 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.parted to community.general.parted
+2024-04-19 17:59:59,735 p=21397 u=vagrant n=ansible | redirecting (type: modules) community.general.parted to community.general.system.parted
+2024-04-19 17:59:59,736 p=21397 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.filesystem to community.general.filesystem
+2024-04-19 17:59:59,736 p=21397 u=vagrant n=ansible | redirecting (type: modules) community.general.filesystem to community.general.system.filesystem
+2024-04-19 17:59:59,736 p=21397 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:59:59,737 p=21397 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:59:59,737 p=21397 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:59:59,738 p=21397 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.parted to community.general.parted
+2024-04-19 17:59:59,738 p=21397 u=vagrant n=ansible | redirecting (type: modules) community.general.parted to community.general.system.parted
+2024-04-19 17:59:59,738 p=21397 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.filesystem to community.general.filesystem
+2024-04-19 17:59:59,739 p=21397 u=vagrant n=ansible | redirecting (type: modules) community.general.filesystem to community.general.system.filesystem
+2024-04-19 17:59:59,739 p=21397 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:59:59,739 p=21397 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:59:59,740 p=21397 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:59:59,741 p=21397 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.parted to community.general.parted
+2024-04-19 17:59:59,741 p=21397 u=vagrant n=ansible | redirecting (type: modules) community.general.parted to community.general.system.parted
+2024-04-19 17:59:59,741 p=21397 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.filesystem to community.general.filesystem
+2024-04-19 17:59:59,741 p=21397 u=vagrant n=ansible | redirecting (type: modules) community.general.filesystem to community.general.system.filesystem
+2024-04-19 17:59:59,741 p=21397 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:59:59,742 p=21397 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:59:59,742 p=21397 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.mount to ansible.posix.mount
+2024-04-19 17:59:59,742 p=21397 u=vagrant n=ansible | included: /home/vagrant/ami/ansible/roles/rpm-cis/tasks/section1-partitions.yml for 127.0.0.1
+2024-04-19 17:59:59,750 p=21397 u=vagrant n=ansible | TASK [rpm-cis : PRELIM | Run yum cache update] *****************************************************
+2024-04-19 17:59:59,750 p=21397 u=vagrant n=ansible | Friday 19 April 2024  17:59:59 +0500 (0:00:00.077)       0:00:00.762 ********** 
+2024-04-19 17:59:59,760 p=21397 u=vagrant n=ansible | skipping: [127.0.0.1] => {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2024-04-19 17:59:59,762 p=21397 u=vagrant n=ansible | TASK [rpm-cis : PRELIM | Install Rsync and Parted] *************************************************
+2024-04-19 17:59:59,762 p=21397 u=vagrant n=ansible | Friday 19 April 2024  17:59:59 +0500 (0:00:00.012)       0:00:00.774 ********** 
+2024-04-19 17:59:59,772 p=21462 u=vagrant n=ansible | <127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: vagrant
+2024-04-19 17:59:59,772 p=21462 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'echo ~vagrant && sleep 0'
+2024-04-19 17:59:59,777 p=21462 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/vagrant/.ansible/tmp `"&& mkdir "` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531599.776785-21462-220951757926411 `" && echo ansible-tmp-1713531599.776785-21462-220951757926411="` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531599.776785-21462-220951757926411 `" ) && sleep 0'
+2024-04-19 17:59:59,890 p=21462 u=vagrant n=ansible | Using module file /home/vagrant/.local/lib/python3.8/site-packages/ansible/modules/yum.py
+2024-04-19 17:59:59,890 p=21462 u=vagrant n=ansible | <127.0.0.1> PUT /home/vagrant/.ansible/tmp/ansible-local-21397u8exzkla/tmp94lg7yn0 TO /home/vagrant/.ansible/tmp/ansible-tmp-1713531599.776785-21462-220951757926411/AnsiballZ_yum.py
+2024-04-19 17:59:59,891 p=21462 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/vagrant/.ansible/tmp/ansible-tmp-1713531599.776785-21462-220951757926411/ /home/vagrant/.ansible/tmp/ansible-tmp-1713531599.776785-21462-220951757926411/AnsiballZ_yum.py && sleep 0'
+2024-04-19 17:59:59,895 p=21462 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'sudo -H -S -n  -u root /bin/sh -c '"'"'echo BECOME-SUCCESS-atacmxcxstrmtdupsuovayrxwzihheqf ; /usr/local/bin/python3.8 /home/vagrant/.ansible/tmp/ansible-tmp-1713531599.776785-21462-220951757926411/AnsiballZ_yum.py'"'"' && sleep 0'
+2024-04-19 18:00:00,219 p=21462 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/vagrant/.ansible/tmp/ansible-tmp-1713531599.776785-21462-220951757926411/ > /dev/null 2>&1 && sleep 0'
+2024-04-19 18:00:00,227 p=21397 u=vagrant n=ansible | ok: [127.0.0.1] => {
+    "changed": false,
+    "invocation": {
+        "module_args": {
+            "allow_downgrade": false,
+            "autoremove": false,
+            "bugfix": false,
+            "cacheonly": false,
+            "conf_file": null,
+            "disable_excludes": null,
+            "disable_gpg_check": false,
+            "disable_plugin": [],
+            "disablerepo": [],
+            "download_dir": null,
+            "download_only": false,
+            "enable_plugin": [],
+            "enablerepo": [],
+            "exclude": [],
+            "install_repoquery": true,
+            "install_weak_deps": true,
+            "installroot": "/",
+            "list": null,
+            "lock_timeout": 30,
+            "name": [
+                "rsync",
+                "parted"
+            ],
+            "releasever": null,
+            "security": false,
+            "skip_broken": false,
+            "sslverify": true,
+            "state": "present",
+            "update_cache": false,
+            "update_only": false,
+            "use_backend": "auto",
+            "validate_certs": true
+        }
+    },
+    "msg": "",
+    "rc": 0,
+    "results": [
+        "rsync-3.1.2-12.el7_9.x86_64 providing rsync is already installed",
+        "parted-3.1-32.el7.x86_64 providing parted is already installed"
+    ]
+}
+2024-04-19 18:00:00,230 p=21397 u=vagrant n=ansible | TASK [rpm-cis : SCORED | PARTITIONS | 1.1.13 | HOME | PATCH | Ensure separate partition exists for /home] ***
+2024-04-19 18:00:00,230 p=21397 u=vagrant n=ansible | Friday 19 April 2024  18:00:00 +0500 (0:00:00.467)       0:00:01.242 ********** 
+2024-04-19 18:00:00,242 p=21488 u=vagrant n=ansible | <127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: vagrant
+2024-04-19 18:00:00,242 p=21488 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'echo ~vagrant && sleep 0'
+2024-04-19 18:00:00,247 p=21488 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/vagrant/.ansible/tmp `"&& mkdir "` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531600.2469227-21488-144108022779303 `" && echo ansible-tmp-1713531600.2469227-21488-144108022779303="` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531600.2469227-21488-144108022779303 `" ) && sleep 0'
+2024-04-19 18:00:00,309 p=21488 u=vagrant n=ansible | Using module file /home/vagrant/.local/lib/python3.8/site-packages/ansible/modules/command.py
+2024-04-19 18:00:00,310 p=21488 u=vagrant n=ansible | <127.0.0.1> PUT /home/vagrant/.ansible/tmp/ansible-local-21397u8exzkla/tmpq7mx66ac TO /home/vagrant/.ansible/tmp/ansible-tmp-1713531600.2469227-21488-144108022779303/AnsiballZ_command.py
+2024-04-19 18:00:00,310 p=21488 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/vagrant/.ansible/tmp/ansible-tmp-1713531600.2469227-21488-144108022779303/ /home/vagrant/.ansible/tmp/ansible-tmp-1713531600.2469227-21488-144108022779303/AnsiballZ_command.py && sleep 0'
+2024-04-19 18:00:00,315 p=21488 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'sudo -H -S -n  -u root /bin/sh -c '"'"'echo BECOME-SUCCESS-fyrxbayqjrwferxhdjmrcbyfbhodfgrw ; /usr/local/bin/python3.8 /home/vagrant/.ansible/tmp/ansible-tmp-1713531600.2469227-21488-144108022779303/AnsiballZ_command.py'"'"' && sleep 0'
+2024-04-19 18:00:00,428 p=21488 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'rm -f -r /home/vagrant/.ansible/tmp/ansible-tmp-1713531600.2469227-21488-144108022779303/ > /dev/null 2>&1 && sleep 0'
+2024-04-19 18:00:00,436 p=21397 u=vagrant n=ansible | ok: [127.0.0.1] => {
+    "changed": false,
+    "cmd": "mount | grep \"on /home \"",
+    "delta": "0:00:00.005784",
+    "end": "2024-04-19 18:00:00.420037",
+    "failed_when_result": false,
+    "invocation": {
+        "module_args": {
+            "_raw_params": "mount | grep \"on /home \"",
+            "_uses_shell": true,
+            "argv": null,
+            "chdir": null,
+            "creates": null,
+            "executable": null,
+            "removes": null,
+            "stdin": null,
+            "stdin_add_newline": true,
+            "strip_empty_ends": true,
+            "warn": false
+        }
+    },
+    "msg": "non-zero return code",
+    "rc": 1,
+    "start": "2024-04-19 18:00:00.414253",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "",
+    "stdout_lines": []
+}
+2024-04-19 18:00:00,439 p=21397 u=vagrant n=ansible | TASK [rpm-cis : PARTITIONS | 1.1.13 | HOME | Create /home Partition with Parted] *******************
+2024-04-19 18:00:00,439 p=21397 u=vagrant n=ansible | Friday 19 April 2024  18:00:00 +0500 (0:00:00.208)       0:00:01.451 ********** 
+2024-04-19 18:00:00,452 p=21515 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.parted to community.general.parted
+2024-04-19 18:00:00,452 p=21515 u=vagrant n=ansible | redirecting (type: modules) community.general.parted to community.general.system.parted
+2024-04-19 18:00:00,453 p=21515 u=vagrant n=ansible | <127.0.0.1> ESTABLISH LOCAL CONNECTION FOR USER: vagrant
+2024-04-19 18:00:00,453 p=21515 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'echo ~vagrant && sleep 0'
+2024-04-19 18:00:00,458 p=21515 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c '( umask 77 && mkdir -p "` echo /home/vagrant/.ansible/tmp `"&& mkdir "` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531600.457747-21515-160603370217880 `" && echo ansible-tmp-1713531600.457747-21515-160603370217880="` echo /home/vagrant/.ansible/tmp/ansible-tmp-1713531600.457747-21515-160603370217880 `" ) && sleep 0'
+2024-04-19 18:00:00,463 p=21515 u=vagrant n=ansible | redirecting (type: modules) ansible.builtin.parted to community.general.parted
+2024-04-19 18:00:00,464 p=21515 u=vagrant n=ansible | redirecting (type: modules) community.general.parted to community.general.system.parted
+2024-04-19 18:00:00,523 p=21515 u=vagrant n=ansible | Using module file /home/vagrant/.local/lib/python3.8/site-packages/ansible_collections/community/general/plugins/modules/system/parted.py
+2024-04-19 18:00:00,523 p=21515 u=vagrant n=ansible | <127.0.0.1> PUT /home/vagrant/.ansible/tmp/ansible-local-21397u8exzkla/tmp_p26grcr TO /home/vagrant/.ansible/tmp/ansible-tmp-1713531600.457747-21515-160603370217880/AnsiballZ_parted.py
+2024-04-19 18:00:00,524 p=21515 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'chmod u+x /home/vagrant/.ansible/tmp/ansible-tmp-1713531600.457747-21515-160603370217880/ /home/vagrant/.ansible/tmp/ansible-tmp-1713531600.457747-21515-160603370217880/AnsiballZ_parted.py && sleep 0'
+2024-04-19 18:00:00,529 p=21515 u=vagrant n=ansible | <127.0.0.1> EXEC /bin/sh -c 'sudo -H -S -n  -u root /bin/sh -c '"'"'echo BECOME-SUCCESS-sbwiaymialhbxmyviynkqmgvnzhrbxze ; /usr/local/bin/python3.8 /home/vagrant/.ansible/tmp/ansible-tmp-1713531600.457747-21515-160603370217880/AnsiballZ_parted.py'"'"' && sleep 0'
+2024-04-19 18:00:00,576 p=21397 u=vagrant n=ansible |  [ERROR]: User interrupted execution
+
