@@ -113,14 +113,14 @@ build {
     }
     provisioner "shell" {
         inline = ["sudo lsblk",
-                  "export PARTITIONS=${var.PARTITIONS}",
-                  "export OPENPORTS=${var.OPENPORTS}",
-                  "export LYNIS=${var.LYNIS}",
-                  "export LOCKDOWN=${var.LOCKDOWN}",
-                  "echo $PARTITIONS",
-                  "echo $OPENPORTS",
-                  "echo $LYNIS",
-                  "echo $LOCKDOWN"
+                  // "export PARTITIONS=${var.PARTITIONS}",
+                  // "export OPENPORTS=${var.OPENPORTS}",
+                  // "export LYNIS=${var.LYNIS}",
+                  // "export LOCKDOWN=${var.LOCKDOWN}",
+                  // "echo $PARTITIONS",
+                  // "echo $OPENPORTS",
+                  // "echo $LYNIS",
+                  // "echo $LOCKDOWN"
         ]
     }
     provisioner "shell" {
@@ -131,6 +131,7 @@ build {
     }
     provisioner "ansible-local" {
         playbook_file = "../ansible/rpm-playbook.yml"
+        extra_arguments = ["--extra-vars", "\"cis_partitions=${var.PARTITIONS}\""]
     }
     provisioner "shell" {
         inline = ["sudo yum remove ansible -y", "rm -rf /home/${var.username}/*"]
