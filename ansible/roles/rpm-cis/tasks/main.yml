@@ -17,7 +17,7 @@
       - always
 
 - include_tasks: section1-partitions.yml
-  when: cis_partitions|bool
+  when: "{{ cis_partitions|bool }} == 'true'"
   tags: partitions
 
 - include_tasks: section1.yml
@@ -50,15 +50,15 @@
   tags: section6
 
 - include_tasks: lynis.yml
-  when: cis_lynis|bool
+  when: cis_lynis
   tags: lynis
 
 - include_tasks: ports.yml
-  when: cis_open_ports|bool
+  when: cis_open_ports
   tags: ports
 
 - include_tasks: section99.yml
-  when: cis_section99|bool
+  when: cis_section99
   tags: lockdown
 
 
