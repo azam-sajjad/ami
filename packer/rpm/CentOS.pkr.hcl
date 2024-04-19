@@ -80,7 +80,7 @@ source "amazon-ebs" "main" {
         }
 
   tags = {
-        Name = "${var.ami_prefix}-${var.distribution}-${var.date}"
+        Name = "${var.ami_prefix}-${var.distribution}${var.version}-${var.date}"
         Permission = "Allowed"
         }
 }

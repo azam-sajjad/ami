@@ -42,9 +42,13 @@ variable "dir" {
   type    = string
   default = env("DIR")
 }
-locals {
-  username = "ec2-user"
-  distribution = "EKS"               
+variable "username" {
+  type    = string
+  default = env("USERNAME")
+}
+variable "distribution" {
+  type    = string
+  default = env("DISTRIBUTION")
 }
 ###########################################################
 

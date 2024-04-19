@@ -134,6 +134,7 @@ build {
     provisioner "ansible-local" {
         playbook_file = "../ansible/rpm-playbook.yml"
         extra_arguments = [
+          "-v",
                 "--extra-vars",
                 "cis_partitions=${var.PARTITIONS}",
                 "--extra-vars",
