@@ -15,8 +15,8 @@ pipeline {
         booleanParam defaultValue: true, description: 'Open Custom Ports for Services? (Check for Yes)', name: 'OPENPORTS'
         string defaultValue: '80', description: 'Open a Custom Port for Services', name: 'PORT1'
         string defaultValue: '443', description: 'Open a Custom Port for Services', name: 'PORT2'
-        booleanParam defaultValue: true, description: 'Harden to 85+, Run Lynis Recommended Remediations e.g. install Malware Detector (tripwire,rkhunter), More Restrictive Permissions, Restrictive Network Parameters with Sysctl which improves Score', name: 'LYNIS'
-        booleanParam defaultValue: false, description: 'Harden to 90+, Block SSH Access, Remove Keys, Only access will be AWS Session Manager!', name: 'LOCKDOWN'
+        booleanParam defaultValue: true, description: 'Harden to 80+, Run Lynis Recommended Remediations e.g. install Malware Detector (tripwire,rkhunter), More Restrictive Permissions, Restrictive Network Parameters with Sysctl which improves Score', name: 'LYNIS'
+        booleanParam defaultValue: false, description: 'Harden to 85+, Block SSH Access, Level2 sshd_config, Remove Keys, /etc/hosts.deny, Only Access = AWS Session Manager!', name: 'LOCKDOWN'
 
 }
     stages {
@@ -100,6 +100,7 @@ pipeline {
                         export DATE=`date +%d-%m-%Y`
                         export USERNAME="ec2-user"
                         echo 'PARTITIONS=$PARTITIONS'
+                        echo 'OPENPORTS=$OPENPORTS'
                         echo 'LYNIS=$LYNIS'
                         echo 'LOCKDOWN=$LOCKDOWN'
                         cd packer
@@ -134,6 +135,10 @@ pipeline {
                         export DIR=`pwd`
                         export DATE=`date +%d-%m-%Y`
                         export USERNAME="ec2-user"
+                        echo 'PARTITIONS=$PARTITIONS'
+                        echo 'OPENPORTS=$OPENPORTS'
+                        echo 'LYNIS=$LYNIS'
+                        echo 'LOCKDOWN=$LOCKDOWN'
                         cd packer
                         echo '========================= Building Amazon Linux 2023 AMI ========================='
                         /usr/bin/packer init rpm/${params.DISTRIBUTION}.pkr.hcl
