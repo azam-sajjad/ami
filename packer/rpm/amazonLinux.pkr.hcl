@@ -63,6 +63,14 @@ variable "OPENPORTS" {
   type    = string
   default = env("OPENPORTS")
 }
+variable "PORT1" {
+  type    = string
+  default = env("PORT1")
+}
+variable "PORT2" {
+  type    = string
+  default = env("PORT2")
+}
 variable "LYNIS" {
   type    = string
   default = env("LYNIS")
@@ -131,7 +139,14 @@ build {
     }
     provisioner "ansible-local" {
         playbook_file = "../ansible/rpm-playbook.yml"
-        extra_arguments = ["--extra-vars", "\"cis_partitions=${var.PARTITIONS}\""]
+        extra_arguments = ["--extra-vars", 
+                           "\"cis_partitions=${var.PARTITIONS}\"", 
+                           "\"cis_open_custom_ports=${var.OPENPORTS}\"", 
+                           "\"cis_lynis=${var.LYNIS}\"", 
+                           "\"cis_section99=${var.LOCKDOWN}\"",
+                           "\"cis_port1=${var.PORT1}\"",
+                           "\"cis_port2=${var.PORT2}\""
+                           ]
     }
     provisioner "shell" {
         inline = ["sudo yum remove ansible -y", "rm -rf /home/${var.username}/*"]

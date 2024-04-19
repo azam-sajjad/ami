@@ -4,7 +4,7 @@
     chain: INPUT
     protocol: tcp
     name: open_custom_port1
-    destination_port: "{{ lookup('env', 'PORT1') }}"
+    destination_port: "{{ cis_port1 }}"
     ctstate: NEW
     jump: ACCEPT
     comment: Allow Custom Port1
@@ -16,7 +16,7 @@
     chain: INPUT
     protocol: tcp
     name: open_custom_port2
-    destination_port: "{{ lookup('env', 'PORT2') }}"
+    destination_port: "{{ cis_port2 }}"
     ctstate: NEW
     jump: ACCEPT
     comment: Allow Custom Port2
