@@ -770,6 +770,7 @@
     enabled: true
     masked: false
     daemon_reload: true
+  no_log: true
   when:
       - cis_rule_1_3_2
   tags:
@@ -1188,8 +1189,7 @@
       - rule_1.6.2.5
 - name: restore default selinux contexts
   command: restorecon -FRv /
-- name: restore default selinux contexts
-  command: touch /.autorelabel && sync; init 6
+  no_log: true
   
 ##################################
 #         #         ######       #

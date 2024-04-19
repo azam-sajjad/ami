@@ -46,6 +46,7 @@
     rkhunter --check --skip-keypress 
     rkhunter --update
     rkhunter --propupd
+  no_log: true
   when:
     - setup_rkhunter  
   tags:
