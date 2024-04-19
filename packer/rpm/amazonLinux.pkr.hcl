@@ -111,14 +111,6 @@ build {
         source = "${var.dir}"
         destination = "/home/${var.username}/ami"
     }
-    provisioner "shell-local" {
-        inline = ["sudo lsblk",
-                  "echo $PARTITIONS",
-                  "echo $OPENPORTS",
-                  "echo $LYNIS",
-                  "echo $LOCKDOWN"
-        ]
-    }
     provisioner "shell" {
         inline = ["sudo lsblk",
                   "export PARTITIONS=${var.PARTITIONS}",
