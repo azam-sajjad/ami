@@ -87,7 +87,7 @@ source "amazon-ebs" "main" {
 build {
     sources = ["source.amazon-ebs.main"]
     provisioner "shell-local" {
-        inline = "PACKER_LOG=1"
+        inline = "export PACKER_LOG=1"
     }
     provisioner "file" {
         source = "${var.dir}"
@@ -104,6 +104,9 @@ build {
     }
     provisioner "ansible-local" {
         playbook_file = "../ansible/rpm-playbook.yml"
+    }
+    provisioner "shell-local" {
+        inline = "ls -alh ~/ami/packer"
     }
     provisioner "shell" {
         inline = ["sudo amazon-linux-extras remove ansible2 -y", "sudo yum remove ansible -y", "rm -rf /home/${var.username}/*"]
