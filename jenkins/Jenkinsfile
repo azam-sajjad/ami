@@ -10,6 +10,8 @@ pipeline {
         Debian      -> 10/11/12
         Ubuntu      -> 18/20/22
         """, name: 'VERSION'
+        string defaultValue: 'scaleops', description: 'Modify Prefix - AMI Naming Convention -> <PREFIX>-<DISTRIBUTION><VERSION>-<DATE> e.g. scaleops-amazonLinux2023-01-04-2024', name: 'AMI_PREFIX'
+        booleanParam defaultValue: true, description: 'Create Partitions? (Check for Yes)', name: 'PARTITIONS'
 }
     stages {
         stage('Clone Repository') {
@@ -91,6 +93,8 @@ pipeline {
                         export DIR=`pwd`
                         export DATE=`date +%d-%m-%Y`
                         export USERNAME="ec2-user"
+                        echo $PARTITIONS
+                        echo '$PARTITIONS'
                         cd packer
                         echo '========================= Building Amazon Linux 2023 AMI ========================='
                         /usr/bin/packer init rpm/${params.DISTRIBUTION}.pkr.hcl
