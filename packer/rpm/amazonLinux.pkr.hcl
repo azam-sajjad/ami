@@ -120,7 +120,7 @@ build {
         destination = "/home/${var.username}/ami"
     }
     provisioner "shell" {
-        inline = "sudo lsblk"
+        inline = ["sudo lsblk"]
     }
     provisioner "shell" {
         inline = ["chmod u+x /home/${var.username}/ami/scripts/rpm/${var.distribution}${var.version}.sh", "sudo bash /home/${var.username}/ami/scripts/rpm/${var.distribution}${var.version}.sh"]
