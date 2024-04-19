@@ -97,13 +97,16 @@ source "amazon-ebs" "main" {
   associate_public_ip_address = true
   ssh_interface = "public_ip"
 
-  launch_block_device_mappings {
-        device_name = "/dev/sdb"
-        volume_size = 25
-        volume_type = "gp2"
-        delete_on_termination = false
-        virtual_name = ""
-        }
+  dynamic "launch_block_device_mappings" {
+    for_each = ${var.PARTITIONS} ? [1] : []
+    content {
+      device_name           = "/dev/sdb"
+      volume_size           = 25
+      volume_type           = "gp2"
+      delete_on_termination = false
+      virtual_name          = ""
+    }
+  }
 
   tags = {
         Name = "${var.ami_prefix}-${var.distribution}${var.version}-${var.date}"
