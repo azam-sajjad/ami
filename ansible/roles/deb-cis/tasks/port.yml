@@ -1,0 +1,13 @@
+- name: "OPEN CUSTOM PORT | Allow Port"
+  iptables:
+    chain: INPUT
+    protocol: tcp
+    name: open_custom_port
+    destination_port: "{{ lookup('env', 'PORT') }}"
+    ctstate: NEW
+    jump: ACCEPT
+    comment: Allow Custom Port
+  when:
+      - open_custom_port
+  tags:
+      - open_custom_port

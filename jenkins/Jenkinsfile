@@ -11,7 +11,13 @@ pipeline {
         Ubuntu      -> 18/20/22
         """, name: 'VERSION'
         string defaultValue: 'scaleops', description: 'Modify Prefix - AMI Naming Convention -> <PREFIX>-<DISTRIBUTION><VERSION>-<DATE> e.g. scaleops-amazonLinux2023-01-04-2024', name: 'AMI_PREFIX'
-        booleanParam defaultValue: true, description: 'Create Partitions? (Check for Yes)', name: 'PARTITIONS'
+        booleanParam defaultValue: true, description: 'Create Partitions? (Check for Yes) | Creates 5G Partitions for each: /home /var /var/log /var/tmp With an Extra EBS Volume of 25G | < DOES NOT APPLY FOR ECS/EKS >', name: 'PARTITIONS'
+        booleanParam defaultValue: true, description: 'Open Custom Ports for Services? (Check for Yes)', name: 'OPENPORTS'
+        string defaultValue: '80', description: 'Open a Custom Port for Services', name: 'PORT1'
+        string defaultValue: '443', description: 'Open a Custom Port for Services', name: 'PORT2'
+        booleanParam defaultValue: true, description: 'Harden to 85+, Run Lynis Recommended Remediations e.g. install Malware Detector (tripwire,rkhunter), More Restrictive Permissions, Restrictive Network Parameters with Sysctl which improves Score', name: 'LYNIS'
+        booleanParam defaultValue: false, description: 'Harden to 90+, Block SSH Access, Remove Keys, Only access will be AWS Session Manager!', name: 'LOCKDOWN'
+
 }
     stages {
         stage('Clone Repository') {
@@ -93,6 +99,9 @@ pipeline {
                         export DIR=`pwd`
                         export DATE=`date +%d-%m-%Y`
                         export USERNAME="ec2-user"
+                        echo 'PARTITIONS=$PARTITIONS'
+                        echo 'LYNIS=$LYNIS'
+                        echo 'LOCKDOWN=$LOCKDOWN'
                         cd packer
                         echo '========================= Building Amazon Linux 2 AMI ========================='
                         /usr/bin/packer init rpm/${params.DISTRIBUTION}.pkr.hcl

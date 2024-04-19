@@ -26,6 +26,10 @@ variable "ami_id" {
   type    = string
   default = env("AMI_ID")
 }
+variable "ami_prefix" {
+  type    = string
+  default = env("AMI_PREFIX")
+}
 variable "region" {
   type    = string
   default = env("AWS_REGION")
@@ -50,7 +54,7 @@ source "amazon-ebs" "main" {
     role_arn = "arn:aws:iam::059516066038:role/central-managed-AdministratorAccess"
   }
   region = "${var.region}"
-  ami_name = "scaleops-${local.distribution}-${var.date}"
+  ami_name = "${var.ami_prefix}-${var.distribution}${var.version}-${var.date}"
   source_ami = "${var.ami_id}"
   instance_type = "t2.micro"
   ssh_username = "${local.username}"
@@ -60,9 +64,10 @@ source "amazon-ebs" "main" {
   ssh_interface = "public_ip"
 
   tags = {
-        Name = "scaleops-${local.distribution}-${var.date}"
+        Name = "${var.ami_prefix}-${var.distribution}-${var.date}"
         Permission = "Allowed"
         }
+}
 }
 ###########################################################
 
