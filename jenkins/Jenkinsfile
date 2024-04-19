@@ -268,11 +268,18 @@ pipeline {
                         export AMI_ID=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='*${params.DISTRIBUTION}-${params.VERSION}-amd*'  --query 'sort_by(Images, &Name)[-1].[ImageId]' --output text --region ${params.AWS_REGION} --owners 136693071363`
                         export DIR=`pwd`
                         export DATE=`date +%d-%m-%Y`
+                        export LINUX_FLAVOR="deb"
                         export USERNAME="admin"
+                        echo 'PARTITIONS=$PARTITIONS'
+                        echo 'LYNIS=$LYNIS'
+                        echo 'LOCKDOWN=$LOCKDOWN'
+                        echo 'OPENPORTS=$OPENPORTS'
+                        echo 'PORT1=$PORT1'
+                        echo 'PORT2=$PORT2'
                         cd packer
                         echo '========================= Building ${params.DISTRIBUTION} AMI ========================='
-                        /usr/bin/packer init deb/${params.DISTRIBUTION}.pkr.hcl
-                        /usr/bin/packer build deb/${params.DISTRIBUTION}.pkr.hcl
+                        /usr/bin/packer init aws.pkr.hcl
+                        /usr/bin/packer build aws.pkr.hcl
                         """
                     }
                 }
@@ -295,11 +302,18 @@ pipeline {
                         export AMI_ID=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='ubuntu/images/hvm-ssd/${params.DISTRIBUTION}-*-${params.VERSION}.*'  --query 'sort_by(Images, &Name)[-1].[ImageId]' --output text --region ${params.AWS_REGION} --owners 099720109477`
                         export DIR=`pwd`
                         export DATE=`date +%d-%m-%Y`
+                        export LINUX_FLAVOR="deb"
                         export USERNAME="ubuntu"
+                        echo 'PARTITIONS=$PARTITIONS'
+                        echo 'LYNIS=$LYNIS'
+                        echo 'LOCKDOWN=$LOCKDOWN'
+                        echo 'OPENPORTS=$OPENPORTS'
+                        echo 'PORT1=$PORT1'
+                        echo 'PORT2=$PORT2'
                         cd packer
                         echo '========================= Building ${params.DISTRIBUTION} AMI ========================='
-                        /usr/bin/packer init deb/${params.DISTRIBUTION}.pkr.hcl
-                        /usr/bin/packer build deb/${params.DISTRIBUTION}.pkr.hcl
+                        /usr/bin/packer init aws.pkr.hcl
+                        /usr/bin/packer build aws.pkr.hcl
                         """
                     }
                 }
