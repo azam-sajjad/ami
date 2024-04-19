@@ -3,7 +3,6 @@
   iptables:
     chain: INPUT
     protocol: tcp
-    name: open_custom_port1
     destination_port: "{{ cis_port1 }}"
     ctstate: NEW
     jump: ACCEPT
@@ -15,7 +14,6 @@
   iptables:
     chain: INPUT
     protocol: tcp
-    name: open_custom_port2
     destination_port: "{{ cis_port2 }}"
     ctstate: NEW
     jump: ACCEPT

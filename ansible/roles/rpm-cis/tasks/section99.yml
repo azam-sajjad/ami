@@ -77,7 +77,7 @@
 - name: "SECTION 99 | LOCKDOWN | Further Harden sshd_config"
   lineinfile:
     path: /etc/rsyslog.conf
-    line: *.* @@remote-host:514
+    line: '*.* @@remote-host:514'
   when:
       - cis_99_harden_rsyslog
   tags:
