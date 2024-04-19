@@ -136,17 +136,17 @@ build {
         extra_arguments = [
           "-v",
                 "--extra-vars",
-                "cis_partitions=${var.PARTITIONS}",
+                "cis_partitions: ${var.PARTITIONS}",
                 "--extra-vars",
-                "cis_open_custom_ports=${var.OPENPORTS}",
+                "cis_open_custom_ports: ${var.OPENPORTS}",
                 "--extra-vars",
-                "cis_lynis=${var.LYNIS}",
+                "cis_lynis: ${var.LYNIS}",
                 "--extra-vars",
-                "cis_section99=${var.LOCKDOWN}",
+                "cis_section99: ${var.LOCKDOWN}",
                 "--extra-vars",
-                "cis_port1=${var.PORT1}",
+                "cis_port1: ${var.PORT1}",
                 "--extra-vars",
-                "cis_port2=${var.PORT2}"
+                "cis_port2: ${var.PORT2}"
             ]
     }
     provisioner "shell" {
