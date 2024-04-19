@@ -2,14 +2,18 @@
 # defaults file for rpm-cis
 
 
+cis_partitions: true # creates partitions
 cis_section1:   true # disable unused filesystems, tmpfs, checks partitions, sudo, selinux, /etc/issue
 cis_section2:   true # services
 cis_section3:   true # iptables
 cis_section4:   true # 4.1-Auditd,4.2-logging,4.3-logrotate
 cis_section5:   true # 5.1-cron,5.2-sshd,5.3-PAM,5.4-login.defs,5.5,5.6-su
 cis_section6:   true # 6.1,2-permissions
-cis_lynis_fix:  true # Lynis recommended fixes
-cis_section99:  false # lockdown access
+cis_lynis:      true # Lynis recommended fixes
+cis_section99:  true # lockdown access
+cis_open_ports: true # Open Custom Ports
+cis_port1: ""
+cis_port2: ""
 
 reboot_machine_after_completion: false
 selinux_disable: false
@@ -583,8 +587,6 @@ setup_rkhunter_cron:
 ###########                                   ###########
 #########################################################
 cis_99_deny_ssh:       true # Deny tcp port 22 - No SSH
-cis_99_allow_http:     true # Allow tcp port 80
-cis_99_allow_https:    true # Allow tcp port 443
 cis_99_permissions:    true # 600 permissions for /etc/sudoers & /var/log/amazon/ssm/hibernate.log files
 cis_99_harden_sshd:    true # Adds a hardened block to sshd_config file
 cis_99_harden_rsyslog: true # Adds '*.* @@remote-host:514' to /etc/rsyslog.conf

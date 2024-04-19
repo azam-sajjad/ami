@@ -1,20 +1,4 @@
-#################### IPTables #####################
-- name: "SCORED | LYNIS | FIX | Ensure Enabling of iptables"
-  service:
-    name: iptables
-    state: started
-    enabled: yes
-  tags:
-    - level2
-    - lockdown
-- name: "SCORED | LYNIS | FIX | Ensure Enabling of ip6tables"
-  service:
-    name: ip6tables
-    state: started
-    enabled: yes
-  tags:
-    - level2
-    - lockdown
+#################### Iptables #####################
 - name: "SECTION 99 | LOCKDOWN | Block SSH Login"
   iptables:
     chain: "{{ item }}"
@@ -28,18 +12,6 @@
 
 ###############################################################
 
-- name: "SECTION 99 | LOCKDOWN | Remove Permissions"
-  command: "chmod 600 {{ item }}"
-  changed_when: false
-  ignore_errors: true
-  with_items:
-      - /etc/sudoers
-      - /var/log/amazon/ssm/hibernate.log
-  when:
-      - cis_99_permissions
-  tags:
-    - level2
-    - lockdown
 - name: "SECTION 99 | LOCKDOWN | Further Harden sshd_config"
   blockinfile:
     path: /etc/ssh/sshd_config
@@ -74,16 +46,6 @@
     - level2
     - lockdown
 
-
-- name: "SECTION 99 | LOCKDOWN | Further Harden sshd_config"
-  lineinfile:
-    path: /etc/rsyslog.conf
-    line: '*.* @@remote-host:514'
-  when:
-      - cis_99_harden_rsyslog
-  tags:
-    - level2
-    - lockdown
 - name: "SECTION 99 | LOCKDOWN | Further Harden hosts.deny"
   lineinfile:
     path: /etc/hosts.deny

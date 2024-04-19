@@ -4,26 +4,6 @@
 
 
 ######################## YUM ##############################################################
-# - name: "SCORED | LYNIS | FIX | Ensure Installation of epel-release repo"
-#   command: amazon-linux-extras install epel -y
-#   when:
-#     - ansible_distribution == "Amazon"
-#     - ansible_distribution_major_version == "2"
-#   tags:
-#     - level1
-#     - scored
-#     - lynis
-#   ignore_errors: yes
-# - name: "SCORED | LYNIS | FIX | Ensure Installation of epel-release repo"
-#   yum:
-#     name: epel-release 
-#     state: latest
-#   when:
-#     - ansible_distribution == "CentOS"
-#   tags:
-#     - level1
-#     - scored
-#     - lynis
 
 - name: "SCORED | LYNIS | FIX | Ensure Installation of tripwire"
   yum:
@@ -63,9 +43,9 @@
 
 - name: "SCORED | LYNIS | FIX | Ensure Update of Malware Tool: rkhunter"
   shell: |
+    rkhunter --check --skip-keypress 
     rkhunter --update
     rkhunter --propupd
-    rkhunter --check --skip-keypress 
   when:
     - setup_rkhunter  
   tags:
@@ -314,6 +294,8 @@
   lineinfile:
     path: /etc/lynis/default.prf
     line: "skip-test=NETW-2705"
+    state: present
+    create: yes
   tags:
     - level1
     - scored

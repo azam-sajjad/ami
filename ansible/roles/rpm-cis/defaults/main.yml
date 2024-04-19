@@ -587,9 +587,7 @@ setup_rkhunter_cron:
 ###########                                   ###########
 #########################################################
 cis_99_deny_ssh:       true # Deny tcp port 22 - No SSH
-cis_99_permissions:    true # 600 permissions for /etc/sudoers & /var/log/amazon/ssm/hibernate.log files
 cis_99_harden_sshd:    true # Adds a hardened block to sshd_config file
-cis_99_harden_rsyslog: true # Adds '*.* @@remote-host:514' to /etc/rsyslog.conf
 cis_99_harden_hosts:   true # Creates and adds 'All: All' line in /etc/hosts.deny file
 cis_99_remove_keys:    true # Remove authorized =_keys file from the user and root directories
 
