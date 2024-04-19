@@ -9,10 +9,10 @@ sudo apt install ansible -y
 # sudo pip3 --version
 # sudo pip3 install ansible
 ls -alh ~/
+sudo ls -alh /root
 pwd
 echo $PATH
 which ansible
-mkdir -p ~/.ansible/roles
 mkdir -p ~/.ansible/collections/ansible_collections
 ansible-galaxy collection install ansible.posix
 ansible-galaxy collection install community.general

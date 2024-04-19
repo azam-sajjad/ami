@@ -98,7 +98,7 @@ build {
         inline = ["chmod u+x /home/${var.username}/ami/scripts/deb/${var.distribution}.sh", "sudo bash /home/${var.username}/ami/scripts/deb/${var.distribution}.sh"]
     }
     provisioner "shell" {
-        inline = ["cp -r ~/ami/ansible/roles/* ~/.ansible/roles/", ""]
+        inline = ["mkdir -p ~/.ansible/roles", "cp -r ~/ami/ansible/roles/* ~/.ansible/roles/"]
     }
     provisioner "ansible-local" {
         playbook_file = "../ansible/deb-playbook.yml"
