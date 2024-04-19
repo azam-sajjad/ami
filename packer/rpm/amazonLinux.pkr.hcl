@@ -55,6 +55,23 @@ variable "version" {
   default = env("VERSION")
 }
 
+variable "PARTITIONS" {
+  type    = string
+  default = env("PARTITIONS")
+}
+variable "OPENPORTS" {
+  type    = string
+  default = env("OPENPORTS")
+}
+variable "LYNIS" {
+  type    = string
+  default = env("LYNIS")
+}
+variable "LOCKDOWN" {
+  type    = string
+  default = env("LOCKDOWN")
+}
+
 ###########################################################
 
 source "amazon-ebs" "main" {
@@ -95,7 +112,12 @@ build {
         destination = "/home/${var.username}/ami"
     }
     provisioner "shell" {
-        inline = ["sudo lsblk"]
+        inline = ["sudo lsblk",
+                  "export PARTITIONS=${var.PARTITIONS}",
+                  "export OPENPORTS=${var.OPENPORTS}",
+                  "export LYNIS=${var.LYNIS}",
+                  "export LOCKDOWN=${var.LOCKDOWN}"
+        ]
     }
     provisioner "shell" {
         inline = ["chmod u+x /home/${var.username}/ami/scripts/rpm/${var.distribution}${var.version}.sh", "sudo bash /home/${var.username}/ami/scripts/rpm/${var.distribution}${var.version}.sh"]
