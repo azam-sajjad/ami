@@ -130,13 +130,7 @@ build {
     }
     provisioner "ansible-local" {
         playbook_file = "../ansible/rpm-playbook.yml"
-        // extra_arguments = [
-        //     "-v",
-        //     "--extra-vars",
-        //     "cis_partitions=${var.PARTITIONS} cis_open_custom_ports=${var.OPENPORTS} cis_lynis=${var.LYNIS} cis_section99=${var.LOCKDOWN} cis_port1=${var.PORT1} cis_port2=${var.PORT2}"
-        // ]
-          extra_arguments = [
-                "-v",
+        extra_arguments = [
                 "--extra-vars",
                 "cis_partitions=${var.PARTITIONS}",
                 "--extra-vars",
@@ -150,7 +144,6 @@ build {
                 "--extra-vars",
                 "cis_port2=${var.PORT2}"
             ]
-
     }
     provisioner "shell" {
         inline = ["sudo yum remove ansible -y", "rm -rf /home/${var.username}/*"]
