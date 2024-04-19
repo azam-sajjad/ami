@@ -2,16 +2,16 @@
 # defaults file for rpm-cis
 
 
-cis_partitions: "{{ lookup('env', 'PARTITIONS') }}" # creates partitions
+cis_partitions: "{{ lookup('ansible.builtin.env', 'PARTITIONS')|bool }}" # creates partitions
 cis_section1:   true # disable unused filesystems, tmpfs, checks partitions, sudo, selinux, /etc/issue
 cis_section2:   true # services
 cis_section3:   true # iptables
 cis_section4:   true # 4.1-Auditd,4.2-logging,4.3-logrotate
 cis_section5:   true # 5.1-cron,5.2-sshd,5.3-PAM,5.4-login.defs,5.5,5.6-su
 cis_section6:   true # 6.1,2-permissions
-cis_lynis:      "{{ lookup('env', 'LYNIS') }}" # Lynis recommended fixes
-cis_section99:  "{{ lookup('env', 'LOCKDOWN') }}" # lockdown access
-cis_open_ports: "{{ lookup('env', 'OPENPORTS') }}" # Open Custom Ports
+cis_lynis:      "{{ lookup('ansible.builtin.env', 'LYNIS')|bool }}" # Lynis recommended fixes
+cis_section99:  "{{ lookup('ansible.builtin.env', 'LOCKDOWN')|bool }}" # lockdown access
+cis_open_ports: "{{ lookup('ansible.builtin.env', 'OPENPORTS')|bool }}" # Open Custom Ports
 
 reboot_machine_after_completion: false
 selinux_disable: false
