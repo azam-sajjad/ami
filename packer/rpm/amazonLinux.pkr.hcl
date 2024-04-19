@@ -120,16 +120,7 @@ build {
         destination = "/home/${var.username}/ami"
     }
     provisioner "shell" {
-        inline = ["sudo lsblk",
-                  // "export PARTITIONS=${var.PARTITIONS}",
-                  // "export OPENPORTS=${var.OPENPORTS}",
-                  // "export LYNIS=${var.LYNIS}",
-                  // "export LOCKDOWN=${var.LOCKDOWN}",
-                  // "echo $PARTITIONS",
-                  // "echo $OPENPORTS",
-                  // "echo $LYNIS",
-                  // "echo $LOCKDOWN"
-        ]
+        inline = "sudo lsblk"
     }
     provisioner "shell" {
         inline = ["chmod u+x /home/${var.username}/ami/scripts/rpm/${var.distribution}${var.version}.sh", "sudo bash /home/${var.username}/ami/scripts/rpm/${var.distribution}${var.version}.sh"]
@@ -140,12 +131,12 @@ build {
     provisioner "ansible-local" {
         playbook_file = "../ansible/rpm-playbook.yml"
         extra_arguments = ["--extra-vars", 
-                           "\"cis_partitions=${var.PARTITIONS}\"", 
-                           "\"cis_open_custom_ports=${var.OPENPORTS}\"", 
-                           "\"cis_lynis=${var.LYNIS}\"", 
-                           "\"cis_section99=${var.LOCKDOWN}\"",
-                           "\"cis_port1=${var.PORT1}\"",
-                           "\"cis_port2=${var.PORT2}\""
+                           "\"cis_partitions=${var.PARTITIONS}\" 
+                           \"cis_open_custom_ports=${var.OPENPORTS}\" 
+                           \"cis_lynis=${var.LYNIS}\"
+                           \"cis_section99=${var.LOCKDOWN}\"
+                           \"cis_port1=${var.PORT1}\"
+                           \"cis_port2=${var.PORT2}\""
                            ]
     }
     provisioner "shell" {
