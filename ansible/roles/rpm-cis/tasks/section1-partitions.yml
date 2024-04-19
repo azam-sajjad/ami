@@ -71,6 +71,7 @@
             dest: /mnt/init/home
             archive: true
             recursive: true
+        no_log: true
         delegate_to: "{{ inventory_hostname }}"
       - name: "PARTITIONS | 1.1.13 | HOME | Mount Partition to /mnt/init/home"
         mount:
@@ -144,6 +145,7 @@
             dest: /mnt/init/var
             archive: true
             recursive: true
+        no_log: true
         delegate_to: "{{ inventory_hostname }}"
       - name: "PARTITIONS | 1.1.6 | VAR | Mount Partition to /mnt/init/var"
         mount:
@@ -215,6 +217,7 @@
             dest: /mnt/init/log
             archive: true
             recursive: true
+        no_log: true
         delegate_to: "{{ inventory_hostname }}"
       - name: "PARTITIONS | 1.1.11 | VAR_LOG | Mount /var/log Filesystem"
         mount:
@@ -288,6 +291,7 @@
             dest: /mnt/init/tmp
             archive: true
             recursive: true
+        no_log: true
         delegate_to: "{{ inventory_hostname }}"
       - name: "PARTITIONS | 1.1.7 | VAR_TMP | Mount /var/tmp Filesystem"
         mount:
