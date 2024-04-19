@@ -2,7 +2,7 @@
 # defaults file for rpm-cis
 
 
-cis_partitions: {{ lookup('env', 'PARTITIONS') }} # creates partitions
+cis_partitions: "{{ lookup('env', 'PARTITIONS') }}" # creates partitions
 cis_section1:   true # disable unused filesystems, tmpfs, checks partitions, sudo, selinux, /etc/issue
 cis_section2:   true # services
 cis_section3:   true # iptables

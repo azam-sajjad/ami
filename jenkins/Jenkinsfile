@@ -93,10 +93,8 @@ pipeline {
                         export DIR=`pwd`
                         export DATE=`date +%d-%m-%Y`
                         export USERNAME="ec2-user"
-                        echo $PARTITIONS
-                        echo '$PARTITIONS'
                         cd packer
-                        echo '========================= Building Amazon Linux 2023 AMI ========================='
+                        echo '========================= Building Amazon Linux 2 AMI ========================='
                         /usr/bin/packer init rpm/${params.DISTRIBUTION}.pkr.hcl
                         /usr/bin/packer build rpm/${params.DISTRIBUTION}.pkr.hcl
                         """
