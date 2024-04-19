@@ -1,5 +1,5 @@
 #!/bin/bash
-# install Ansible & Lynis
+# install Ansible
 sudo yum clean all
 sudo dnf config-manager --set-enabled crb
 sudo dnf install epel-release epel-next-release
@@ -7,6 +7,6 @@ sudo yum-config-manager --enable epel
 sudo yum install ansible -y
 ansible-galaxy collection install ansible.posix
 ansible-galaxy collection install community.general
-# install ssm agent
-sudo dnf install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
-sudo systemctl enable --now amazon-ssm-agent
+sudo mkdir -p /usr/share/ansible/collections
+sudo cp -r /root/.ansible/collections/ansible_collections /usr/share/ansible/collections/
+sudo chmod -R a+rx /usr/share/ansible/collections/
