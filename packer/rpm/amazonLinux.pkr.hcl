@@ -98,7 +98,7 @@ source "amazon-ebs" "main" {
   ssh_interface = "public_ip"
 
   dynamic "launch_block_device_mappings" {
-    count = ${var.PARTITIONS} ? [1] : []
+    for_each = var.PARTITIONS ? [1] : []
     content {
       device_name           = "/dev/sdb"
       volume_size           = 25
