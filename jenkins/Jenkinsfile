@@ -99,10 +99,12 @@ pipeline {
                         export DIR=`pwd`
                         export DATE=`date +%d-%m-%Y`
                         export USERNAME="ec2-user"
-                        export 'PARTITIONS=$PARTITIONS'
-                        export 'OPENPORTS=$OPENPORTS'
-                        export 'LYNIS=$LYNIS'
-                        export 'LOCKDOWN=$LOCKDOWN'
+                        echo 'PARTITIONS=$PARTITIONS'
+                        echo 'LYNIS=$LYNIS'
+                        echo 'LOCKDOWN=$LOCKDOWN'
+                        echo 'OPENPORTS=$OPENPORTS'
+                        echo 'PORT1=$PORT1'
+                        echo 'PORT2=$PORT2'
                         cd packer
                         echo '========================= Building Amazon Linux 2 AMI ========================='
                         /usr/bin/packer init rpm/${params.DISTRIBUTION}.pkr.hcl
