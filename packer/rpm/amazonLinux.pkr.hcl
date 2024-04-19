@@ -86,9 +86,6 @@ source "amazon-ebs" "main" {
 
 build {
     sources = ["source.amazon-ebs.main"]
-    provisioner "shell-local" {
-        inline = "export PACKER_LOG=1"
-    }
     provisioner "file" {
         source = "${var.dir}"
         destination = "/home/${var.username}/ami"
