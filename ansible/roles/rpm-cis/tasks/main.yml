@@ -53,12 +53,13 @@
   when: cis_lynis
   tags: lynis
 
+- include_tasks: section99.yml
+  when: cis_section99
+  tags: lockdown
+  
 - include_tasks: ports.yml
   when: cis_open_ports
   tags: ports
 
-- include_tasks: section99.yml
-  when: cis_section99
-  tags: lockdown
 
 
