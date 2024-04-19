@@ -116,7 +116,8 @@ build {
                   "export PARTITIONS=${var.PARTITIONS}",
                   "export OPENPORTS=${var.OPENPORTS}",
                   "export LYNIS=${var.LYNIS}",
-                  "export LOCKDOWN=${var.LOCKDOWN}"
+                  "export LOCKDOWN=${var.LOCKDOWN}",
+                  "echo $PARTITIONS"
         ]
     }
     provisioner "shell" {
