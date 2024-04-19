@@ -17,7 +17,7 @@
       - always
 
 - include_tasks: section1-partitions.yml
-  when: "{{ cis_partitions|bool }} == 'true'"
+  when: " cis_partitions|bool == 'true'"
   tags: partitions
 
 - include_tasks: section1.yml
