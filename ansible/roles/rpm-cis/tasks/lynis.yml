@@ -41,7 +41,7 @@
     - scored
     - lynis
 
-- name: "SCORED | LYNIS | FIX | Ensure Update of Malware Tool: rkhunter"
+- name: "SCORED | LYNIS | FIX | Run Anti-Malware Tool: rkhunter"
   shell: |
     rkhunter --check --skip-keypress 
     rkhunter --update
@@ -314,6 +314,7 @@
     name: iptables
     state: started
     enabled: yes
+  no_log: True
   tags:
     - level1
     - scored
@@ -323,6 +324,7 @@
     name: ip6tables
     state: started
     enabled: yes
+  no_log: True
   tags:
     - level1
     - scored

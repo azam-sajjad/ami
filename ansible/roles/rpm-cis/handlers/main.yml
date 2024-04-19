@@ -10,7 +10,7 @@
       daemon_reload: false
       enabled: true
       masked: false
-      state: stopped
+      # state: stopped
   when: ansible_virtualization_type != "docker"
   ignore_errors: "{{ cis_ignore_remount_errors }}"
 
