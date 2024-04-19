@@ -70,7 +70,7 @@ source "amazon-ebs" "main" {
 build {
     sources = ["source.amazon-ebs.main"]
     provisioner "shell-local" {
-        inline = ["mkdir -p ${var.dir}/logs/${var.date}/${local.distribution}", "PACKER_LOG=1"]
+        inline = "PACKER_LOG=1"
     }
     provisioner "file" {
         source = "${var.dir}"
@@ -89,9 +89,6 @@ build {
         playbook_file = "../ansible/ecs-playbook.yml"
     }
     provisioner "shell" {
-        inline = ["chmod u+x /home/${local.username}/ami/scripts/rpm/cleanup.sh", "sudo bash /home/${local.username}/ami/scripts/rpm/cleanup.sh"]
-    }
-    provisioner "shell" {
-        inline = ["rm -rf /home/${local.username}/*"]
+        inline = ["sudo yum -y remove ansible", "rm -rf /home/${var.username}/*"]
     }
 }

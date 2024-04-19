@@ -86,7 +86,7 @@ source "amazon-ebs" "main" {
 build {
     sources = ["source.amazon-ebs.main"]
     provisioner "shell-local" {
-        inline = ["PACKER_LOG=1"]
+        inline = "PACKER_LOG=1"
     }
     provisioner "file" {
         source = "${var.dir}"
