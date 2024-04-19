@@ -141,6 +141,9 @@ pipeline {
                         export 'OPENPORTS=$OPENPORTS'
                         export 'LYNIS=$LYNIS'
                         export 'LOCKDOWN=$LOCKDOWN'
+                        export 'OPENPORTS=$OPENPORTS'
+                        echo 'PORT1=$PORT1'
+                        echo 'PORT2=$PORT2'
                         cd packer
                         echo '========================= Building Amazon Linux 2023 AMI ========================='
                         /usr/bin/packer init rpm/${params.DISTRIBUTION}.pkr.hcl
