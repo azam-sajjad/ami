@@ -130,7 +130,7 @@ build {
         inline = ["mkdir -p ~/.ansible/roles", "cp -r ~/ami/ansible/roles/* ~/.ansible/roles/"]
     }
     provisioner "ansible-local" {
-        playbook_file = "../ansible/rpm-playbook.yml -vvv"
+        playbook_file = "../ansible/rpm-playbook.yml"
     }
     provisioner "shell" {
         inline = ["sudo yum remove ansible -y", "rm -rf /home/${var.username}/*"]
