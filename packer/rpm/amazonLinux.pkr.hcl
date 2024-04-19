@@ -103,6 +103,6 @@ build {
         playbook_file = "../ansible/rpm-playbook.yml"
     }
     provisioner "shell" {
-        inline = ["sudo amazon-linux-extras remove ansible2 -y", "sudo yum remove ansible -y", "rm -rf /home/${var.username}/*"]
+        inline = ["sudo yum remove ansible -y", "rm -rf /home/${var.username}/*"]
     }
 }
