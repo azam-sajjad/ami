@@ -28,7 +28,30 @@ pipeline {
                     url: 'https://github.com/azam-sajjad/ami.git'
             }
         }
-        stage('Building ECS Image') {
+        stage('Defined Parameters') {
+            steps {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
+                    dir('packer') {
+                        sh """
+                        echo 'PARTITIONS=$PARTITIONS'
+                        echo 'LYNIS=$LYNIS'
+                        echo 'LOCKDOWN=$LOCKDOWN'
+                        echo 'OPENPORTS=$OPENPORTS'
+                        echo 'PORT1=$PORT1'
+                        echo 'PORT2=$PORT2'
+                        echo 'IPV6=$IPV6'
+                        echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
+                        cd ..
+                        export DIR=`pwd`
+                        export DATE=`date +%d-%m-%Y`
+                        export VPC_ID=`aws ec2 describe-vpcs  --vpc-ids --filters "Name=is-default,Values=true" --query "Vpcs[*].VpcId" --output text --region ${params.AWS_REGION}`
+                        export SUBNET_ID=`aws ec2 describe-subnets --filters "Name=vpc-id,Values=${env.VPC_ID}" --query "Subnets[*].SubnetId" --output text --region ${params.AWS_REGION} | awk '{print \$1}'`
+                        """
+                    }
+                }
+            }
+        }
+        stage('Build ECS Image') {
             when {
                     expression {
                         return params.DISTRIBUTION == 'ECS'
@@ -38,32 +61,15 @@ pipeline {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
                     dir('packer') {
                         sh """
-                        cd ..
-                        export VPC_ID=`aws ec2 describe-vpcs  --vpc-ids --filters "Name=is-default,Values=true" --query "Vpcs[*].VpcId" --output text --region ${params.AWS_REGION}`
-                        export SUBNET_ID=`aws ec2 describe-subnets --filters "Name=vpc-id,Values=${env.VPC_ID}" --query "Subnets[*].SubnetId" --output text --region ${params.AWS_REGION} | awk '{print \$1}'`
                         export AMI_ID=`aws ssm get-parameters --names /aws/service/ecs/optimized-ami/amazon-linux-2/recommended/image_id --region ${params.AWS_REGION} --query "Parameters[0].Value" --output text`
-                        export DIR=`pwd`
-                        export DATE=`date +%d-%m-%Y`
                         export LINUX_FLAVOR="rpm"
                         export USERNAME="ec2-user"
-                        echo 'PARTITIONS=$PARTITIONS'
-                        echo 'LYNIS=$LYNIS'
-                        echo 'LOCKDOWN=$LOCKDOWN'
-                        echo 'OPENPORTS=$OPENPORTS'
-                        echo 'PORT1=$PORT1'
-                        echo 'PORT2=$PORT2'
-                        echo 'IPV6=$IPV6'
-                        echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
-                        cd packer
-                        echo '========================= Building ${params.DISTRIBUTION} AMI ========================='
-                        /usr/bin/packer init aws.pkr.hcl
-                        /usr/bin/packer build aws.pkr.hcl
                         """
                     }
                 }
             }
         }
-        stage('Building EKS Image') {
+        stage('Build EKS Image') {
             when {
                     expression {
                         return params.DISTRIBUTION == 'EKS'
@@ -73,32 +79,15 @@ pipeline {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
                     dir('packer') {
                         sh """
-                        cd ..
-                        export VPC_ID=`aws ec2 describe-vpcs  --vpc-ids --filters "Name=is-default,Values=true" --query "Vpcs[*].VpcId" --output text --region ${params.AWS_REGION}`
-                        export SUBNET_ID=`aws ec2 describe-subnets --filters "Name=vpc-id,Values=${env.VPC_ID}" --query "Subnets[*].SubnetId" --output text --region ${params.AWS_REGION} | awk '{print \$1}'`
                         export AMI_ID=`aws ssm get-parameter --name /aws/service/eks/optimized-ami/1.29/amazon-linux-2/recommended/image_id --region ${params.AWS_REGION} --query "Parameter.Value" --output text`
-                        export DIR=`pwd`
-                        export DATE=`date +%d-%m-%Y`
                         export LINUX_FLAVOR="rpm"
                         export USERNAME="ec2-user"
-                        echo 'PARTITIONS=$PARTITIONS'
-                        echo 'LYNIS=$LYNIS'
-                        echo 'LOCKDOWN=$LOCKDOWN'
-                        echo 'OPENPORTS=$OPENPORTS'
-                        echo 'PORT1=$PORT1'
-                        echo 'PORT2=$PORT2'
-                        echo 'IPV6=$IPV6'
-                        echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
-                        cd packer
-                        echo '========================= Building ${params.DISTRIBUTION} AMI ========================='
-                        /usr/bin/packer init aws.pkr.hcl
-                        /usr/bin/packer build aws.pkr.hcl
                         """
                     }
                 }
             }
         }
-        stage('Building Amazon Linux 2 Image') {
+        stage('Build Amazon Linux 2 Image') {
             when {
                 allOf {
                     expression {
@@ -113,33 +102,16 @@ pipeline {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
                     dir('packer') {
                         sh """
-                        cd ..
-                        export VPC_ID=`aws ec2 describe-vpcs  --vpc-ids --filters "Name=is-default,Values=true" --query "Vpcs[*].VpcId" --output text --region ${params.AWS_REGION}`
-                        export SUBNET_ID=`aws ec2 describe-subnets --filters "Name=vpc-id,Values=${env.VPC_ID}" --query "Subnets[*].SubnetId" --output text --region ${params.AWS_REGION} | awk '{print \$1}'`
                         export AMI_ID_NAME_DATE=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=virtualization-type,Values=hvm Name=name,Values='amzn2-ami-kernel*'  --query 'sort_by(Images, &Name)[-1].[ImageId,Name,CreationDate]' --output text --region ${params.AWS_REGION} --owners 137112412989`
                         export AMI_ID=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=virtualization-type,Values=hvm Name=name,Values='amzn2-ami-kernel*'  --query 'sort_by(Images, &Name)[-1].[ImageId]' --output text --region ${params.AWS_REGION} --owners 137112412989`
-                        export DIR=`pwd`
-                        export DATE=`date +%d-%m-%Y`
                         export LINUX_FLAVOR="rpm"
                         export USERNAME="ec2-user"
-                        echo 'PARTITIONS=$PARTITIONS'
-                        echo 'LYNIS=$LYNIS'
-                        echo 'LOCKDOWN=$LOCKDOWN'
-                        echo 'OPENPORTS=$OPENPORTS'
-                        echo 'PORT1=$PORT1'
-                        echo 'PORT2=$PORT2'
-                        echo 'IPV6=$IPV6'
-                        echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
-                        cd packer
-                        echo '========================= Building Amazon Linux 2 AMI ========================='
-                        /usr/bin/packer init aws.pkr.hcl
-                        /usr/bin/packer build aws.pkr.hcl
                         """
                     }
                 }
             }
         }
-        stage('Building Amazon Linux 2023 Image') {
+        stage('Build Amazon Linux 2023 Image') {
             when {
                 allOf {
                     expression {
@@ -154,33 +126,16 @@ pipeline {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
                     dir('packer') {
                         sh """
-                        cd ..
-                        export VPC_ID=`aws ec2 describe-vpcs  --vpc-ids --filters "Name=is-default,Values=true" --query "Vpcs[*].VpcId" --output text --region ${params.AWS_REGION}`
-                        export SUBNET_ID=`aws ec2 describe-subnets --filters "Name=vpc-id,Values=${env.VPC_ID}" --query "Subnets[*].SubnetId" --output text --region ${params.AWS_REGION} | awk '{print \$1}'`
                         export AMI_ID_NAME_DATE=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=virtualization-type,Values=hvm Name=name,Values='al2023-ami-2023*'  --query 'sort_by(Images, &Name)[-1].[ImageId,Name,CreationDate]' --output text --region ${params.AWS_REGION} --owners 137112412989`
                         export AMI_ID=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=virtualization-type,Values=hvm Name=name,Values='al2023-ami-2023*'  --query 'sort_by(Images, &Name)[-1].[ImageId]' --output text --region ${params.AWS_REGION} --owners 137112412989`
-                        export DIR=`pwd`
-                        export DATE=`date +%d-%m-%Y`
                         export LINUX_FLAVOR="rpm"
                         export USERNAME="ec2-user"
-                        echo 'PARTITIONS=$PARTITIONS'
-                        echo 'LYNIS=$LYNIS'
-                        echo 'LOCKDOWN=$LOCKDOWN'
-                        echo 'OPENPORTS=$OPENPORTS'
-                        echo 'PORT1=$PORT1'
-                        echo 'PORT2=$PORT2'
-                        echo 'IPV6=$IPV6'
-                        echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
-                        cd packer
-                        echo '========================= Building Amazon Linux 2023 AMI ========================='
-                        /usr/bin/packer init aws.pkr.hcl
-                        /usr/bin/packer build aws.pkr.hcl
                         """
                     }
                 }
             }
         }
-        stage('Building CentOS 7 Image') {
+        stage('Build CentOS 7 Image') {
             when {
                 allOf {
                     expression {
@@ -195,33 +150,16 @@ pipeline {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
                     dir('packer') {
                         sh """
-                        cd ..
-                        export VPC_ID=`aws ec2 describe-vpcs  --vpc-ids --filters "Name=is-default,Values=true" --query "Vpcs[*].VpcId" --output text --region ${params.AWS_REGION}`
-                        export SUBNET_ID=`aws ec2 describe-subnets --filters "Name=vpc-id,Values=${env.VPC_ID}" --query "Subnets[*].SubnetId" --output text --region ${params.AWS_REGION} | awk '{print \$1}'`
                         export AMI_ID_NAME_DATE=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='*SupportedImages) - ${params.DISTRIBUTION} ${params.VERSION}*'  --query 'sort_by(Images, &Name)[-1].[ImageId,Name,CreationDate]' --output text --region ${params.AWS_REGION} --owners 679593333241`
                         export AMI_ID=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='*SupportedImages) - ${params.DISTRIBUTION} ${params.VERSION}*'  --query 'sort_by(Images, &Name)[-1].[ImageId]' --output text --region ${params.AWS_REGION} --owners 679593333241`
-                        export DIR=`pwd`
-                        export DATE=`date +%d-%m-%Y`
                         export LINUX_FLAVOR="rpm"
                         export USERNAME="centos"
-                        echo 'PARTITIONS=$PARTITIONS'
-                        echo 'LYNIS=$LYNIS'
-                        echo 'LOCKDOWN=$LOCKDOWN'
-                        echo 'OPENPORTS=$OPENPORTS'
-                        echo 'PORT1=$PORT1'
-                        echo 'PORT2=$PORT2'
-                        echo 'IPV6=$IPV6'
-                        echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
-                        cd packer
-                        echo '========================= Building ${params.DISTRIBUTION} 7 AMI ========================='
-                        /usr/bin/packer init aws.pkr.hcl
-                        /usr/bin/packer build aws.pkr.hcl
                         """
                     }
                 }
             }
         }
-        stage('Building CentOS Stream Image') {
+        stage('Build CentOS Stream Image') {
             when {
                 allOf {
                     expression {
@@ -236,27 +174,10 @@ pipeline {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
                     dir('packer') {
                         sh """
-                        cd ..
-                        export VPC_ID=`aws ec2 describe-vpcs  --vpc-ids --filters "Name=is-default,Values=true" --query "Vpcs[*].VpcId" --output text --region ${params.AWS_REGION}`
-                        export SUBNET_ID=`aws ec2 describe-subnets --filters "Name=vpc-id,Values=${env.VPC_ID}" --query "Subnets[*].SubnetId" --output text --region ${params.AWS_REGION} | awk '{print \$1}'`
                         export AMI_ID_NAME_DATE=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='${params.DISTRIBUTION}-Stream-ec2-${params.VERSION}*'  --query 'sort_by(Images, &Name)[-1].[ImageId,Name,CreationDate]' --output text --region ${params.AWS_REGION} --owners 679593333241`
                         export AMI_ID=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='${params.DISTRIBUTION}-Stream-ec2-${params.VERSION}*'  --query 'sort_by(Images, &Name)[-1].[ImageId]' --output text --region ${params.AWS_REGION} --owners 679593333241`
-                        export DIR=`pwd`
-                        export DATE=`date +%d-%m-%Y`
                         export LINUX_FLAVOR="rpm"
                         export USERNAME="ec2-user"
-                        echo 'PARTITIONS=$PARTITIONS'
-                        echo 'LYNIS=$LYNIS'
-                        echo 'LOCKDOWN=$LOCKDOWN'
-                        echo 'OPENPORTS=$OPENPORTS'
-                        echo 'PORT1=$PORT1'
-                        echo 'PORT2=$PORT2'
-                        echo 'IPV6=$IPV6'
-                        echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
-                        cd packer
-                        echo '========================= Building ${params.DISTRIBUTION} Stream AMI ========================='
-                        /usr/bin/packer init aws.pkr.hcl
-                        /usr/bin/packer build aws.pkr.hcl
                         """
                     }
                 }
@@ -264,7 +185,7 @@ pipeline {
         }
 
 
-        stage('Building Debian Image') {
+        stage('Build Debian Image') {
             when {
                 expression {
                         return params.DISTRIBUTION == 'debian'
@@ -274,33 +195,16 @@ pipeline {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
                     dir('packer') {
                         sh """
-                        cd ..
-                        export VPC_ID=`aws ec2 describe-vpcs  --vpc-ids --filters "Name=is-default,Values=true" --query "Vpcs[*].VpcId" --output text --region ${params.AWS_REGION}`
-                        export SUBNET_ID=`aws ec2 describe-subnets --filters "Name=vpc-id,Values=${env.VPC_ID}" --query "Subnets[*].SubnetId" --output text --region ${params.AWS_REGION} | awk '{print \$1}'`
                         export AMI_ID_NAME_DATE=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='*${params.DISTRIBUTION}-${params.VERSION}-amd*'  --query 'sort_by(Images, &Name)[-1].[ImageId,Name,CreationDate]' --output text --region ${params.AWS_REGION} --owners 136693071363`
                         export AMI_ID=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='*${params.DISTRIBUTION}-${params.VERSION}-amd*'  --query 'sort_by(Images, &Name)[-1].[ImageId]' --output text --region ${params.AWS_REGION} --owners 136693071363`
-                        export DIR=`pwd`
-                        export DATE=`date +%d-%m-%Y`
                         export LINUX_FLAVOR="deb"
                         export USERNAME="admin"
-                        echo 'PARTITIONS=$PARTITIONS'
-                        echo 'LYNIS=$LYNIS'
-                        echo 'LOCKDOWN=$LOCKDOWN'
-                        echo 'OPENPORTS=$OPENPORTS'
-                        echo 'PORT1=$PORT1'
-                        echo 'PORT2=$PORT2'
-                        echo 'IPV6=$IPV6'
-                        echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
-                        cd packer
-                        echo '========================= Building ${params.DISTRIBUTION} AMI ========================='
-                        /usr/bin/packer init aws.pkr.hcl
-                        /usr/bin/packer build aws.pkr.hcl
                         """
                     }
                 }
             }
         }
-        stage('Building Ubuntu Image') {
+        stage('Build Ubuntu Image') {
             when {
                 expression {
                         return params.DISTRIBUTION == 'ubuntu'
@@ -310,25 +214,21 @@ pipeline {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
                     dir('packer') {
                         sh """
-                        cd ..
-                        export VPC_ID=`aws ec2 describe-vpcs  --vpc-ids --filters "Name=is-default,Values=true" --query "Vpcs[*].VpcId" --output text --region ${params.AWS_REGION}`
-                        export SUBNET_ID=`aws ec2 describe-subnets --filters "Name=vpc-id,Values=${env.VPC_ID}" --query "Subnets[*].SubnetId" --output text --region ${params.AWS_REGION} | awk '{print \$1}'`
                         export AMI_ID_NAME_DATE=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='ubuntu/images/hvm-ssd/${params.DISTRIBUTION}-*-${params.VERSION}.*'  --query 'sort_by(Images, &Name)[-1].[ImageId,Name,CreationDate]' --output text --region ${params.AWS_REGION} --owners 099720109477`
                         export AMI_ID=`aws ec2 describe-images --filters Name=root-device-type,Values=ebs Name=architecture,Values=x86_64 Name=name,Values='ubuntu/images/hvm-ssd/${params.DISTRIBUTION}-*-${params.VERSION}.*'  --query 'sort_by(Images, &Name)[-1].[ImageId]' --output text --region ${params.AWS_REGION} --owners 099720109477`
-                        export DIR=`pwd`
-                        export DATE=`date +%d-%m-%Y`
                         export LINUX_FLAVOR="deb"
                         export USERNAME="ubuntu"
-                        echo 'PARTITIONS=$PARTITIONS'
-                        echo 'LYNIS=$LYNIS'
-                        echo 'LOCKDOWN=$LOCKDOWN'
-                        echo 'OPENPORTS=$OPENPORTS'
-                        echo 'PORT1=$PORT1'
-                        echo 'PORT2=$PORT2'
-                        echo 'IPV6=$IPV6'
-                        echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
-                        cd packer
-                        echo '========================= Building ${params.DISTRIBUTION} AMI ========================='
+                        """
+                    }
+                }
+            }
+        }
+        stage('Building AMI with Packer') {
+            steps {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
+                    dir('packer') {
+                        sh """
+                        echo '========================= Building ${params.DISTRIBUTION}${params.VERSION} AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl
                         /usr/bin/packer build aws.pkr.hcl
                         """
