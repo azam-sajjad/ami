@@ -1,76 +1,17 @@
-#################### IPTables #####################
-- name: "SCORED | LYNIS | FIX | Ensure Enabling of iptables"
-  service:
-    name: iptables
-    state: started
-    enabled: yes
-  tags:
-    - level2
-    - lockdown
-- name: "SCORED | LYNIS | FIX | Ensure Enabling of ip6tables"
-  service:
-    name: ip6tables
-    state: started
-    enabled: yes
-  tags:
-    - level2
-    - lockdown
+#################### Iptables #####################
 - name: "SECTION 99 | LOCKDOWN | Block SSH Login"
   iptables:
-    name: allow-ssh-22-NEW
-    state: absent
+    chain: "{{ item }}"
+    flush: yes
+  with_items:  [ 'INPUT', 'FORWARD', 'OUTPUT' ]
   when:
       - cis_99_deny_ssh
   tags:
     - level2
     - lockdown
-- name: "SECTION 99 | LOCKDOWN | Allow Port 80"
-  iptables:
-    chain: INPUT
-    protocol: tcp
-    name: allow_http
-    destination_port: 80
-    ctstate: NEW
-    jump: ACCEPT
-    comment: allow HTTP
-  when:
-      - cis_99_allow_http
-  tags:
-    - level2
-    - lockdown
-- name: "SECTION 99 | LOCKDOWN | Allow Port 443"
-  iptables:
-    chain: INPUT
-    protocol: tcp
-    name: allow_https
-    destination_port: 443
-    ctstate: NEW
-    jump: ACCEPT
-    comment: Allow HTTPS
-  when:
-      - cis_99_allow_https
-  tags:
-    - level2
-    - lockdown
-- name: "SCORED | LYNIS | FIX | Ensure Saving iptables rules"
-  command: service iptables save && service ip6tables save
-  tags:
-    - level2
-    - lockdown
+
 ###############################################################
 
-- name: "SECTION 99 | LOCKDOWN | Remove Permissions"
-  command: "chmod 600 {{ item }}"
-  changed_when: false
-  ignore_errors: true
-  with_items:
-      - /etc/sudoers
-      - /var/log/amazon/ssm/hibernate.log
-  when:
-      - cis_99_permissions
-  tags:
-    - level2
-    - lockdown
 - name: "SECTION 99 | LOCKDOWN | Further Harden sshd_config"
   blockinfile:
     path: /etc/ssh/sshd_config
@@ -105,16 +46,6 @@
     - level2
     - lockdown
 
-
-- name: "SECTION 99 | LOCKDOWN | Further Harden sshd_config"
-  lineinfile:
-    path: /etc/rsyslog.conf
-    line: *.* @@remote-host:514
-  when:
-      - cis_99_harden_rsyslog
-  tags:
-    - level2
-    - lockdown
 - name: "SECTION 99 | LOCKDOWN | Further Harden hosts.deny"
   lineinfile:
     path: /etc/hosts.deny
@@ -130,6 +61,7 @@
 - name: "SECTION 99 | LOCKDOWN | Remove authorized_keys file"
   file:
     path: "{{ item }}"
+    state: absent
   with_items:
       - /home/ec2-user/.ssh/authorized_keys
       - /home/centos/.ssh/authorized_keys

@@ -155,11 +155,10 @@ pipeline {
                         export DATE=`date +%d-%m-%Y`
                         export LINUX_FLAVOR="rpm"
                         export USERNAME="ec2-user"
-                        export 'PARTITIONS=$PARTITIONS'
-                        export 'OPENPORTS=$OPENPORTS'
-                        export 'LYNIS=$LYNIS'
-                        export 'LOCKDOWN=$LOCKDOWN'
-                        export 'OPENPORTS=$OPENPORTS'
+                        echo 'PARTITIONS=$PARTITIONS'
+                        echo 'LYNIS=$LYNIS'
+                        echo 'LOCKDOWN=$LOCKDOWN'
+                        echo 'OPENPORTS=$OPENPORTS'
                         echo 'PORT1=$PORT1'
                         echo 'PORT2=$PORT2'
                         cd packer
