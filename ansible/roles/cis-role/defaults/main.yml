@@ -364,10 +364,6 @@ cis_rule_3_5_3_2: true  # When cis_firewall == ufw - Ensure default deny firewal
 cis_rule_3_5_3_3: true  # When cis_firewall == ufw - Ensure rules exist for all open ports
 cis_rule_3_5_3_4: true  # When cis_firewall == ufw - Ensure loopback traffic is configured
 cis_rule_3_5_3_5: true  # When cis_firewall == ufw - Ensure outbound and established connections are configured
-# Active When cis_firewall = "firewalld"
-cis_rule_3_5_3_1: true  # When cis_firewall == firewalld - Ensure firewalld is installed and started
-cis_rule_3_5_3_2: true  # When cis_firewall == firewalld - Ensure default deny firewall policy
-cis_rule_3_5_3_3: true  # When cis_firewall == firewalld - Ensure firewall rules exist for all open ports
 # Active When cis_firewall = "nftables"
 cis_rule_3_5_4_1: true  # When cis_firewall == nftables - Ensure iptables are flushed
 cis_rule_3_5_4_2: true  # When cis_firewall == nftables - Ensure a table exists
@@ -377,6 +373,10 @@ cis_rule_3_5_4_5: true  # When cis_firewall == nftables- Ensure outbound and est
 cis_rule_3_5_4_6: true  # When cis_firewall == nftables- Ensure base chains exist for "Drop"
 cis_rule_3_5_4_7: true  # When cis_firewall == nftables- Ensure nftables service is enabled
 cis_rule_3_5_4_8: true  # When cis_firewall == nftables- Ensure nftables rules are permanent
+# Active When cis_firewall = "firewalld"
+cis_rule_3_5_5_1: true  # When cis_firewall == firewalld - Ensure firewalld is installed and started
+cis_rule_3_5_5_2: true  # When cis_firewall == firewalld - Ensure default deny firewall policy
+cis_rule_3_5_5_3: true  # When cis_firewall == firewalld - Ensure firewall rules exist for all open ports
 
 cis_rule_3_6:     false # NotScored - Ensure wireless interfaces are disabled - No Task
 cis_rule_3_7:     true  # Disable IPv6 - when cis_ipv6_required == false - NotScored - 

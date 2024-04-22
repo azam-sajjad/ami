@@ -666,94 +666,6 @@ configured"
       - rule_3.5.2.1
 
 
-########################## Firewalld
-
-
-- name: "SCORED | 3.5.3.1 | PATCH | Ensure firewalld is installed and started | CUSTOM"
-  package:
-      name: firewalld
-      state: present
-  when:
-      - cis_rule_3_5_3_1
-      - cis_firewall == "firewalld"
-      - cis_setup_firewall
-      - ansible_os_family == "RedHat"
-  tags:
-      - level1
-      - scored
-      - patch
-      - rule_3.5.3.1
-
-- name: "SCORED | 3.5.3.1 | PATCH | Ensure firewalld is installed and started | CUSTOM"
-  service:
-      name: firewalld
-      state: started
-      enabled: true
-  when:
-      - cis_rule_3_5_3_1
-      - cis_firewall == "firewalld"
-      - cis_setup_firewall
-      - ansible_os_family == "RedHat"
-  tags:
-      - level1
-      - scored
-      - patch
-      - rule_3.5.3.1
-
-- name: "SCORED | 3.5.3.2 | PATCH | Ensure default deny firewall policy | CUSTOM"
-  lineinfile:
-      dest: /etc/firewalld/firewalld.conf
-      regexp: "^DefaultZone"
-      line: "DefaultZone=drop"
-  when:
-      - cis_rule_3_5_3_2
-      - cis_firewall == "firewalld"
-      - cis_setup_firewall
-      - ansible_os_family == "RedHat"
-  tags:
-      - level1
-      - scored
-      - patch
-      - rule_3.5.3.2
-
-- name: "SCORED | 3.5.3.2 | PATCH | Ensure default deny firewall policy | CUSTOM"
-  firewalld:
-      state: enabled
-      zone: drop
-      permanent: true
-  when:
-      - cis_rule_3_5_3_2
-      - cis_firewall == "firewalld"
-      - cis_setup_firewall
-      - ansible_os_family == "RedHat"
-  tags:
-      - level1
-      - scored
-      - patch
-      - rule_3.5.3.2
-
-- name: "SCORED | 3.5.3.3 | PATCH | Ensure firewall rules exist for all open ports | CUSTOM"
-  firewalld:
-      service: "{{ item }}"
-      state: enabled
-      zone: drop
-      permanent: true
-      immediate: true
-  when:
-      - cis_rule_3_5_3_3
-      - cis_firewall == "firewalld"
-      - cis_setup_firewall
-      - ansible_os_family == "RedHat"
-  notify: restart firewalld
-  with_items: "{{ cis_firewall_services }}"
-  tags:
-      - level1
-      - scored
-      - patch
-      - rule_3.5.3.3
-
-
-
 ########################## when cis_firewall =  ufw
 
 
@@ -1072,6 +984,93 @@ configured"
       - scored
       - patch
       - rule_3.5.4.8
+
+########################## Firewalld
+
+
+- name: "SCORED | 3.5.5.1 | PATCH | Ensure firewalld is installed and started | CUSTOM"
+  package:
+      name: firewalld
+      state: present
+  when:
+      - cis_rule_3_5_5_1
+      - cis_firewall == "firewalld"
+      - cis_setup_firewall
+      - ansible_os_family == "RedHat"
+  tags:
+      - level1
+      - scored
+      - patch
+      - rule_3.5.5.1
+
+- name: "SCORED | 3.5.5.1 | PATCH | Ensure firewalld is installed and started | CUSTOM"
+  service:
+      name: firewalld
+      state: started
+      enabled: true
+  when:
+      - cis_rule_3_5_5_1
+      - cis_firewall == "firewalld"
+      - cis_setup_firewall
+      - ansible_os_family == "RedHat"
+  tags:
+      - level1
+      - scored
+      - patch
+      - rule_3.5.5.1
+
+- name: "SCORED | 3.5.5.2 | PATCH | Ensure default deny firewall policy | CUSTOM"
+  lineinfile:
+      dest: /etc/firewalld/firewalld.conf
+      regexp: "^DefaultZone"
+      line: "DefaultZone=drop"
+  when:
+      - cis_rule_3_5_5_2
+      - cis_firewall == "firewalld"
+      - cis_setup_firewall
+      - ansible_os_family == "RedHat"
+  tags:
+      - level1
+      - scored
+      - patch
+      - rule_3.5.5.2
+
+- name: "SCORED | 3.5.5.2 | PATCH | Ensure default deny firewall policy | CUSTOM"
+  firewalld:
+      state: enabled
+      zone: drop
+      permanent: true
+  when:
+      - cis_rule_3_5_5_2
+      - cis_firewall == "firewalld"
+      - cis_setup_firewall
+      - ansible_os_family == "RedHat"
+  tags:
+      - level1
+      - scored
+      - patch
+      - rule_3.5.5.2
+
+- name: "SCORED | 3.5.5.3 | PATCH | Ensure firewall rules exist for all open ports | CUSTOM"
+  firewalld:
+      service: "{{ item }}"
+      state: enabled
+      zone: drop
+      permanent: true
+      immediate: true
+  when:
+      - cis_rule_3_5_5_3
+      - cis_firewall == "firewalld"
+      - cis_setup_firewall
+      - ansible_os_family == "RedHat"
+  notify: restart firewalld
+  with_items: "{{ cis_firewall_services }}"
+  tags:
+      - level1
+      - scored
+      - patch
+      - rule_3.5.5.3
+
 ############################################################################################
 - name: "NOTSCORED | 3.7 | Disable IPv6"
   lineinfile:
