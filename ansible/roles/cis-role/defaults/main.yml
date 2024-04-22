@@ -22,7 +22,7 @@ reboot_machine_after_completion: false
 selinux_disable: false
 auditd_disable: false
 # 1.8 Apply upgrades (set to false if another patching system is in place)
-cis_apply_yum_upgrades: false
+cis_apply_upgrades: true
 
 #########################################################
 #########################################################

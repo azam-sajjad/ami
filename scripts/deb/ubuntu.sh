@@ -1,8 +1,11 @@
 #!/bin/bash
 # install Ansible and PPA
 sudo apt update && sudo apt -y upgrade
-sudo apt -y install python3-pip
-sudo apt -y install python3-virtualenv
+sudo apt -y install software-properties-common
+sudo apt-add-repository ppa:ansible/ansible
+sudo add-apt-repository -y ppa:deadsnakes/ppa
+sudo apt update && sudo apt -y upgrade
+sudo apt install python3.8 python3-virtualenv
 pip freeze
 virtualenv -p python3.8 venv-ansible
 source venv-ansible/bin/activate
