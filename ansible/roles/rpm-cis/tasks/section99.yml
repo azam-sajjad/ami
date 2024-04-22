@@ -20,6 +20,20 @@
   tags:
     - level2
     - lockdown
+####
+
+- name: "SECTION 99 | LOCKDOWN | Block SSH Login"
+  iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: 22
+    ctstate: NEW
+    syn: match
+    jump: DROP
+    comment: Reject new SSH connections
+    action: insert
+    state: absent
+    rule_num: 1
 
 - name: "SECTION 99 | LOCKDOWN | Block SSH Login"
   iptables:
@@ -65,6 +79,29 @@
     - level2
     - lockdown
 
+
+####
+- name: get current state of the firewall
+  community.general.iptables_state:
+    state: saved
+    path: /tmp/iptables
+  check_mode: true
+  changed_when: false
+  register: iptables_state
+  when:
+      - cis_99_deny_ssh
+  tags:
+    - level2
+    - lockdown
+
+- name: show current state of the firewall
+  ansible.builtin.debug:
+    var: iptables_state.initial_state
+  when:
+      - cis_99_deny_ssh
+  tags:
+    - level2
+    - lockdown
 ###############################################################
 
 - name: "SECTION 99 | LOCKDOWN | Further Harden sshd_config"

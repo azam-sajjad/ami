@@ -36,10 +36,15 @@
   command: service iptables save && service ip6tables save
 
 - name: iptables save to file
-  command: service iptables save > /etc/iptables/rules.v4
+  shell: iptables-save > /etc/iptables/rules.v4
+  become: yes
+  become_user: root
 
 - name: ip6tables save to file
-  command: service iptables save > /etc/iptables/rules.v6
+  shell: ip6tables-save > /etc/iptables/rules.v6
+  become: yes
+  become_user: root
+
 
 - name: restart enable iptables
   service:

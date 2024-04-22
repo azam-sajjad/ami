@@ -6,11 +6,10 @@
     destination_port: "{{ cis_port1 }}"
     ctstate: NEW
     jump: ACCEPT
+    action: append
     comment: Allow Custom Port1
-  when:
-    - cis_port1 is defined
-  tags:
-      - cis_open_port1
+  when: "{{ cis_port1 }}" is defined
+  tags: cis_open_port1
 
 - name: "OPEN CUSTOM PORT | Allow Port2"
   iptables:
@@ -19,8 +18,7 @@
     destination_port: "{{ cis_port2 }}"
     ctstate: NEW
     jump: ACCEPT
+    action: append
     comment: Allow Custom Port2
-  when:
-    - cis_port2 is defined
-  tags:
-      - cis_open_port2
+  when: "{{ cis_port2 }}" is defined
+  tags: cis_open_port2

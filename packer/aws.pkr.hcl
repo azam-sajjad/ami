@@ -79,6 +79,10 @@ variable "IPV6" {
   type    = string
   default = env("IPV6")
 }
+variable "SSH_SOURCE_IP" {
+  type    = string
+  default = env("SSH_SOURCE_IP")
+}
 variable "LYNIS" {
   type    = string
   default = env("LYNIS")
@@ -143,7 +147,7 @@ build {
         playbook_file = "../ansible/${var.linux_flavor}-playbook.yml"
         extra_arguments = [
                 "-v",
-                "--extra-vars", "USERNAME=${var.USERNAME}",
+                "--extra-vars", "username=${var.USERNAME}",
                 "--extra-vars", "cis_partitions=${var.PARTITIONS}",
                 "--extra-vars", "cis_open_custom_ports=${var.OPENPORTS}",
                 "--extra-vars", "cis_lynis=${var.LYNIS}",
@@ -151,6 +155,7 @@ build {
                 "--extra-vars", "cis_port1=${var.PORT1}",
                 "--extra-vars", "cis_port2=${var.PORT2}",
                 "--extra-vars", "cis_ipv6_required=${var.IPV6}"
+                "--extra-vars", "ssh_source_ip=${var.SSH_SOURCE_IP}"
             ]
     }
     provisioner "shell" {

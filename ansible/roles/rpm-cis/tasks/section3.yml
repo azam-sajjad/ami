@@ -573,26 +573,12 @@ configured"
       - rule_3.5.2.2
 
 
-- name: "NOT SCORED | 3.5.2.3 | PATCH | Ensure IPv4 outbound and established connections are
-configured"
-  block:
-      - name: IPv4 inbound and established connections
-        iptables:
-            ip_version: ipv4
-            chain: INPUT
-            # protocol: "tcp"
-            ctstate: ESTABLISHED,RELATED
-            jump: ACCEPT
-      - name: IPv4 inbound and established connections
-        iptables:
-            ip_version: ipv4
-            chain: OUTPUT
-            # protocol: tcp
-            ctstate: NEW,ESTABLISHED,RELATED
-            jump: ACCEPT
-        notify:
-            - iptables save
-
+- name: "NOT SCORED | 3.5.2.3 | PATCH | Ensure IPv4 outbound and established connections are configured"
+  iptables:
+    ip_version: ipv4
+    chain: INPUT
+    ctstate: ESTABLISHED,RELATED
+    jump: ACCEPT
   when:
       - cis_rule_3_5_2_3
       - cis_firewall == "iptables"
@@ -602,6 +588,27 @@ configured"
       - scored
       - patch
       - rule_3.5.2.3
+
+- name: "SCORED | 3.5.2.x | PATCH | Allow ssh from a Specific IP address"
+  ansible.builtin.iptables:
+    chain: INPUT
+    source: "{{ ssh_source_ip }}"
+    destination_port: 22
+    jump: ACCEPT
+    action: insert
+  become: yes
+  when:
+      - cis_rule_3_5_2_x
+      - cis_firewall == "iptables"
+      - cis_setup_firewall
+      - "{{ ssh_source_ip }}" is defined
+  notify:
+      - iptables save
+  tags:
+      - level1
+      - scored
+      - patch
+      - rule_3.5.2.x
 
 - name: "SCORED | 3.5.2.4 | PATCH | Ensure firewall rules exist for all open ports"
   iptables:

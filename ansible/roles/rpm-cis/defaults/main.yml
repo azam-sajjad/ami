@@ -14,6 +14,7 @@ cis_section99:  true # ENV Variable - LOCKDOWN  - lockdown access
 cis_open_ports: true # ENV Variable - OPENPORTS - Open Custom Ports
 cis_port1: ""        # ENV Variable - PORT1
 cis_port2: ""        # ENV Variable - PORT2 
+ssh_source_ip: ""    # ENV Variable - SSH_SOURCE_IP
 
 # IPv6 required
 cis_ipv6_required: false # ENV Variable - IPV6
@@ -354,6 +355,7 @@ cis_rule_3_5_2_1: false # iptables Ensure default deny firewall policy
 cis_rule_3_5_2_2: true  # Ensure IPv4 loopback traffic is configured
 cis_rule_3_5_2_3: true  # NotScored Ensure IPv4 outbound & est. connections are configured
 cis_rule_3_5_2_4: true  # Ensure firewall rules exist for all open ports e.g. 22
+cis_rule_3_5_2_x: true  # Allow ssh from a Specific IP address
 cis_rule_3_5_3_1: true  # When cis_firewall == firewalld - Ensure firewalld is installed and started
 cis_rule_3_5_3_2: true  # When cis_firewall == firewalld - Ensure default deny firewall policy
 cis_rule_3_5_3_3: true  # When cis_firewall == firewalld - Ensure firewall rules exist for all open ports
@@ -591,7 +593,7 @@ cis_99_harden_sshd:    true # Adds a hardened block to sshd_config file
 cis_99_harden_hosts:   true # Creates and adds 'All: All' line in /etc/hosts.deny file
 cis_99_remove_keys:    true # Remove authorized =_keys file from the user and root directories
 authorized_keys_file_location:
-  - /home/{{ USERNAME }}/.ssh/authorized_keys
+  - /home/{{ username }}/.ssh/authorized_keys
   - /root/.ssh/authorized_keys
 
 #########################################################
