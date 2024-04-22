@@ -25,7 +25,6 @@
   iptables:
     ip_version: ipv4
     chain: "{{ item }}"
-    flush: yes
     policy: DROP
   with_items:  [ 'INPUT', 'FORWARD', 'OUTPUT' ]
   when:
@@ -37,7 +36,6 @@
   iptables:
       ip_version: ipv6
       chain: "{{ item }}"
-      flush: yes
       policy: DROP
   with_items:  [ 'INPUT', 'FORWARD', 'OUTPUT' ]
   when:
@@ -119,10 +117,7 @@
   file:
     path: "{{ item }}"
     state: absent
-  with_items:
-      - /home/ec2-user/.ssh/authorized_keys
-      - /home/centos/.ssh/authorized_keys
-      - /root/.ssh/authorized_keys
+  with_items: "{{ authorized_keys_file_location }}"
   when:
       - cis_99_remove_keys
   tags:

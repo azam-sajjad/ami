@@ -14,8 +14,8 @@ pipeline {
         booleanParam defaultValue: true, description: '< MAY BE UNCHECKED FOR ECS/EKS node > Create Partitions? (Check for Yes) | Creates 5G Partitions for each: /home /var /var/log /var/tmp With an Extra EBS Volume of 25G', name: 'PARTITIONS'
         booleanParam defaultValue: false, description: 'Enable IPv6? (Check for Yes)', name: 'IPV6'
         booleanParam defaultValue: true, description: 'Open Custom Ports for Services? (Check for Yes)', name: 'OPENPORTS'
-        string defaultValue: '80', description: 'Open a Custom Port for Services', name: 'PORT1'
-        string defaultValue: '443', description: 'Open a Custom Port for Services', name: 'PORT2'
+        string defaultValue: '443', description: 'Open a Custom Port for Services', name: 'PORT1'
+        string defaultValue: '80', description: 'Open a Custom Port for Services', name: 'PORT2'
         booleanParam defaultValue: true, description: 'Harden to 80+, Run Lynis Recommended Remediations e.g. install Malware Detector (tripwire,rkhunter), More Restrictive Permissions, Restrictive Network Parameters with Sysctl which improves Score', name: 'LYNIS'
         booleanParam defaultValue: true, description: 'Harden to 83+, Block SSH Access, Level2 sshd_config, Remove Keys, /etc/hosts.deny, Only Access = AWS Session Manager!', name: 'LOCKDOWN'
 

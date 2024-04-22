@@ -46,7 +46,7 @@ variable "dir" {
   type    = string
   default = env("DIR")
 }
-variable "username" {
+variable "USERNAME" {
   type    = string
   default = env("USERNAME")
 }
@@ -99,7 +99,7 @@ source "amazon-ebs" "main" {
   ami_name = "${var.ami_prefix}-${var.distribution}${var.version}-${var.date}"
   source_ami = "${var.ami_id}"
   instance_type = "t2.micro"
-  ssh_username = "${var.username}"
+  ssh_username = "${var.USERNAME}"
   vpc_id = "${var.vpc_id}"
   subnet_id = "${var.subnet_id}"
   associate_public_ip_address = true
@@ -128,13 +128,13 @@ build {
     sources = ["source.amazon-ebs.main"]
     provisioner "file" {
         source = "${var.dir}"
-        destination = "/home/${var.username}/ami"
+        destination = "/home/${var.USERNAME}/ami"
     }
     provisioner "shell" {
         inline = ["sudo lsblk"]
     }
     provisioner "shell" {
-        inline = ["chmod u+x /home/${var.username}/ami/scripts/${var.linux_flavor}/${var.distribution}.sh", "sudo bash /home/${var.username}/ami/scripts/${var.linux_flavor}/${var.distribution}.sh"]
+        inline = ["chmod u+x /home/${var.USERNAME}/ami/scripts/${var.linux_flavor}/${var.distribution}.sh", "sudo bash /home/${var.USERNAME}/ami/scripts/${var.linux_flavor}/${var.distribution}.sh"]
     }
     provisioner "shell" {
         inline = ["mkdir -p ~/.ansible/roles", "cp -r ~/ami/ansible/roles/* ~/.ansible/roles/"]
@@ -143,6 +143,7 @@ build {
         playbook_file = "../ansible/${var.linux_flavor}-playbook.yml"
         extra_arguments = [
                 "-v",
+                "--extra-vars", "USERNAME=${var.USERNAME}",
                 "--extra-vars", "cis_partitions=${var.PARTITIONS}",
                 "--extra-vars", "cis_open_custom_ports=${var.OPENPORTS}",
                 "--extra-vars", "cis_lynis=${var.LYNIS}",
@@ -153,9 +154,9 @@ build {
             ]
     }
     provisioner "shell" {
-        inline = ["chmod u+x /home/${var.username}/ami/scripts/cleanup/${var.linux_flavor}.sh", "sudo bash /home/${var.username}/ami/scripts//cleanup/${var.linux_flavor}.sh"]
+        inline = ["chmod u+x /home/${var.USERNAME}/ami/scripts/cleanup/${var.linux_flavor}.sh", "sudo bash /home/${var.USERNAME}/ami/scripts//cleanup/${var.linux_flavor}.sh"]
     }
     provisioner "shell" {
-        inline = ["rm -rf /home/${var.username}/*"]
+        inline = ["rm -rf /home/${var.USERNAME}/*"]
     }
 }

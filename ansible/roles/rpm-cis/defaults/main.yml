@@ -590,7 +590,9 @@ cis_99_deny_ssh:       true # Deny tcp port 22 - No SSH
 cis_99_harden_sshd:    true # Adds a hardened block to sshd_config file
 cis_99_harden_hosts:   true # Creates and adds 'All: All' line in /etc/hosts.deny file
 cis_99_remove_keys:    true # Remove authorized =_keys file from the user and root directories
-
+authorized_keys_file_location:
+  - /home/{{ USERNAME }}/.ssh/authorized_keys
+  - /root/.ssh/authorized_keys
 
 #########################################################
 ###########                                   ###########
