@@ -12,6 +12,7 @@ pipeline {
         """, name: 'VERSION'
         string defaultValue: 'scaleops', description: 'Modify Prefix - AMI Naming Convention -> <PREFIX>-<DISTRIBUTION><VERSION>-<DATE> e.g. scaleops-amazonLinux2023-01-04-2024', name: 'AMI_PREFIX'
         booleanParam defaultValue: true, description: '< MAY BE UNCHECKED FOR ECS/EKS node > Create Partitions? (Check for Yes) | Creates 5G Partitions for each: /home /var /var/log /var/tmp With an Extra EBS Volume of 25G', name: 'PARTITIONS'
+        booleanParam defaultValue: true, description: 'Enable IPv6? (Check for Yes)', name: 'IPV6'
         booleanParam defaultValue: true, description: 'Open Custom Ports for Services? (Check for Yes)', name: 'OPENPORTS'
         string defaultValue: '80', description: 'Open a Custom Port for Services', name: 'PORT1'
         string defaultValue: '443', description: 'Open a Custom Port for Services', name: 'PORT2'
@@ -50,6 +51,7 @@ pipeline {
                         echo 'OPENPORTS=$OPENPORTS'
                         echo 'PORT1=$PORT1'
                         echo 'PORT2=$PORT2'
+                        echo 'IPV6=$IPV6'
                         cd packer
                         echo '========================= Building ${params.DISTRIBUTION} AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl
@@ -83,6 +85,7 @@ pipeline {
                         echo 'OPENPORTS=$OPENPORTS'
                         echo 'PORT1=$PORT1'
                         echo 'PORT2=$PORT2'
+                        echo 'IPV6=$IPV6'
                         cd packer
                         echo '========================= Building ${params.DISTRIBUTION} AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl
@@ -122,6 +125,7 @@ pipeline {
                         echo 'OPENPORTS=$OPENPORTS'
                         echo 'PORT1=$PORT1'
                         echo 'PORT2=$PORT2'
+                        echo 'IPV6=$IPV6'
                         cd packer
                         echo '========================= Building Amazon Linux 2 AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl
@@ -161,6 +165,7 @@ pipeline {
                         echo 'OPENPORTS=$OPENPORTS'
                         echo 'PORT1=$PORT1'
                         echo 'PORT2=$PORT2'
+                        echo 'IPV6=$IPV6'
                         cd packer
                         echo '========================= Building Amazon Linux 2023 AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl
@@ -200,6 +205,7 @@ pipeline {
                         echo 'OPENPORTS=$OPENPORTS'
                         echo 'PORT1=$PORT1'
                         echo 'PORT2=$PORT2'
+                        echo 'IPV6=$IPV6'
                         cd packer
                         echo '========================= Building ${params.DISTRIBUTION} 7 AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl
@@ -239,6 +245,7 @@ pipeline {
                         echo 'OPENPORTS=$OPENPORTS'
                         echo 'PORT1=$PORT1'
                         echo 'PORT2=$PORT2'
+                        echo 'IPV6=$IPV6'
                         cd packer
                         echo '========================= Building ${params.DISTRIBUTION} Stream AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl
@@ -275,6 +282,7 @@ pipeline {
                         echo 'OPENPORTS=$OPENPORTS'
                         echo 'PORT1=$PORT1'
                         echo 'PORT2=$PORT2'
+                        echo 'IPV6=$IPV6'
                         cd packer
                         echo '========================= Building ${params.DISTRIBUTION} AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl
@@ -309,6 +317,7 @@ pipeline {
                         echo 'OPENPORTS=$OPENPORTS'
                         echo 'PORT1=$PORT1'
                         echo 'PORT2=$PORT2'
+                        echo 'IPV6=$IPV6'
                         cd packer
                         echo '========================= Building ${params.DISTRIBUTION} AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl

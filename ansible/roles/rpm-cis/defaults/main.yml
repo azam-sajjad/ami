@@ -15,6 +15,8 @@ cis_open_ports: true # ENV Variable - OPENPORTS - Open Custom Ports
 cis_port1: ""        # ENV Variable - PORT1
 cis_port2: ""        # ENV Variable - PORT2 
 
+# IPv6 required
+cis_ipv6_required: false # ENV Variable - IPV6
 reboot_machine_after_completion: false
 selinux_disable: false
 auditd_disable: false
@@ -323,8 +325,6 @@ cis_setup_firewall: true
 # cis_firewall: firewalld
 cis_firewall: iptables
 
-# IPv6 required
-cis_ipv6_required: false
 
 # Section 3 rules
 cis_rule_3_1_1:   true  # Ensure IP forwarding is disabled

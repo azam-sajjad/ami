@@ -75,6 +75,10 @@ variable "PORT2" {
   type    = string
   default = env("PORT2")
 }
+variable "IPV6" {
+  type    = string
+  default = env("IPV6")
+}
 variable "LYNIS" {
   type    = string
   default = env("LYNIS")
@@ -144,7 +148,8 @@ build {
                 "--extra-vars", "cis_lynis=${var.LYNIS}",
                 "--extra-vars", "cis_section99=${var.LOCKDOWN}",
                 "--extra-vars", "cis_port1=${var.PORT1}",
-                "--extra-vars", "cis_port2=${var.PORT2}"
+                "--extra-vars", "cis_port2=${var.PORT2}",
+                "--extra-vars", "cis_ipv6_required=${var.IPV6}"
             ]
     }
     provisioner "shell" {
