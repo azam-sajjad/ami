@@ -5,10 +5,12 @@ sudo apt -y update
 # sudo apt-add-repository ppa:ansible/ansible
 # sudo apt -y update
 sudo apt-get -y install ansible
-sudo apt-get install python3 python3-pip -y
+# sudo apt-get install python3 python3-pip -y
 ansible --version
-ansible-galaxy collection install ansible.posix
-ansible-galaxy collection install community.general
+which ansible
+sudo ls -alh /root/.ansible/collections
+sudo ansible-galaxy collection install community.general
+sudo ansible-galaxy collection install ansible.posix
 sudo mkdir -p /usr/share/ansible/collections
 sudo cp -r /root/.ansible/collections/ansible_collections /usr/share/ansible/collections/
 sudo chmod -R a+rx /usr/share/ansible/collections/
