@@ -5,9 +5,9 @@ sudo apt -y install software-properties-common
 sudo apt-add-repository ppa:ansible/ansible
 sudo apt update
 sudo apt install ansible -y
-# sudo apt -y install python3.8 python3-pip
-# sudo pip3 --version
-# sudo pip3 install ansible
+sudo apt -y install python3.8 python3-pip
+pip3 --version
+pip3 install ansible
 ls -alh ~/
 sudo ls -alh /root
 pwd
