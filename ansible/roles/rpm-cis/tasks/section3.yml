@@ -601,7 +601,7 @@ configured"
       - cis_rule_3_5_2_x
       - cis_firewall == "iptables"
       - cis_setup_firewall
-      - "{{ ssh_source_ip }}" is defined
+      - \"{{ ssh_source_ip }}\" is defined
   notify:
       - iptables save
   tags:
