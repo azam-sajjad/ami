@@ -129,7 +129,7 @@ cis_rule_1_3_y:   true  # Ensure sudo log file exists (Scored)
 cis_rule_1_4_1:   true  # Ensure permissions on bootloader config are configured (Scored) 
 cis_rule_1_4_2:   true  # Ensure bootloader password is set (Scored) 
 cis_rule_1_4_2_disable_password: true
-cis_rule_1_4_3:   true  # Ensure authentication required for single user mode (Scored) 
+cis_rule_1_4_3:   false  # Ensure authentication required for single user mode (Scored) 
 cis_rule_1_4_4:   true  # Ensure interactive boot is not enabled (Not Scored) 
 # Additional Process Hardening 
 cis_rule_1_5_1:   true  # Ensure core dumps are restricted (Scored) 
@@ -323,9 +323,10 @@ cis_firewall_services:
 ### Firewall
 cis_setup_firewall: true
 
-# cis_firewall: firewalld
-cis_firewall: iptables
-
+cis_firewall: iptables    # When Enabled - Runs all tasks of cis_rule_3_5_1-2_...
+# cis_firewall: firewalld # When Enabled - Runs all tasks of cis_rule_3_5_3_...
+# cis_firewall: ufw       # When Enabled - Runs all tasks of cis_rule_3_5_3_...
+# cis_firewall: nftables  # When Enabled - Runs all tasks of cis_rule_3_5_4_...
 
 # Section 3 rules
 cis_rule_3_1_1:   true  # Ensure IP forwarding is disabled
@@ -348,6 +349,7 @@ cis_rule_3_4_1:   true  # Ensure DCCP is disabled
 cis_rule_3_4_2:   true  # Ensure SCTP is disabled
 cis_rule_3_4_3:   true  # Ensure RDS is disabled
 cis_rule_3_4_4:   true  # Ensure TIPC is disabled
+# Active When cis_firewall = "iptables"
 cis_rule_3_5_1_1: true  # ip6tables Ensure default deny firewall policy
 cis_rule_3_5_1_2: true  # Ensure IPv6 loopback traffic is configured
 cis_rule_3_5_1_3: false # NotScored Ensure IPv6 outbound & est. connections are configured
@@ -356,11 +358,29 @@ cis_rule_3_5_2_2: true  # Ensure IPv4 loopback traffic is configured
 cis_rule_3_5_2_3: true  # NotScored Ensure IPv4 outbound & est. connections are configured
 cis_rule_3_5_2_4: true  # Ensure firewall rules exist for all open ports e.g. 22
 cis_rule_3_5_2_x: true  # Allow ssh from a Specific IP address
+# Active When cis_firewall = "ufw"
+cis_rule_3_5_3_1: true  # When cis_firewall == ufw - Ensure firewall is installed and started
+cis_rule_3_5_3_2: true  # When cis_firewall == ufw - Ensure default deny firewall policy
+cis_rule_3_5_3_3: true  # When cis_firewall == ufw - Ensure rules exist for all open ports
+cis_rule_3_5_3_4: true  # When cis_firewall == ufw - Ensure loopback traffic is configured
+cis_rule_3_5_3_5: true  # When cis_firewall == ufw - Ensure outbound and established connections are configured
+# Active When cis_firewall = "firewalld"
 cis_rule_3_5_3_1: true  # When cis_firewall == firewalld - Ensure firewalld is installed and started
 cis_rule_3_5_3_2: true  # When cis_firewall == firewalld - Ensure default deny firewall policy
 cis_rule_3_5_3_3: true  # When cis_firewall == firewalld - Ensure firewall rules exist for all open ports
-cis_rule_3_6:     false # NotScored - Ensure wireless interfaces are disabled
+# Active When cis_firewall = "nftables"
+cis_rule_3_5_4_1: true  # When cis_firewall == nftables - Ensure iptables are flushed
+cis_rule_3_5_4_2: true  # When cis_firewall == nftables - Ensure a table exists
+cis_rule_3_5_4_3: true  # When cis_firewall == nftables - Ensure base chains exist
+cis_rule_3_5_4_4: true  # When cis_firewall == nftables - Ensure loopback traffic is configured
+cis_rule_3_5_4_5: true  # When cis_firewall == nftables- Ensure outbound and established connections are configured
+cis_rule_3_5_4_6: true  # When cis_firewall == nftables- Ensure base chains exist for "Drop"
+cis_rule_3_5_4_7: true  # When cis_firewall == nftables- Ensure nftables service is enabled
+cis_rule_3_5_4_8: true  # When cis_firewall == nftables- Ensure nftables rules are permanent
+
+cis_rule_3_6:     false # NotScored - Ensure wireless interfaces are disabled - No Task
 cis_rule_3_7:     true  # Disable IPv6 - when cis_ipv6_required == false - NotScored - 
+
 
 
 

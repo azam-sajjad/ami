@@ -21,6 +21,8 @@
       - scored
       - partitions
 
+
+
 ##################################################################################################    
 - name: "SCORED | PARTITIONS | 1.1.13 | HOME | PATCH | Ensure separate partition exists for /home"
   shell: mount | grep "on /home "

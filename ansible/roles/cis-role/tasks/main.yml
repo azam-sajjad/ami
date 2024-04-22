@@ -5,7 +5,7 @@
   fail:
       msg: "This role can only be run agaist CentOS/RPM Distros. {{ ansible_distribution }} {{ ansible_distribution_major_version }} is not supported."
   when:
-      - not ansible_os_family == "RedHat"
+      - ansible_os_family == "RedHat"
   tags:
       - always
 
@@ -49,9 +49,17 @@
   when: cis_section6
   tags: section6
 
-- include_tasks: lynis.yml
-  when: cis_lynis|d(true)|bool
-  tags: lynis
+- include_tasks: rpm-lynis.yml
+  when: 
+    - cis_lynis|d(true)|bool
+    - ansible_os_family == "RedHat"
+  tags: rpm-lynis
+
+- include_tasks: deb-lynis.yml
+  when: 
+    - cis_lynis|d(true)|bool
+    - ansible_os_family == "Debian"
+  tags: deb-lynis
 
 - include_tasks: section99.yml
   when: cis_section99|d(false)|bool

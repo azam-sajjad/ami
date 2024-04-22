@@ -3,6 +3,16 @@
   yum:
     update_cache: true
     state: present
+  when:
+    - ansible_os_family == "RedHat"
+  changed_when: false
+
+- name: "PRELIM | Run apt cache update"
+  apt:
+    update_cache: true
+    state: present
+  when:
+    - ansible_os_family == "Debian"
   changed_when: false
 #################################
 #         #           #         #
@@ -612,7 +622,7 @@
 
 
 - name: "SCORED | 1.3.1 | PATCH | Ensure AIDE is installed"
-  yum:
+  package:
       name: aide
       state: present
   when:
@@ -623,7 +633,20 @@
       - aide
       - patch
       - rule_1.3.1
-
+- name: "SCORED | 1.3.1 | PATCH | Ensure AIDE is installed"
+  apt:
+    name: aide-common
+    state: present
+    install_recommends: false
+  when:
+    - ansible_os_family == "Debian"
+    - cis_rule_1_3_1
+  tags:
+      - level1
+      - scored
+      - aide
+      - patch
+      - rule_1.3.1
 - name: "SCORED | 1.3.1 | PATCH | Create AIDE log directory"
   file: 
     state: directory
@@ -1012,7 +1035,7 @@
       - rule_1.5.1
 
 - name: "SCORED | 1.5.1 | PATCH | Ensure systemd-coredump is installed"
-  yum:
+  package:
     name: systemd-coredump
     state: present
   notify: restart systemd-coredump
@@ -1094,7 +1117,7 @@
       - rule_1.5_4
 
 - name: "SCORED | 1.5.4 | PATCH | Ensure prelink is disabled"
-  yum:
+  package:
       name: prelink
       state: absent
   when:
@@ -1190,7 +1213,81 @@
 - name: restore default selinux contexts
   command: restorecon -FRv /
   no_log: true
-  
+
+
+# For this playbook to work, you must have the ansible-collection-ansible-posix package installed locally on Ansible Master Node.
+- name: "SCORED | 1.6.1.1 | PATCH | Ensure AppArmor is installed"
+  apt:
+    name: '{{ item }}'
+    state: present
+  with_items:
+    - apparmor
+    - apparmor-utils
+  when:
+      - cis_rule_1_6_1_1
+      - ansible_os_family == "Debian"
+  ignore_errors: true
+  tags:
+      - level1
+      - scored
+      - patch
+      - rule_1.6.1.1
+
+- name: "SCORED | 1.6.2.1 | PATCH | Ensure AppArmor is enabled in the bootloader configuration"
+  command: /bin/true
+  changed_when: false
+  when:
+      - cis_rule_1_6_2_1
+      - ansible_os_family == "Debian"
+  tags:
+      - level1
+      - scored
+      - patch
+      - rule_1.6.2.1
+      - notimplemented
+
+- name: "SCORED | 1.6.2.2 | PATCH | Ensure all AppArmor Profiles are in enforce or complain mode"
+  command: /bin/true
+  changed_when: false
+  when:
+      - cis_rule_1_6_2_2
+      - ansible_os_family == "Debian"
+  tags:
+      - level1
+      - scored
+      - patch
+      - rule_1.6.2.2
+      - notimplemented
+
+- name: "SCORED | 1.6.2.4 | PATCH | Ensure SETroubleshoot is not installed"
+  apt:
+      name: setroubleshoot
+      state: absent
+  when:
+      - cis_rule_1_6_2_4
+      - ansible_os_family == "Debian"
+  ignore_errors: true
+  tags:
+      - level1
+      - scored
+      - patch
+      - rule_1.6.2.4
+
+- name: "SCORED | 1.6.2.5 | PATCH | Ensure the MCS Translation Service (mcstrans) is not installed"
+  apt:
+      name: mcstrans
+      state: absent
+  when:
+      - cis_rule_1_6_2_5
+      - ansible_os_family == "Debian"
+  ignore_errors: true
+  tags:
+      - level1
+      - scored
+      - patch
+      - rule_1.6.2.5
+
+
 ##################################
 #         #         ######       #
 #       # #             #        #
@@ -1301,12 +1398,23 @@
   yum:
     name: '*'
     state: latest
-
   when:
-      - cis_apply_yum_upgrades
+    - ansible_os_family == "RedHat"
+    - cis_apply_upgrades
   tags:
       - level1
       - notscored
       - patch
       - rule_1.8
       
+- name: "NOTSCORED | 1.8 | PATCH | Ensure updates, patches, and additional security software are installed"
+  apt:
+    update_cache: true
+  changed_when: false
+  when:
+    - ansible_os_family == "Debian"
+    - cis_apply_upgrades
+  tags:
+      - level1
+      - scored
+      - partitions

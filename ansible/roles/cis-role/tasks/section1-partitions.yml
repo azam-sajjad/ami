@@ -1,17 +1,17 @@
 ---
-- name: "PRELIM | Run yum cache update"
-  yum:
+- name: "PRELIM | Run package cache update"
+  package:
     update_cache: true
   changed_when: false
   when:
-      - cis_apply_yum_upgrades
+      - cis_apply_upgrades
   tags:
       - level1
       - scored
       - partitions
       
 - name: "PRELIM | Install Rsync and Parted"
-  yum:
+  package:
     name: 
       - rsync
       - parted

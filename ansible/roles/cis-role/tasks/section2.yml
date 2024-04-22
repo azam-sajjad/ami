@@ -278,7 +278,7 @@
       - rule_2.1.10
 
 - name: "SCORED | 2.1.11 | PATCH | Ensure openbsd-inetd is not installed"
-  yum:
+  package:
     name: openbsd-inetd
     state: absent
   when:
@@ -293,13 +293,13 @@
 - name: "SCORED | 2.2.1.1 | PATCH | Ensure time synchronization is in use"
   block:
       - name: "SCORED | 2.2.1.1 | PATCH | Ensure time synchronization is in use - service install"
-        yum:
+        package:
             name: "{{ cis_time_synchronization }}"
             state: present
 
       - name: "SCORED | 2.2.1.1 | PATCH | Ensure time synchronization is in use - service start"
         service:
-            name: "{{ chrony_service['RedHat'] }}"
+            name: "{{ chrony_service[ansible_os_family] }}"
             state: started
             enabled: true
 
@@ -396,7 +396,7 @@
       - rule_2.2.1.4
 
 - name: "SCORED | 2.2.2 | PATCH | Ensure X Window System is not installed"
-  yum:
+  package:
       name:
         - "xorg"
         - "x11*"
@@ -685,7 +685,7 @@
       - rule_2.2.17
 
 - name: "SCORED | 2.3.1 | PATCH | Ensure NIS Client is not installed"
-  yum:
+  package:
       name: yp-tools
       state: absent
   when:
@@ -698,7 +698,7 @@
       - rule_2.3.1
 
 - name: "SCORED | 2.3.2 | PATCH | Ensure rsh client is not installed"
-  yum:
+  package:
       name: rsh
       state: absent
   when:
@@ -711,7 +711,7 @@
       - rule_2.3.2
 
 - name: "SCORED | 2.3.3 | PATCH | Ensure talk client is not installed"
-  yum:
+  package:
       name: talk
       state: absent
   when:
@@ -724,7 +724,7 @@
       - rule_2.3.3
 
 - name: "SCORED | 2.3.4 | PATCH | Ensure telnet client is not installed"
-  yum:
+  package:
       name: telnet
       state: absent
   when:
@@ -737,7 +737,7 @@
       - rule_2.3.4
 
 - name: "SCORED | 2.3.5 | PATCH | Ensure LDAP client is not installed"
-  yum:
+  package:
       name: ldap-utils
       state: absent
   when:

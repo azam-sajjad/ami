@@ -250,7 +250,7 @@
       - rule_3.2.9
 
 - name: "NOTSCORED | 3.3.1 | PATCH | Ensure TCP Wrappers is installed"
-  yum:
+  package:
       name: "{{ tcp_wrapper_package[ansible_os_family] }}"
       state: present
   when:
@@ -374,7 +374,7 @@
 - name: "SCORED | 3.5.1 | PATCH | Ensure a Firewall package is installed | firewalld(CUSTOM),nftables,iptables"
   block:
       - name: "SCORED | 3.5.1 | PATCH | Ensure a Firewall package is installed | firewalld | CUSTOM"
-        yum:
+        package:
             name: iptables
             state: present
         when:
@@ -382,14 +382,14 @@
 
 
       - name: "SCORED | 3.5.1 | PATCH | Ensure a Firewall package is installed | nftables"
-        yum:
+        package:
             name: nftables
             state: present
         when:
             - cis_firewall == "nftables"
 
       - name: "SCORED | 3.5.1 | PATCH | Ensure a Firewall package is installed | iptables"
-        yum:
+        package:
             name: "{{ item }}"
             state: present
         with_items:
@@ -670,13 +670,14 @@ configured"
 
 
 - name: "SCORED | 3.5.3.1 | PATCH | Ensure firewalld is installed and started | CUSTOM"
-  yum:
+  package:
       name: firewalld
       state: present
   when:
       - cis_rule_3_5_3_1
       - cis_firewall == "firewalld"
       - cis_setup_firewall
+      - ansible_os_family == "RedHat"
   tags:
       - level1
       - scored
@@ -692,6 +693,7 @@ configured"
       - cis_rule_3_5_3_1
       - cis_firewall == "firewalld"
       - cis_setup_firewall
+      - ansible_os_family == "RedHat"
   tags:
       - level1
       - scored
@@ -707,6 +709,7 @@ configured"
       - cis_rule_3_5_3_2
       - cis_firewall == "firewalld"
       - cis_setup_firewall
+      - ansible_os_family == "RedHat"
   tags:
       - level1
       - scored
@@ -722,6 +725,7 @@ configured"
       - cis_rule_3_5_3_2
       - cis_firewall == "firewalld"
       - cis_setup_firewall
+      - ansible_os_family == "RedHat"
   tags:
       - level1
       - scored
@@ -739,6 +743,7 @@ configured"
       - cis_rule_3_5_3_3
       - cis_firewall == "firewalld"
       - cis_setup_firewall
+      - ansible_os_family == "RedHat"
   notify: restart firewalld
   with_items: "{{ cis_firewall_services }}"
   tags:
@@ -747,6 +752,327 @@ configured"
       - patch
       - rule_3.5.3.3
 
+
+
+########################## when cis_firewall =  ufw
+
+
+- name: "SCORED | 3.5.3.1 | PATCH | Ensure ufw is installed and started | CUSTOM"
+  apt:
+      name: ufw
+      state: present
+  when:
+      - cis_rule_3_5_3_1
+      - cis_firewall == "ufw"
+      - cis_setup_firewall
+      - ansible_os_family == "Debian"
+  tags:
+      - level1
+      - scored
+      - patch
+      - rule_3.5.3.1
+
+- name: "SCORED | 3.5.3.1 | PATCH | Ensure ufw is installed and started | CUSTOM"
+  service:
+      name: ufw
+      state: started
+      enabled: true
+  when:
+      - cis_rule_3_5_3_1
+      - cis_firewall == "ufw"
+      - cis_setup_firewall
+      - ansible_os_family == "Debian"
+  tags:
+      - level1
+      - scored
+      - patch
+      - rule_3.5.3.1
+
+
+- name: "SCORED | 3.5.3.3 | PATCH | Ensure firewall rules exist for all open ports | CUSTOM"
+  ufw:
+      service: "{{ item }}"
+      state: enabled
+      zone: drop
+      permanent: true
+      immediate: true
+  when:
+      - cis_rule_3_5_3_3
+      - cis_firewall == "ufw"
+      - cis_setup_firewall
+      - ansible_os_family == "Debian"
+  notify: restart ufw
+  with_items: "{{ cis_firewall_services }}"
+  tags:
+      - level1
+      - scored
+      - patch
+      - rule_3.5.3.3
+
+- name: "SCORED | 3.5.3.4 | PATCH | Ensure loopback traffic is configured"
+  block:
+      - name: "SCORED | 3.5.3.4 | PATCH | Ensure loopback traffic is configured| ingress lo allow any"
+        ufw:
+            rule: allow
+            direction: in
+            interface: lo
+
+      - name: "SCORED | 3.5.3.4 | PATCH | Ensure loopback traffic is configured | ingress deny from lo network ipv4"
+        ufw:
+            rule: deny
+            direction: in
+            from: "127.0.0.0/8"
+
+      - name: "SCORED | 3.5.3.4 | PATCH | Ensure loopback traffic is configured | ingress deny from lo network ipv6"
+        ufw:
+            rule: deny
+            direction: in
+            from: "::1"
+        when: cis_ipv6_required|d(false)|bool
+  when:
+      - cis_rule_3_5_3_4
+      - cis_firewall == "ufw"
+      - cis_setup_firewall
+      - ansible_os_family == "Debian"
+
+- name: "NOTSCORED | 3.5.3.5 | PATCH | Ensure outbound and established connections are configured"
+  ufw:
+      rule: allow
+      direction: out
+      interface: all
+  when:
+      - cis_rule_3_5_3_5
+      - cis_firewall == "ufw"
+      - cis_setup_firewall
+      - ansible_os_family == "Debian"
+  tags:
+      - level1
+      - notscored
+      - patch
+      - rule_3.5.3.5
+
+- name: "NOTSCORED | 3.5.3.5 | PATCH | Ensure firewall rules exist for all open ports"
+  ufw:
+      rule: allow
+      proto: tcp
+      port: '22'
+  when:
+      - cis_rule_3_5_3_5
+      - cis_firewall == "ufw"
+      - cis_setup_firewall
+      - ansible_os_family == "Debian"
+  tags:
+      - level1
+      - notscored
+      - patch
+      - rule_3.5.2.5
+
+- name: "SCORED | 3.5.3.2 | PATCH | Ensure default deny firewall policy | CUSTOM"
+  ufw:
+      state: enabled
+      zone: drop
+      permanent: true
+  when:
+      - cis_rule_3_5_3_2
+      - cis_firewall == "ufw"
+      - cis_setup_firewall
+      - ansible_os_family == "Debian"
+  tags:
+      - level1
+      - scored
+      - patch
+      - rule_3.5.3.2
+
+- name: "SCORED | 3.5.3.2 | PATCH | Ensure default deny firewall policy"
+  ufw:
+      rule: "{{ item.rule }}"
+      direction: "{{ item.direction }}"
+  with_items:
+      - { rule: deny, direction: incoming }
+      - { rule: deny, direction: outgoing }
+      - { rule: deny, direction: routed }
+  when:
+      - cis_rule_3_5_2_2
+      - cis_firewall == "ufw"
+      - cis_setup_firewall
+      - ansible_os_family == "Debian"
+  tags:
+      - level1
+      - scored
+      - patch
+      - rule_3.5.3.2
+
+########################## when cis_firewall = nftables
+
+- name: "NOTSCORED | 3.5.4.1 | PATCH | Ensure iptables are flushed | ipv4, ipv6"
+  block:
+      - name: "NOTSCORED | 3.5.4.1 | PATCH | Ensure iptables are flushed | ipv4"
+        iptables:
+            flush: yes
+
+      - name: "NOTSCORED | 3.5.4.1 | PATCH | Ensure iptables are flushed | ipv6"
+        iptables:
+            flush: yes
+            ip_version: ipv6
+        when: cis_ipv6_required|d(false)|bool
+  when:
+      - cis_rule_3_5_4_1
+      - cis_firewall == "nftables"
+      - cis_setup_firewall
+  tags:
+      - level1
+      - notscored
+      - patch
+      - rule_3.5.4.1
+
+- name: "SCORED | 3.5.4.2 | PATCH | Ensure a table exists"
+  shell: |
+      nft create table inet {{ cis_nftables_table }}
+  args:
+      executable: /bin/bash
+  changed_when: false
+  check_mode: false
+  # default table name exist when install nftables by apt
+  # nft create table will raise an error
+  ignore_errors: true
+  when:
+      - cis_rule_3_5_4_2
+      - cis_firewall == "nftables"
+      - cis_setup_firewall
+  tags:
+      - level1
+      - scored
+      - patch
+      - rule_3.5.4.2
+
+- name: "SCORED | 3.5.4.3 | PATCH | Ensure base chains exist"
+  shell: |
+      nft chain inet {{ cis_nftables_table }} {{ item }} { type filter hook {{ item }} priority 0\; }
+  args:
+      executable: /bin/bash
+  loop:
+      - input
+      - forward
+      - output
+  changed_when: false
+  check_mode: false
+  when:
+      - cis_rule_3_5_4_3
+      - cis_firewall == "nftables"
+      - cis_setup_firewall
+  tags:
+      - level1
+      - scored
+      - patch
+      - rule_3.5.4.3
+
+- name: "SCORED | 3.5.4.4 | PATCH | Ensure loopback traffic is configured"
+  block:
+      - name: "SCORED | 3.5.4.4 | PATCH | Ensure loopback traffic is configured | ingress lo allow nay"
+        shell: |
+            nft add rule inet {{ cis_nftables_table }} input iif lo accept
+        args:
+            executable: /bin/bash
+        changed_when: false
+        check_mode: false
+
+      - name: "SCORED | 3.5.4.4 | PATCH | Ensure loopback traffic is configured | ingress deny from lo network ipv4"
+        shell: |
+            nft add rule inet {{ cis_nftables_table }} input ip saddr 127.0.0.0/8 counter drop
+        args:
+            executable: /bin/bash
+        changed_when: false
+        check_mode: false
+
+      - name: "SCORED | 3.5.4.4 | PATCH | Ensure loopback traffic is configured | ingress deny from lo network ipv6"
+        shell: |
+            nft add rule inet {{ cis_nftables_table }} input ip6 saddr ::1 counter drop
+        args:
+            executable: /bin/bash
+        changed_when: false
+        check_mode: false
+        when: cis_ipv6_required|d(false)|bool
+  when:
+      - cis_rule_3_5_4_4
+      - cis_firewall == "nftables"
+      - cis_setup_firewall
+  tags:
+      - level1
+      - scored
+      - patch
+      - rule_3.5.4.4
+
+- name: "NOTSCORED | 3.5.4.5 | PATCH | Ensure outbound and established connections are configured"
+  shell: |
+      nft add rule inet {{ cis_nftables_table }} input ip protocol {{ item }} ct state established accept
+      nft add rule inet {{ cis_nftables_table }} output ip protocol {{ item }} ct state new,related,established accept
+  args:
+      executable: /bin/bash
+  loop:
+      - tcp
+      - udp
+      - icmp
+  changed_when: false
+  check_mode: false
+  when:
+      - cis_rule_3_5_4_5
+      - cis_firewall == "nftables"
+      - cis_setup_firewall
+  tags:
+      - level1
+      - notscored
+      - patch
+      - rule_3.5.4.5
+
+- name: "SCORED | 3.5.4.6 | PATCH | Ensure base chains exist"
+  shell: |
+      nft chain inet {{ cis_nftables_table }} {{ item }} { policy drop \; }
+  args:
+      executable: /bin/bash
+  loop:
+      - input
+      - forward
+      - output
+  changed_when: false
+  check_mode: false
+  when:
+      - cis_rule_3_5_4_6
+      - cis_firewall == "nftables"
+      - cis_setup_firewall
+  tags:
+      - level1
+      - scored
+      - patch
+      - rule_3.5.4.6
+
+- name: "SCORED | 3.5.4.7 | PATCH | Ensure nftables service is enabled"
+  service:
+      name: nftables
+      state: started
+      enabled: true
+  when:
+      - cis_rule_3_5_4_7
+      - cis_firewall == "nftables"
+      - cis_setup_firewall
+  tags:
+      - level1
+      - scored
+      - patch
+      - rule_3.5.4.7
+
+- name: "SCORED | 3.5.4.8 | PATCH | Ensure nftables rules are permanent"
+  shell:
+      nft list table inet {{ cis_nftables_table }} > /etc/nftables.conf
+  when:
+      - cis_rule_3_5_4_8
+      - cis_firewall == "nftables"
+      - cis_setup_firewall
+  tags:
+      - level1
+      - scored
+      - patch
+      - rule_3.5.4.8
+############################################################################################
 - name: "NOTSCORED | 3.7 | Disable IPv6"
   lineinfile:
       path: /etc/default/grub

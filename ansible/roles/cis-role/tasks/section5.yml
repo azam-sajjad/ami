@@ -1,6 +1,6 @@
 ---
 - name: "PRELIM | Section 5.1 | Configure cron"
-  yum:
+  package:
     name: "{{ cron_package[ansible_os_family] }}"
     state: present
 
@@ -564,7 +564,7 @@
 - name: "SCORED | 5.3.1 | PATCH | Ensure password creation requirements are configured"
   block:
       - name: "SCORED | 5.3.1 | PATCH | Ensure PAM pwquality Module is installed"
-        yum:
+        package:
             name: "{{ password_quality[ansible_os_family] }}"
             state: present
 

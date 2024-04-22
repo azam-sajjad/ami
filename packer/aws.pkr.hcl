@@ -91,6 +91,10 @@ variable "LOCKDOWN" {
   type    = string
   default = env("LOCKDOWN")
 }
+variable "FIREWALL" {
+  type    = string
+  default = env("FIREWALL")
+}
 
 ###########################################################
 
@@ -156,6 +160,7 @@ build {
                 "--extra-vars", "cis_port2=${var.PORT2}",
                 "--extra-vars", "cis_ipv6_required=${var.IPV6}",
                 "--extra-vars", "ssh_source_ip=${var.SSH_SOURCE_IP}"
+                "--extra-vars", "cis_firewall=${var.FIREWALL}"
             ]
     }
     provisioner "shell" {
