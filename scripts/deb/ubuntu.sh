@@ -4,7 +4,7 @@ sudo apt -y update && sudo apt -y upgrade
 sudo apt -y install software-properties-common
 sudo apt-add-repository ppa:ansible/ansible
 sudo apt update
-sudo apt install ansible -y
+# sudo apt install ansible -y
 sudo apt -y install python3.8 python3-pip
 pip3 --version
 pip3 install ansible
