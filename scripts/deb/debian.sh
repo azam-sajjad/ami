@@ -9,8 +9,8 @@ sudo apt-get -y install ansible
 ansible --version
 which ansible
 sudo ls -alh /root/.ansible/collections
-sudo ansible-galaxy collection install community.general
-sudo ansible-galaxy collection install ansible.posix
+ansible-galaxy collection install community.general
+ansible-galaxy collection install ansible.posix
 sudo mkdir -p /usr/share/ansible/collections
 sudo cp -r /root/.ansible/collections/ansible_collections /usr/share/ansible/collections/
 sudo chmod -R a+rx /usr/share/ansible/collections/
