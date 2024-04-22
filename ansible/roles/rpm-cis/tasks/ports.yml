@@ -8,7 +8,7 @@
     jump: ACCEPT
     action: append
     comment: Allow Custom Port1
-  when: "{{ cis_port1 }}" is defined
+  when: \"{{ cis_port1 }}\" is defined
   tags: cis_open_port1
 
 - name: "OPEN CUSTOM PORT | Allow Port2"
@@ -20,5 +20,17 @@
     jump: ACCEPT
     action: append
     comment: Allow Custom Port2
-  when: "{{ cis_port2 }}" is defined
+  when: \"{{ cis_port2 }}\" is defined
   tags: cis_open_port2
+
+- name: get current state of the firewall
+  community.general.iptables_state:
+    state: saved
+    path: /tmp/iptables
+  check_mode: true
+  changed_when: false
+  register: iptables_state
+
+- name: show current state of the firewall
+  ansible.builtin.debug:
+    var: iptables_state.initial_state
