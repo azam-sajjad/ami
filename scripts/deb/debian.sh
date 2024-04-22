@@ -4,7 +4,9 @@ sudo apt -y update && sudo apt -y upgrade
 sudo apt -y install software-properties-common
 sudo apt-add-repository ppa:ansible/ansible
 sudo apt -y update
-sudo apt -y install ansible
+sudo apt-get -y install ansible
+sudo apt install python3-venv python3-pip
+ansible --version
 ansible-galaxy collection install ansible.posix
 ansible-galaxy collection install community.general
 sudo mkdir -p /usr/share/ansible/collections
