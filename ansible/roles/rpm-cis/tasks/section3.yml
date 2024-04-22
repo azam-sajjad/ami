@@ -574,11 +574,21 @@ configured"
 
 
 - name: "NOT SCORED | 3.5.2.3 | PATCH | Ensure IPv4 outbound and established connections are configured"
-  iptables:
-    ip_version: ipv4
-    chain: INPUT
-    ctstate: ESTABLISHED,RELATED
-    jump: ACCEPT
+  block:
+      - name: IPv6 inbound and established connections
+        iptables:
+            chain: INPUT
+            protocol: tcp
+            ctstate: ESTABLISHED
+            jump: ACCEPT
+      - name: IPv6 inbound and established connections
+        iptables:
+            chain: OUTPUT
+            protocol: tcp
+            ctstate: NEW,ESTABLISHED
+            jump: ACCEPT
+        notify:
+            - iptables save
   when:
       - cis_rule_3_5_2_3
       - cis_firewall == "iptables"
