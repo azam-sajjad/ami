@@ -16,6 +16,9 @@ which ansible
 mkdir -p ~/.ansible/collections/ansible_collections
 ansible-galaxy collection install ansible.posix
 ansible-galaxy collection install community.general
+sudo mkdir -p /usr/share/ansible/collections
+sudo cp -r /root/.ansible/collections/ansible_collections /usr/share/ansible/collections/
+sudo chmod -R a+rx /usr/share/ansible/collections/
 # install ssm agent
 sudo snap install amazon-ssm-agent --classic
 sudo snap start amazon-ssm-agent

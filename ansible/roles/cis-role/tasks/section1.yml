@@ -1169,7 +1169,7 @@
       - notimplemented
 
 - name: "SCORED | 1.6.2.2 | PATCH | Ensure SELinux is in enforcing mode"
-  selinux:
+  ansible.posix.selinux:
     policy: targeted
     state: enforcing
   when:
