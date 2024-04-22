@@ -31,9 +31,12 @@
     syn: match
     jump: DROP
     comment: Reject new SSH connections
-    action: insert
     state: absent
-    rule_num: 1
+  when:
+      - cis_99_deny_ssh
+  tags:
+    - level2
+    - lockdown
 
 - name: "SECTION 99 | LOCKDOWN | Block SSH Login"
   iptables:
