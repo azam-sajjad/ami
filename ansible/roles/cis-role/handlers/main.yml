@@ -1,0 +1,123 @@
+---
+# handlers file for centos-cis
+
+
+# Section1
+- name: systemd start tmp.mount
+  become: true
+  systemd:
+      name: tmp.mount
+      daemon_reload: false
+      enabled: true
+      masked: false
+      # state: stopped
+  when: ansible_virtualization_type != "docker"
+  ignore_errors: "{{ cis_ignore_remount_errors }}"
+
+- name: systemd start var-tmp.mount
+  become: true
+  systemd:
+      name: var-tmp.mount
+      daemon_reload: true
+      enabled: true
+      masked: false
+      state: started
+  ignore_errors: "{{ cis_ignore_remount_errors }}"
+
+# Section2
+- name: restart xinetd
+  become: true
+  service:
+      name: xinetd
+      state: restarted
+# Section3
+
+- name: iptables save
+  command: service iptables save && service ip6tables save
+
+- name: iptables save to file
+  shell: iptables-save > /etc/iptables/rules.v4
+  become: yes
+  become_user: root
+
+- name: ip6tables save to file
+  shell: ip6tables-save > /etc/iptables/rules.v6
+  become: yes
+  become_user: root
+
+
+- name: restart enable iptables
+  service:
+    name: iptables
+    state: restarted
+    enabled: yes
+
+
+- name: restart enable ip6tables
+  service:
+    name: ip6tables
+    state: restarted
+    enabled: yes
+
+- name: restart firewalld
+  become: true
+  service:
+      name: firewalld
+      state: restarted
+
+- name: reload nftables
+  become: true
+  service:
+      name: nftables
+      state: reloaded
+
+
+# Section4
+- name: generate new grub config
+  become: true
+  command: grub2-mkconfig -o /boot/grub2/grub.cfg
+  notify: fix permissions after generate new grub config handler
+
+- name: fix permissions after generate new grub config handler
+  become: true
+  file:
+    path: "/boot/grub2/grub.cfg"
+    owner: root
+    group: root
+    mode: 0400
+  when:
+    - ansible_os_family == "RedHat"
+    - cis_rule_1_4_1
+
+- name: load audit rules
+  become: true
+  command: /sbin/augenrules --load
+
+- name: restart journald
+  become: true
+  service:
+      name: systemd-journald
+      state: restarted
+  no_log: true
+
+- name: restart systemd-coredump
+  become: true
+  service:
+      name: systemd-coredump.socket
+      daemon_reload: true
+      enabled: true
+      state: restarted
+  no_log: true
+
+- name: restart sshd
+  become: true
+  service:
+      name: sshd
+      state: restarted
+  no_log: true
+
+- name: Reboot machine and send a message
+  ansible.builtin.reboot:
+    msg: "Rebooting machine in 5 seconds"
+  when:
+    - reboot_machine_after_completion

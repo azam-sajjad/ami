@@ -144,7 +144,7 @@ build {
         inline = ["mkdir -p ~/.ansible/roles", "cp -r ~/ami/ansible/roles/* ~/.ansible/roles/"]
     }
     provisioner "ansible-local" {
-        playbook_file = "../ansible/${var.linux_flavor}-playbook.yml"
+        playbook_file = "../ansible/playbook.yml"
         extra_arguments = [
                 "-v",
                 "--extra-vars", "username=${var.username}",
