@@ -451,7 +451,6 @@
   when:
       - cis_firewall == "iptables"
       - cis_setup_firewall
-      - cis_ipv6_required|d(false)|bool
   tags:
       - level1
       - notscored
@@ -466,6 +465,7 @@
       policy: DROP
   with_items:  [ 'INPUT', 'FORWARD', 'OUTPUT' ]
   when:
+      - cis_ipv6_required|bool
       - cis_rule_3_5_1_1
       - cis_firewall == "iptables"
       - cis_setup_firewall
@@ -498,7 +498,7 @@
       - cis_rule_3_5_1_2
       - cis_firewall == "iptables"
       - cis_setup_firewall
-      - cis_ipv6_required|d(false)|bool
+      - cis_ipv6_required|bool
   tags:
       - level1
       - scored
@@ -530,7 +530,7 @@ configured"
       - cis_rule_3_5_1_3
       - cis_firewall == "iptables"
       - cis_setup_firewall
-      - cis_ipv6_required|d(false)|bool
+      - cis_ipv6_required|bool
   tags:
       - level1
       - scored

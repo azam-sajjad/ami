@@ -360,8 +360,6 @@
     - ansible_os_family == "RedHat"
 - name: sync selinux contexts
   command: sync
-  notify:
-    - Reboot machine and send a message
   when:
     - ansible_os_family == "RedHat"
 

@@ -351,6 +351,5 @@
     - level1
     - scored
     - lynis
-  notify:
-    - Reboot machine and send a message
+
 

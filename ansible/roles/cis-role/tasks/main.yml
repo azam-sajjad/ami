@@ -3,9 +3,9 @@
 
 - name: Check OS version and family
   fail:
-      msg: "This role can only be run agaist CentOS/RPM Distros. {{ ansible_distribution }} {{ ansible_distribution_major_version }} is not supported."
-  when:
-      - ansible_os_family == "RedHat"
+      msg: "You are Executing Compliance Role on {{ ansible_distribution }} {{ ansible_distribution_major_version }}!"
+  # when:
+  #     - ansible_os_family == "RedHat"
   tags:
       - always
 
