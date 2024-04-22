@@ -1,11 +1,12 @@
 #!/bin/bash
 # install Ansible and PPA
 sudo apt -y update
-# sudo apt -y install software-properties-common
-# sudo apt-add-repository ppa:ansible/ansible
-# sudo apt -y update
-sudo apt-get -y install ansible
-# sudo apt-get install python3 python3-pip -y
+sudo apt -y install software-properties-common
+sudo apt-add-repository ppa:ansible/ansible
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt-get update
+# sudo apt-get install python3.8 python3.8-pip -y
+pip3.8 install ansible -y
 ansible --version
 which ansible
 sudo ls -alh /root/.ansible/collections
