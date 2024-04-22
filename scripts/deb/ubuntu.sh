@@ -1,16 +1,15 @@
 #!/bin/bash
 # install Ansible and PPA
-sudo apt -y update && sudo apt -y upgrade
-sudo apt -y install software-properties-common
-sudo apt-add-repository ppa:ansible/ansible
+sudo apt -y update
 sudo apt update
-# sudo apt install ansible -y
-sudo apt -y install python3.8 python3-pip
-pip3 --version
-pip3 install ansible
-ls -alh ~/
-sudo ls -alh /root
-pwd
+sudo apt -y install python3-pip
+sudo apt -y install python3-virtualenv
+pip freeze
+virtualenv -p python3.8 venv-ansible
+source venv-ansible/bin/activate
+pip install ansible
+pip freeze
+ansible --version
 echo $PATH
 which ansible
 mkdir -p ~/.ansible/collections/ansible_collections
