@@ -16,7 +16,7 @@
             state: present
             reload: true
             ignoreerrors: true
-        when: cis_ipv6_required
+        when: cis_ipv6_required|d(false)|bool
   when:
     - not cis_is_router
     - cis_rule_3_1_1
@@ -74,7 +74,7 @@
             - { name: net.ipv6.conf.all.accept_source_route, value: 0 }
             - { name: net.ipv6.conf.default.accept_source_route, value: 0 }
         when:
-            - cis_ipv6_required
+            - cis_ipv6_required|d(false)|bool
   when:
     - cis_rule_3_2_1
   tags:
@@ -109,7 +109,7 @@
             - { name: net.ipv6.conf.all.accept_redirects, value: 0 }
             - { name: net.ipv6.conf.default.accept_redirects, value: 0 }
         when:
-            - cis_ipv6_required
+            - cis_ipv6_required|d(false)|bool
   when:
     - cis_rule_3_2_2
   tags:
@@ -238,7 +238,7 @@
     - { name: net.ipv6.conf.all.accept_ra, value: 0 }
     - { name: net.ipv6.conf.default.accept_ra, value: 0 }
   when:
-    - cis_ipv6_required
+    - cis_ipv6_required|d(false)|bool
     - cis_rule_3_2_9
   notify:
       - sysctl flush ipv6 route table
@@ -451,7 +451,7 @@
   when:
       - cis_firewall == "iptables"
       - cis_setup_firewall
-      - cis_ipv6_required
+      - cis_ipv6_required|d(false)|bool
   tags:
       - level1
       - notscored
@@ -498,7 +498,7 @@
       - cis_rule_3_5_1_2
       - cis_firewall == "iptables"
       - cis_setup_firewall
-      - cis_ipv6_required
+      - cis_ipv6_required|d(false)|bool
   tags:
       - level1
       - scored
@@ -530,7 +530,7 @@ configured"
       - cis_rule_3_5_1_3
       - cis_firewall == "iptables"
       - cis_setup_firewall
-      - cis_ipv6_required
+      - cis_ipv6_required|d(false)|bool
   tags:
       - level1
       - scored

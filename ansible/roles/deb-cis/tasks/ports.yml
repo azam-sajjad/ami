@@ -7,6 +7,8 @@
     ctstate: NEW
     jump: ACCEPT
     comment: Allow Custom Port1
+  when:
+    - cis_port1 is defined
   tags:
       - cis_open_port1
 
@@ -18,5 +20,7 @@
     ctstate: NEW
     jump: ACCEPT
     comment: Allow Custom Port2
+  when:
+    - cis_port2 is defined
   tags:
       - cis_open_port2

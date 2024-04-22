@@ -15,6 +15,9 @@ cis_open_ports: true # ENV Variable - OPENPORTS - Open Custom Ports
 cis_port1: ""        # ENV Variable - PORT1
 cis_port2: ""        # ENV Variable - PORT2 
 
+# IPv6 required
+cis_ipv6_required: false # ENV Variable - IPV6
+
 reboot_machine_after_completion: true
 
 #########################################################
@@ -318,8 +321,6 @@ cis_firewall: iptables # When Enabled - Runs all tasks of cis_rule_3_5_1&2_...
 # cis_firewall: ufw # When Enabled - Runs all tasks of cis_rule_3_5_3_...
 # cis_firewall: nftables # When Enabled - Runs all tasks of cis_rule_3_5_4_...
 
-# IPv6 required
-cis_ipv6_required: false
 
 # open ports in ufw - cis_rule_3_5_3_3
 cis_firewall_services:

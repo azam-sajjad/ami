@@ -16,7 +16,7 @@
             state: present
             reload: true
             ignoreerrors: true
-        when: cis_ipv6_required
+        when: cis_ipv6_required|d(false)|bool
   when:
     - not cis_is_router
     - cis_rule_3_1_1
@@ -75,7 +75,7 @@
             - { name: net.ipv6.conf.all.accept_source_route, value: 0 }
             - { name: net.ipv6.conf.default.accept_source_route, value: 0 }
         when:
-            - cis_ipv6_required
+            - cis_ipv6_required|d(false)|bool
   when:
     - cis_rule_3_2_1
   tags:
@@ -111,7 +111,7 @@
             - { name: net.ipv6.conf.all.accept_redirects, value: 0 }
             - { name: net.ipv6.conf.default.accept_redirects, value: 0 }
         when:
-            - cis_ipv6_required
+            - cis_ipv6_required|d(false)|bool
   when:
     - cis_rule_3_2_2
   tags:
@@ -240,7 +240,7 @@
     - { name: net.ipv6.conf.all.accept_ra, value: 0 }
     - { name: net.ipv6.conf.default.accept_ra, value: 0 }
   when:
-    - cis_ipv6_required
+    - cis_ipv6_required|d(false)|bool
     - cis_rule_3_2_9
   notify:
       - sysctl flush ipv6 route table
@@ -466,7 +466,7 @@
   when:
       - cis_firewall == "iptables"
       - cis_setup_firewall
-      - cis_ipv6_required
+      - cis_ipv6_required|d(false)|bool
   tags:
       - level1
       - notscored
@@ -511,7 +511,7 @@
       - cis_rule_3_5_1_2
       - cis_firewall == "iptables"
       - cis_setup_firewall
-      - cis_ipv6_required
+      - cis_ipv6_required|d(false)|bool
   notify:
       - iptables save
   tags:
@@ -543,7 +543,7 @@ configured"
       - cis_rule_3_5_1_3
       - cis_firewall == "iptables"
       - cis_setup_firewall
-      - cis_ipv6_required
+      - cis_ipv6_required|d(false)|bool
   notify:
       - iptables save
   tags:
@@ -735,7 +735,7 @@ configured"
             rule: deny
             direction: in
             from: "::1"
-        when: cis_ipv6_required
+        when: cis_ipv6_required|d(false)|bool
   when:
       - cis_rule_3_5_3_4
       - cis_firewall == "ufw"
@@ -816,7 +816,7 @@ configured"
         iptables:
             flush: yes
             ip_version: ipv6
-        when: cis_ipv6_required
+        when: cis_ipv6_required|d(false)|bool
   when:
       - cis_rule_3_5_4_1
       - cis_firewall == "nftables"
@@ -893,7 +893,7 @@ configured"
             executable: /bin/bash
         changed_when: false
         check_mode: false
-        when: cis_ipv6_required
+        when: cis_ipv6_required|d(false)|bool
   when:
       - cis_rule_3_5_4_4
       - cis_firewall == "nftables"
