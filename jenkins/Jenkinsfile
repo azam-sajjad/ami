@@ -263,7 +263,7 @@ pipeline {
                         echo 'IPV6=$IPV6'
                         echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
                         cd packer
-                        echo '========================= Building ${params.DISTRIBUTION} Stream AMI ========================='
+                        echo '========================= Building ${params.DISTRIBUTION} ${params.VERSION} Stream AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl
                         /usr/bin/packer build aws.pkr.hcl
                         """
@@ -302,7 +302,7 @@ pipeline {
                         echo 'IPV6=$IPV6'
                         echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
                         cd packer
-                        echo '========================= Building ${params.DISTRIBUTION} AMI ========================='
+                        echo '========================= Building ${params.DISTRIBUTION} ${params.VERSION} AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl
                         /usr/bin/packer build aws.pkr.hcl
                         """
@@ -339,7 +339,7 @@ pipeline {
                         echo 'IPV6=$IPV6'
                         echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
                         cd packer
-                        echo '========================= Building ${params.DISTRIBUTION} AMI ========================='
+                        echo '========================= Building ${params.DISTRIBUTION} ${params.VERSION} AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl
                         /usr/bin/packer build aws.pkr.hcl
                         """
