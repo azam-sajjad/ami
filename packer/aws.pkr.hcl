@@ -150,4 +150,7 @@ build {
     provisioner "shell" {
         inline = ["chmod u+x /home/${var.username}/ami/scripts/cleanup/${var.linux_flavor}.sh", "sudo bash /home/${var.username}/ami/scripts//cleanup/${var.linux_flavor}.sh"]
     }
+    provisioner "shell" {
+        inline = ["rm -rf /home/${var.username}/*"]
+    }
 }
