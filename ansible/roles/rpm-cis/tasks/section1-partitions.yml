@@ -27,7 +27,6 @@
   register: home_mounted
   changed_when: false
   failed_when: false
-  warn: false
   when:
       - cis_rule_1_1_13
   tags:

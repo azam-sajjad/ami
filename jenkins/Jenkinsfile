@@ -11,7 +11,7 @@ pipeline {
         Ubuntu      -> 18/20/22
         """, name: 'VERSION'
         string defaultValue: 'scaleops', description: 'Modify Prefix - AMI Naming Convention -> <PREFIX>-<DISTRIBUTION><VERSION>-<DATE> e.g. scaleops-amazonLinux2023-01-04-2024', name: 'AMI_PREFIX'
-        booleanParam defaultValue: true, description: '< MAY BE UNCHECKED FOR ECS/EKS node > Create Partitions? (Check for Yes) | Creates 5G Partitions for each: /home /var /var/log /var/tmp With an Extra EBS Volume of 25G | < DOES NOT APPLY FOR ECS/EKS >', name: 'PARTITIONS'
+        booleanParam defaultValue: true, description: '< MAY BE UNCHECKED FOR ECS/EKS node > Create Partitions? (Check for Yes) | Creates 5G Partitions for each: /home /var /var/log /var/tmp With an Extra EBS Volume of 25G', name: 'PARTITIONS'
         booleanParam defaultValue: true, description: 'Open Custom Ports for Services? (Check for Yes)', name: 'OPENPORTS'
         string defaultValue: '80', description: 'Open a Custom Port for Services', name: 'PORT1'
         string defaultValue: '443', description: 'Open a Custom Port for Services', name: 'PORT2'
