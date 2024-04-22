@@ -1,8 +1,22 @@
 #################### Iptables #####################
 - name: "SECTION 99 | LOCKDOWN | Block SSH Login"
   iptables:
+    ip_version: ipv4
     chain: "{{ item }}"
     flush: yes
+    policy: DROP
+  with_items:  [ 'INPUT', 'FORWARD', 'OUTPUT' ]
+  when:
+      - cis_99_deny_ssh
+  tags:
+    - level2
+    - lockdown
+- name: "SECTION 99 | LOCKDOWN | Block SSH Login"
+  iptables:
+      ip_version: ipv6
+      chain: "{{ item }}"
+      flush: yes
+      policy: DROP
   with_items:  [ 'INPUT', 'FORWARD', 'OUTPUT' ]
   when:
       - cis_99_deny_ssh

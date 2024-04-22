@@ -351,7 +351,7 @@ cis_rule_3_4_4:   true  # Ensure TIPC is disabled
 cis_rule_3_5_1_1: true  # When cis_firewall = iptables - ip6tables Ensure default deny firewall policy
 cis_rule_3_5_1_2: true  # When cis_firewall = iptables - Ensure IPv6 loopback traffic is configured
 cis_rule_3_5_1_3: false # When cis_firewall = iptables - NotScored Ensure IPv6 outbound & est. connections are configured
-cis_rule_3_5_2_1: true # When cis_firewall = iptables - iptables Ensure default deny firewall policy
+cis_rule_3_5_2_1: true  # When cis_firewall = iptables - iptables Ensure default deny firewall policy
 cis_rule_3_5_2_2: true  # When cis_firewall = iptables - Ensure IPv4 loopback traffic is configured
 cis_rule_3_5_2_3: true  # When cis_firewall = iptables - NotScored Ensure IPv4 outbound & est. connections are configured
 cis_rule_3_5_2_4: true  # When cis_firewall = iptables - Ensure firewall rules exist for all open ports e.g. 22
@@ -408,10 +408,7 @@ cis_rule_4_1_10:  true  # Audit - Ensure session initiation information is colle
 cis_rule_4_1_11:  true  # Audit - Ensure discretionary access control permission modification events are collected (Scored) 
 cis_rule_4_1_12:  true  # Audit - Ensure unsuccessful unauthorized file access attempts are collected (Scored) 
 cis_rule_4_1_13:  true  # Audit - Ensure use of privileged commands is collected (Scored) 
-cis_rule_4_1_14:  true  # Audit - Ensure successful file system mounts are collected (Scored)
-cis_rule_4_1_15:  true  # Audit - Ensure file deletion events by users are collected (Scored) 
-cis_rule_4_1_16:  true  # Audit - Ensure changes to system administration scope (sudoers) is collected (Scored) 
-cis_rule_4_1_17:  true  # Audit - Ensure system administrator actions (sudolog)
+cis_rule_4_1_14:  true  # Audit - Ensure succ cis_setup_firewallem administrator actions (sudolog)
 cis_rule_4_1_18:  true  # Audit - Ensure kernel module loading and unloading is collected (Scored)
 cis_rule_4_1_19:  true  # Audit - Ensure the audit configuration is immutable (Scored) 
 cis_rule_4_2_1_1: true  #  LOG - Ensure rsyslog is installed (Scored)
