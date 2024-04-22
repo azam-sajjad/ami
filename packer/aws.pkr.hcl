@@ -150,7 +150,7 @@ build {
     provisioner "ansible-local" {
         playbook_file = "../ansible/playbook.yml"
         extra_arguments = [
-                "-v",
+                "-vv",
                 "--extra-vars", "username=${var.username}",
                 "--extra-vars", "cis_partitions=${var.PARTITIONS}",
                 "--extra-vars", "cis_open_custom_ports=${var.OPENPORTS}",
