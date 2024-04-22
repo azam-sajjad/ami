@@ -154,7 +154,7 @@ build {
                 "--extra-vars", "cis_section99=${var.LOCKDOWN}",
                 "--extra-vars", "cis_port1=${var.PORT1}",
                 "--extra-vars", "cis_port2=${var.PORT2}",
-                "--extra-vars", "cis_ipv6_required=${var.IPV6}"
+                "--extra-vars", "cis_ipv6_required=${var.IPV6}",
                 "--extra-vars", "ssh_source_ip=${var.SSH_SOURCE_IP}"
             ]
     }
