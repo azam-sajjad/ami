@@ -1169,10 +1169,9 @@
       - notimplemented
 
 - name: "SCORED | 1.6.2.2 | PATCH | Ensure SELinux is in enforcing mode"
-  ansible.posix.selinux:
-        policy: targeted
-        state: enforcing
-  changed_when: false
+  selinux:
+    policy: targeted
+    state: enforcing
   when:
       - cis_rule_1_6_2_2
       - ansible_os_family == "RedHat"
@@ -1213,6 +1212,9 @@
 - name: restore default selinux contexts
   command: restorecon -FRv /
   no_log: true
+  when:
+      - cis_rule_1_6_2_2
+      - ansible_os_family == "RedHat"
 
 
 # For this playbook to work, you must have the ansible-collection-ansible-posix package installed locally on Ansible Master Node.

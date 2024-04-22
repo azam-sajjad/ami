@@ -2,8 +2,8 @@
 # tasks file for centos-cis
 
 - name: Check OS version and family
-  fail:
-      msg: "You are Executing Compliance Role on {{ ansible_distribution }} {{ ansible_distribution_major_version }}!"
+  debug:
+      msg: "Executing Compliance Role on {{ ansible_distribution }} {{ ansible_distribution_major_version }} Instance!"
   # when:
   #     - ansible_os_family == "RedHat"
   tags:
@@ -49,17 +49,17 @@
   when: cis_section6
   tags: section6
 
-- include_tasks: rpm-lynis.yml
+- include_tasks: lynis-rpm.yml
   when: 
     - cis_lynis|d(true)|bool
     - ansible_os_family == "RedHat"
-  tags: rpm-lynis
+  tags: lynis
 
-- include_tasks: deb-lynis.yml
+- include_tasks: lynis-deb.yml
   when: 
     - cis_lynis|d(true)|bool
     - ansible_os_family == "Debian"
-  tags: deb-lynis
+  tags: lynis
 
 - include_tasks: section99.yml
   when: cis_section99|d(false)|bool
