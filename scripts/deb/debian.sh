@@ -16,8 +16,9 @@ sudo apt -y install ansible
 ansible --version
 echo $PATH
 which ansible
+which python3
+python3
 ansible --version
-which ansible
 # sudo ls -alh /root/.ansible/collections
 ansible-galaxy collection install community.general
 ansible-galaxy collection install ansible.posix

@@ -47,6 +47,9 @@
   with_items:  [ 'INPUT', 'FORWARD', 'OUTPUT' ]
   when:
       - cis_99_deny_ssh
+  notify:
+    - rpm-iptables save
+    - deb-iptables save
   tags:
     - level2
     - lockdown
@@ -58,6 +61,9 @@
   with_items:  [ 'INPUT', 'FORWARD', 'OUTPUT' ]
   when:
       - cis_99_deny_ssh
+  notify:
+    - rpm-iptables save
+    - deb-iptables save
   tags:
     - level2
     - lockdown
@@ -68,6 +74,9 @@
     path: /etc/sysconfig/iptables
   when:
       - cis_99_deny_ssh
+  notify:
+    - rpm-iptables save
+    - deb-iptables save
   tags:
     - level2
     - lockdown
@@ -77,6 +86,9 @@
     table: filter
     state: saved
     path: /etc/iptables/rules.v6
+  notify:
+    - rpm-iptables save
+    - deb-iptables save
   when:
       - cis_99_deny_ssh
   tags:

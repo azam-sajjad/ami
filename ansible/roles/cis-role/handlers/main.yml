@@ -31,11 +31,12 @@
       state: restarted
 # Section3
 
-- name: iptables save
+- name: rpm-iptables save
   command: service iptables save && service ip6tables save
   when:
     - ansible_os_family == 'RedHat'
-- name: iptables save
+
+- name: deb-iptables save
   command: sudo netfilter-persistent save
   when:
     - ansible_os_family == 'Debian'

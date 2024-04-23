@@ -1,17 +1,51 @@
 ---
 - name: "PRELIM | Section 4.1 | Configure System Accounting (auditd)"
-  package:
+  yum:
     name: "{{ auditd_package[ansible_os_family] }}"
     state: present
   when:
       - not auditd_disable
+      - ansible_os_family == 'RedHat'
 
 - name: "SCORED | 4.1.2 | PATCH | Ensure auditd is installed"
-  package:
+  yum:
       name: audispd-plugins
       state: present
   when:
       - cis_rule_4_1_2
+      - ansible_os_family == 'RedHat'
+  tags:
+      - level2
+      - scored
+      - patch
+      - auditd
+      - rule_4.1.2
+- name: "PRELIM | Run apt cache update"
+  apt:
+    update_cache: true
+  when:
+      - cis_apply_upgrades
+  tags:
+      - level1
+      - notscored
+      - patch
+      - rule_4.1.1
+      
+- name: "PRELIM | Section 4.1 | Configure System Accounting (auditd)"
+  apt:
+    name: "{{ auditd_package[ansible_os_family] }}"
+    state: present
+  when:
+      - not auditd_disable
+      - ansible_os_family == 'Debian'
+
+- name: "SCORED | 4.1.2 | PATCH | Ensure auditd is installed"
+  apt:
+      name: audispd-plugins
+      state: present
+  when:
+      - cis_rule_4_1_2
+      - ansible_os_family == 'Debian'
   tags:
       - level2
       - scored

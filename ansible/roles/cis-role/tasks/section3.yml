@@ -489,7 +489,8 @@
       - cis_firewall == "iptables"
       - cis_setup_firewall
   notify:
-      - iptables save
+      - rpm-iptables save
+      - deb-iptables save
   tags:
       - level1
       - scored
@@ -512,7 +513,8 @@
             source: "::1"
             jump: DROP
         notify:
-            - iptables save
+            - rpm-iptables save
+            - deb-iptables save
   when:
       - cis_rule_3_5_1_2
       - cis_firewall == "iptables"
@@ -543,7 +545,8 @@ configured"
             ctstate: NEW,ESTABLISHED
             jump: ACCEPT
         notify:
-            - iptables save
+            - rpm-iptables save
+            - deb-iptables save
 
   when:
       - cis_rule_3_5_1_3
@@ -580,7 +583,8 @@ configured"
             jump: DROP
             comment: Drop lo on other interfaces
         notify:
-            - iptables save
+            - rpm-iptables save
+            - deb-iptables save
   when:
       - cis_rule_3_5_2_2
       - cis_firewall == "iptables"
@@ -607,7 +611,8 @@ configured"
             ctstate: NEW,ESTABLISHED,RELATED
             jump: ACCEPT
         notify:
-            - iptables save
+            - rpm-iptables save
+            - deb-iptables save
   when:
       - cis_rule_3_5_2_3
       - cis_firewall == "iptables"
@@ -631,7 +636,8 @@ configured"
       - cis_setup_firewall
       - ssh_source_ip is defined
   notify:
-      - iptables save
+      - rpm-iptables save
+      - deb-iptables save
   tags:
       - level1
       - scored
@@ -654,7 +660,8 @@ configured"
       - cis_firewall == "iptables"
       - cis_setup_firewall
   notify:
-      - iptables save
+      - rpm-iptables save
+      - deb-iptables save
   tags:
       - level1
       - scored
@@ -671,6 +678,9 @@ configured"
     - cis_rule_3_5_2_1
     - cis_firewall == "iptables"
     - cis_setup_firewall
+  notify:
+      - rpm-iptables save
+      - deb-iptables save
   tags:
     - level1
     - scored
