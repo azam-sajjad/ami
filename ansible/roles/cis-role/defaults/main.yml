@@ -353,7 +353,7 @@ cis_rule_3_4_4:   true  # Ensure TIPC is disabled
 cis_rule_3_5_1_1: true  # ip6tables Ensure default deny firewall policy
 cis_rule_3_5_1_2: true  # Ensure IPv6 loopback traffic is configured
 cis_rule_3_5_1_3: false # NotScored Ensure IPv6 outbound & est. connections are configured
-cis_rule_3_5_2_1: false # iptables Ensure default deny firewall policy
+cis_rule_3_5_2_1: true # iptables Ensure default deny firewall policy
 cis_rule_3_5_2_2: true  # Ensure IPv4 loopback traffic is configured
 cis_rule_3_5_2_3: true  # NotScored Ensure IPv4 outbound & est. connections are configured
 cis_rule_3_5_2_4: true  # Ensure firewall rules exist for all open ports e.g. 22
