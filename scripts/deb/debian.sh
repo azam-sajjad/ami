@@ -2,12 +2,14 @@
 # install Ansible and PPA
 echo "127.0.0.1 `hostname` localhost" >> /etc/hosts
 sudo apt -y update 
-sudo apt -y install software-properties-common
-sudo apt-add-repository --yes --update ppa:ansible/ansible
-sudo apt-get update --fix-missing -y
-sudo apt -y install ansible
-ansible --version
 sudo apt-get upgrade -y
+# sudo apt -y install software-properties-common
+# sudo apt-add-repository --yes --update ppa:ansible/ansible
+# sudo apt-get update --fix-missing -y
+# sudo apt -y install ansible
+# ansible --version
+python3 -m pip install --upgrade pip
+python3 -m pip install ansible
 ansible --version
 echo $PATH
 which ansible
