@@ -5,12 +5,13 @@ sudo apt -y install software-properties-common
 sudo apt-add-repository ppa:ansible/ansible
 sudo add-apt-repository -y ppa:deadsnakes/ppa
 sudo apt update
-sudo apt install python3.8 python3-virtualenv
+# sudo apt install python3.8 python3-virtualenv
 sudo echo "ubuntu ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/ubuntu
-virtualenv -p python3.8 venv-ansible
-source venv-ansible/bin/activate
-pip install ansible
-pip freeze
+sudo apt install ansible -y
+# virtualenv -p python3.8 venv-ansible
+# source venv-ansible/bin/activate
+# pip install ansible
+# pip freeze
 ansible --version
 echo $PATH
 which ansible
