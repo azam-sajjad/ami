@@ -34,6 +34,7 @@
       - rule_4.1.1
 - name: "PRELIM | Run apt cache update"
   command: sudo apt-get update --fix-missing -y
+  changed_when: false
   when:
       - cis_apply_upgrades
       - ansible_os_family == 'Debian'

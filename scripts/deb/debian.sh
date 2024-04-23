@@ -1,12 +1,5 @@
 #!/bin/bash
 # install Ansible and PPA
-# sudo apt update
-# sudo apt -y install software-properties-common
-# sudo apt-add-repository -y ppa:ansible/ansible
-# sudo add-apt-repository -y ppa:deadsnakes/ppa
-# sudo apt-get update
-# # sudo apt-get install python3.8 python3.8-pip -y
-# pip3.8 install ansible -y
 echo "127.0.0.1 `hostname` localhost" >> /etc/hosts
 sudo apt -y update 
 sudo apt -y install software-properties-common
@@ -19,7 +12,6 @@ which ansible
 which python3
 python3
 ansible --version
-# sudo ls -alh /root/.ansible/collections
 ansible-galaxy collection install community.general
 ansible-galaxy collection install ansible.posix
 sudo mkdir -p /usr/share/ansible/collections
