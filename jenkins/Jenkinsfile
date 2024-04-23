@@ -19,10 +19,8 @@ pipeline {
         booleanParam defaultValue: true, description: 'Open Custom Ports for Services? (Check for Yes)', name: 'OPENPORTS'
         string defaultValue: '443', description: 'Open a Custom Port for Services', name: 'PORT1'
         string defaultValue: '80', description: 'Open a Custom Port for Services', name: 'PORT2'
-        booleanParam defaultValue: true, description: 'Harden to 80+, Run Lynis Recommended Remediations e.g. install Malware Detector (tripwire,rkhunter), More Restrictive Permissions, Restrictive Network Parameters with Sysctl which improves Score', name: 'LYNIS'
-        booleanParam defaultValue: true, description: """Harden to 83+, Block SSH Access, Level2 sshd_config, Remove Keys, /etc/hosts.deny, 
-        When Source IP is Provided | Access = Source IP & AWS Session Manager!, 
-        When Source IP is NOT Provided | Access = Only AWS Session Manager!""", name: 'LOCKDOWN'
+        booleanParam defaultValue: true, description: 'Harden to 80+, Run Lynis Recommended Remediations e.g. install Malware Detector (tripwire,rkhunter), More Restrictive Permissions, Restrictive Network Parameters, which improves Score', name: 'LYNIS'
+        booleanParam defaultValue: true, description: """Harden to 83+, Block ALL SSH Access, Level2 sshd_config, Remove Keys, /etc/hosts.deny""", name: 'LOCKDOWN'
 
 }
     stages {
