@@ -7,7 +7,9 @@ sudo add-apt-repository -y ppa:deadsnakes/ppa
 sudo apt update
 # sudo apt install python3.8 python3-virtualenv
 sudo echo "ubuntu ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/ubuntu
-sudo apt install ansible -y
+# sudo apt install ansible-base -y
+sudo apt install python3-pip
+pip3 install ansible
 # virtualenv -p python3.8 venv-ansible
 # source venv-ansible/bin/activate
 # pip install ansible
