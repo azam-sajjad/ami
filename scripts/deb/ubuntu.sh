@@ -2,12 +2,12 @@
 # install Ansible and PPA
 sudo apt update && sudo apt -y upgrade
 sudo apt -y install software-properties-common
-sudo apt-add-repository ppa:ansible/ansible
+sudo apt-add-repository -y ppa:ansible/ansible
 sudo add-apt-repository -y ppa:deadsnakes/ppa
-sudo add-apt-repository universe
+sudo add-apt-repository -y universe
 sudo apt-get update
 # sudo apt install python3.8 python3-virtualenv
-sudo echo "ubuntu ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/ubuntu
+# sudo echo "ubuntu ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/ubuntu
 sudo apt install ansible-base -y
 # sudo apt install python3-pip
 # pip3 install ansible
