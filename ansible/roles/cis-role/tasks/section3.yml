@@ -465,7 +465,7 @@
       policy: DROP
   with_items:  [ 'INPUT', 'FORWARD', 'OUTPUT' ]
   when:
-      - cis_ipv6_required|bool
+      - not cis_ipv6_required|bool
       - cis_rule_3_5_1_1
       - cis_firewall == "iptables"
       - cis_setup_firewall
@@ -611,7 +611,7 @@ configured"
       - cis_rule_3_5_2_x
       - cis_firewall == "iptables"
       - cis_setup_firewall
-      - \"{{ ssh_source_ip }}\" is defined
+      - ssh_source_ip is defined
   notify:
       - iptables save
   tags:
@@ -643,27 +643,21 @@ configured"
       - patch
       - rule_3.5.2.3
 
-
 - name: "SCORED | 3.5.2.1 | PATCH | Ensure default ipv4 deny firewall policy"
   iptables:
-      ip_version: ipv4
-      chain: "{{ item }}"
-      policy: DROP
+    ip_version: ipv4
+    chain: "{{ item }}"
+    policy: DROP
   with_items:  [ 'INPUT', 'FORWARD', 'OUTPUT' ]
   when:
-      - cis_rule_3_5_2_1
-      - cis_firewall == "iptables"
-      - cis_setup_firewall
-  notify:
-      - iptables save
-      - iptables save to file
-      - ip6tables save to file
-
+    - cis_rule_3_5_2_1
+    - cis_firewall == "iptables"
+    - cis_setup_firewall
   tags:
-      - level1
-      - scored
-      - patch
-      - rule_3.5.2.1
+    - level1
+    - scored
+    - patch
+    - rule_3.5.2.1
 
 
 ########################## when cis_firewall =  ufw

@@ -69,5 +69,8 @@
   when: cis_open_ports|d(true)|bool
   tags: ports
 
+- include_tasks: tmpfs.yml
+  when: cis_section1
+  tags: tmpfs
 
 
