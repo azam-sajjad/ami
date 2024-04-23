@@ -146,7 +146,7 @@ build {
         inline = ["sudo lsblk"]
     }
     provisioner "shell" {
-        inline = ["chmod u+x /home/${var.username}/ami/scripts/${var.linux_flavor}/${var.distribution}.sh", "sudo bash /home/${var.username}/ami/scripts/${var.linux_flavor}/${var.distribution}.sh"]
+        inline = ["chmod u+x /home/${var.username}/ami/scripts/${var.linux_flavor}/${var.distribution}${var.version}.sh", "sudo bash /home/${var.username}/ami/scripts/${var.linux_flavor}/${var.distribution}${var.version}.sh"]
     }
     provisioner "shell" {
         inline = ["mkdir -p ~/.ansible/roles", "cp -r ~/ami/ansible/roles/* ~/.ansible/roles/"]
