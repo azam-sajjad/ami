@@ -21,22 +21,6 @@
     - level2
     - lockdown
 ####
-- name: "OPEN CUSTOM PORT | Allow Outbound 443 for ssm"
-  iptables:
-    chain: OUTPUT
-    protocol: tcp
-    destination_port: 443
-    ctstate: NEW
-    jump: ACCEPT
-    action: append
-    comment: Allow Traffic on Port 443 Outbound for ssm
-  tags: ssm
-  when:
-      - cis_99_deny_ssh
-  tags:
-    - level2
-    - lockdown
-
 
 - name: "SECTION 99 | LOCKDOWN | Block SSH Login"
   iptables:
