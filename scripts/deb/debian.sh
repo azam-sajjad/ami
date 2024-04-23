@@ -7,6 +7,7 @@
 # sudo apt-get update
 # # sudo apt-get install python3.8 python3.8-pip -y
 # pip3.8 install ansible -y
+echo "127.0.0.1 `hostname` localhost" >> /etc/hosts
 sudo apt -y update 
 sudo apt -y install software-properties-common
 sudo apt-add-repository ppa:ansible/ansible
