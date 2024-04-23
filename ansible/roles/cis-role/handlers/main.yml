@@ -39,10 +39,6 @@
   command: sudo netfilter-persistent save
   when:
     - ansible_os_family == 'Debian'
-- name: netfilter save
-  command: sudo netfilter-persistent save
-  when:
-    - ansible_os_family == 'Debian'
 
 
 
