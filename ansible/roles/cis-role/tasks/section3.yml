@@ -603,7 +603,6 @@ configured"
   ansible.builtin.iptables:
     chain: INPUT
     source: "{{ ssh_source_ip }}"
-    destination_port: 22
     jump: ACCEPT
     action: insert
   become: yes
@@ -1072,6 +1071,7 @@ configured"
       line: ' GRUB_CMDLINE_LINUX="ipv6.disable=1" '
   when:
       - cis_rule_3_7
+      - not cis_ipv6_required|bool
   notify:
       - generate new grub config
   tags:

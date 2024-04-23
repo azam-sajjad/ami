@@ -43,8 +43,6 @@
       - debsums        
       - fail2ban       
     state: latest
-  when:
-    - install_lynis_recommended_software
   tags:
     - level1
     - scored
