@@ -1,13 +1,22 @@
 #!/bin/bash
 # install Ansible and PPA
 echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf > /dev/null
-sudo apt update
+# sudo apt update
+# sudo apt -y install software-properties-common
+# sudo apt-add-repository -y ppa:ansible/ansible
+# sudo add-apt-repository -y ppa:deadsnakes/ppa
+# sudo apt-get update
+# # sudo apt-get install python3.8 python3.8-pip -y
+# pip3.8 install ansible -y
+sudo apt -y update && sudo apt -y upgrade
 sudo apt -y install software-properties-common
-sudo apt-add-repository -y ppa:ansible/ansible
-sudo add-apt-repository -y ppa:deadsnakes/ppa
+sudo apt-add-repository ppa:ansible/ansible
 sudo apt-get update
-# sudo apt-get install python3.8 python3.8-pip -y
-pip3.8 install ansible -y
+sudo apt -y update
+sudo apt -y install ansible
+ansible --version
+echo $PATH
+which ansible
 ansible --version
 which ansible
 sudo ls -alh /root/.ansible/collections
