@@ -79,6 +79,10 @@ variable "IPV6" {
   type    = string
   default = env("IPV6")
 }
+variable "ACCEPT_NEW_SSH" {
+  type    = string
+  default = env("ACCEPT_NEW_SSH")
+}
 variable "SSH_SOURCE_IP" {
   type    = string
   default = env("SSH_SOURCE_IP")
@@ -159,6 +163,7 @@ build {
                 "--extra-vars", "cis_port1=${var.PORT1}",
                 "--extra-vars", "cis_port2=${var.PORT2}",
                 "--extra-vars", "cis_ipv6_required=${var.IPV6}",
+                "--extra-vars", "ssh_source_ip=${var.ACCEPT_NEW_SSH}",
                 "--extra-vars", "ssh_source_ip=${var.SSH_SOURCE_IP}",
                 "--extra-vars", "cis_firewall=${var.FIREWALL}"
             ]

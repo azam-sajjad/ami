@@ -14,6 +14,7 @@ cis_section99:  true # ENV Variable - LOCKDOWN  - lockdown access
 cis_open_ports: true # ENV Variable - OPENPORTS - Open Custom Ports
 cis_port1: ""        # ENV Variable - PORT1
 cis_port2: ""        # ENV Variable - PORT2 
+accept_new_ssh: true # ENV Variable - ACCEPT_NEW_SSH - Accept New SSH Connections from Port 22
 ssh_source_ip: ""    # ENV Variable - SSH_SOURCE_IP
 
 # IPv6 required

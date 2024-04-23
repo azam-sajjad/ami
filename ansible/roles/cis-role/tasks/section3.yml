@@ -626,6 +626,7 @@ configured"
 - name: "SCORED | 3.5.2.x | PATCH | Allow ssh from a Specific IP address"
   ansible.builtin.iptables:
     chain: INPUT
+    protocol: tcp
     source: "{{ ssh_source_ip }}"
     jump: ACCEPT
     action: insert
@@ -659,6 +660,7 @@ configured"
       - cis_rule_3_5_2_3
       - cis_firewall == "iptables"
       - cis_setup_firewall
+      - accept_new_ssh|bool
   notify:
       - rpm-iptables save
       - deb-iptables save
