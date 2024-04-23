@@ -11,7 +11,7 @@ sudo apt-get upgrade -y
 python3
 sudo apt install python3-pip -y
 sudo apt install virtualenv -y
-virtualenv venv-ansible
+virtualenv -p python3 venv-ansible
 source venv-ansible/bin/activate
 pip list
 pip install ansible
