@@ -29,8 +29,9 @@
     destination_port: 22
     ctstate: NEW
     syn: match
-    jump: DROP
-    comment: Reject new SSH connections
+    jump: ACCEPT
+    comment: Accept new SSH connections
+    rule_num: 1
     state: absent
   when:
       - cis_99_deny_ssh
