@@ -7,6 +7,8 @@ sudo apt-add-repository ppa:ansible/ansible
 sudo apt-get update --fix-missing -y
 sudo apt -y install ansible
 ansible --version
+sudo apt-get upgrade -y
+ansible --version
 echo $PATH
 which ansible
 which python3

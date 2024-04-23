@@ -2,23 +2,23 @@
 # defaults file for rpm-cis
 
 
-cis_partitions: true # ENV Variable - PARTITIONS - creates partitions
+cis_partitions: true # Jenkins ENV Variable - PARTITIONS - creates partitions
 cis_section1:   true # filesystems, tmpfs, sudo, selinux, /etc/issue
 cis_section2:   true # services
 cis_section3:   true # iptables
 cis_section4:   true # 4.1-Auditd,4.2-logging,4.3-logrotate
 cis_section5:   true # 5.1-cron,5.2-sshd,5.3-PAM,5.4-login.defs,5.5,5.6-su
 cis_section6:   true # 6.1,2-permissions
-cis_lynis:      true # ENV Variable - LYNIS     - Lynis recommended remediations
-cis_section99:  true # ENV Variable - LOCKDOWN  - lockdown access
-cis_open_ports: true # ENV Variable - OPENPORTS - Open Custom Ports
-cis_port1: ""        # ENV Variable - PORT1
-cis_port2: ""        # ENV Variable - PORT2 
-accept_new_ssh: true # ENV Variable - ACCEPT_NEW_SSH - Accept New SSH Connections from Port 22
-ssh_source_ip: ""    # ENV Variable - SSH_SOURCE_IP
+cis_lynis:      true # Jenkins ENV Variable - LYNIS     - Lynis recommended remediations
+cis_section99:  true # Jenkins ENV Variable - LOCKDOWN  - lockdown access
+cis_open_ports: true # Jenkins ENV Variable - OPENPORTS - Open Custom Ports
+cis_port1: ""        # Jenkins ENV Variable - PORT1
+cis_port2: ""        # Jenkins ENV Variable - PORT2 
+accept_new_ssh: true # Jenkins ENV Variable - ACCEPT_NEW_SSH - Accept New SSH Connections from Port 22
+ssh_source_ip: ""    # Jenkins ENV Variable - SSH_SOURCE_IP
 
 # IPv6 required
-cis_ipv6_required: false # ENV Variable - IPV6
+cis_ipv6_required: false # Jenkins ENV Variable - IPV6
 reboot_machine_after_completion: false
 selinux_disable: false
 auditd_disable: false
