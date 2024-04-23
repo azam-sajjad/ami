@@ -7,11 +7,11 @@
 # sudo apt-get update
 # # sudo apt-get install python3.8 python3.8-pip -y
 # pip3.8 install ansible -y
-sudo apt -y update && sudo apt -y upgrade
+sudo apt -y update 
 sudo apt -y install software-properties-common
 sudo apt-add-repository ppa:ansible/ansible
 sudo apt-get update
-sudo apt -y update
+sudo apt-get update
 sudo apt -y install ansible
 ansible --version
 echo $PATH
