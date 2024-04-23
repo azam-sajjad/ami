@@ -10,8 +10,7 @@
 sudo apt -y update 
 sudo apt -y install software-properties-common
 sudo apt-add-repository ppa:ansible/ansible
-sudo apt-get update
-sudo apt-get update
+sudo apt-get update --fix-missing -y
 sudo apt -y install ansible
 ansible --version
 echo $PATH
