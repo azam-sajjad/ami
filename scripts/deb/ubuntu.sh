@@ -1,5 +1,6 @@
 #!/bin/bash
 # install Ansible and PPA
+# install Ansible and PPA
 # sudo apt update && sudo apt -y upgrade
 # sudo apt -y install software-properties-common
 # sudo apt-add-repository -y ppa:ansible/ansible
@@ -14,8 +15,6 @@
 # # source venv-ansible/bin/activate
 # # pip install ansible
 # # pip freeze
-#!/bin/bash
-# install Ansible and PPA
 sudo apt -y update && sudo apt -y upgrade
 sudo apt -y install software-properties-common
 sudo apt-add-repository ppa:ansible/ansible
