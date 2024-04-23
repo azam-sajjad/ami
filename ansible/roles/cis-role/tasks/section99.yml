@@ -21,8 +21,7 @@
     - level2
     - lockdown
 ####
----
-- name: "OPEN CUSTOM PORT | Allow Port1"
+- name: "OPEN CUSTOM PORT | Allow Outbound 443 for ssm"
   iptables:
     chain: OUTPUT
     protocol: tcp
