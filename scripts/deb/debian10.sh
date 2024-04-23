@@ -19,7 +19,8 @@ pip3.10 install --user --upgrade pip
 python3
 sudo apt install python3-pip -y
 sudo apt install python3-virtualenv -y
-python3.10 -m venv venv-ansible
+virtualenv -p python3 venv-ansible
+# python3.10 -m venv venv-ansible
 source venv-ansible/bin/activate
 pip list
 pip install ansible
