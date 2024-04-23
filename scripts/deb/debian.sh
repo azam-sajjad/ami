@@ -23,11 +23,11 @@ python3 -m pip install ansible
 
 echo $PATH
 which ansible
-ansible-galaxy collection install community.general
-ansible-galaxy collection install ansible.posix
-sudo mkdir -p /usr/share/ansible/collections
-sudo cp -r /root/.ansible/collections/ansible_collections /usr/share/ansible/collections/
-sudo chmod -R a+rx /usr/share/ansible/collections/
+# ansible-galaxy collection install community.general
+# ansible-galaxy collection install ansible.posix
+# sudo mkdir -p /usr/share/ansible/collections
+# sudo cp -r /root/.ansible/collections/ansible_collections /usr/share/ansible/collections/
+# sudo chmod -R a+rx /usr/share/ansible/collections/
 # install ssm agent
 mkdir /tmp/ssm
 cd /tmp/ssm
