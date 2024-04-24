@@ -12,14 +12,6 @@ sudo make altinstall 1> /dev/null
 cd ..
 /usr/local/bin/python3.10 -m pip install --upgrade pip
 /usr/local/bin/python3.10 -m pip install ansible
-sudo apt install python3-pip -y 1> /dev/null
-# sudo apt install python3-virtualenv -y 1> /dev/null
-# sudo cd /tmp
-# sudo python3.10 -m venv /tmp/venv-ansible
-# ls -alh /home/admin
-# sudo ls -alh .
-# sudo source /tmp/venv-ansible/bin/activate
-# sudo pip install ansible
 ansible --version
 ansible-community --version
 # install ssm agent
