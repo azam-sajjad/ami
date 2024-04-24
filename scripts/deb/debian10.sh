@@ -1,21 +1,25 @@
 #!/bin/bash
 # install Ansible with Python3.10 Virtual Environment
-sudo apt-get update -y
-sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev wget libbz2-dev -y
-sudo wget https://www.python.org/ftp/python/3.10.0/Python-3.10.0.tgz
-tar -xvf Python-3.10.0.tgz
+sudo apt-get update -y 1> /dev/null
+sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev wget libbz2-dev -y 1> /dev/null
+sudo wget https://www.python.org/ftp/python/3.10.0/Python-3.10.0.tgz 1> /dev/null
+tar -xvf Python-3.10.0.tgz 1> /dev/null
+########################################################
+########################################################
 echo "Python3.10 installation will take 5+ minutes!"
+########################################################
+########################################################
 cd Python-3.10.0
-sudo ./configure --enable-optimizations 1> /dev/null
-sudo make -j $(nproc) 1> /dev/null
-sudo make altinstall 1> /dev/null
+sudo ./configure --enable-optimizations 1&2> /dev/null
+sudo make -j $(nproc) 1&2> /dev/null
+sudo make altinstall 1&2> /dev/null
 cd ..
 /usr/local/bin/python3.10 -m pip install --upgrade pip
-sudo apt install python3-pip -y
-sudo apt install python3-virtualenv -y
+sudo apt install python3-pip -y 1> /dev/null
+sudo apt install python3-virtualenv -y 1> /dev/null
 python3.10 -m venv venv-ansible
+ls -alh /home/admin
 source venv-ansible/bin/activate
-/root/venv-ansible/bin/python3.10 -m pip install --upgrade pip
 pip install ansible
 ansible --version
 ansible-community --version
