@@ -155,7 +155,7 @@ build {
         inline = ["cd /home/${var.username}"]
     }
     provisioner "ansible-local" {
-        playbook_file = "/home/${var.username}/ami/ansible/playbook.yml"
+        playbook_file = "../ansible/playbook.yml"
         extra_arguments = [
                 "-v",
                 "--extra-vars", "username=${var.username}",
