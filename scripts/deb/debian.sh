@@ -1,5 +1,6 @@
 #!/bin/bash
 # install Ansible with Python3.10
+echo "127.0.0.1 `hostname` localhost" >> /etc/hosts
 sudo apt-get update -y 1> /dev/null
 PYVER="`python3 --version | awk '{print $2}' | cut -d. -f 2`"
 echo $PYVER
