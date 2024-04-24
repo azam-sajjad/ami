@@ -2,8 +2,10 @@
 # install Ansible with Python3.10
 sudo apt-get update -y 
 sudo apt -y install software-properties-common
+sudo apt-get install -y python-software-properties
 sudo apt-add-repository -y ppa:ansible/ansible
 sudo add-apt-repository -y ppa:deadsnakes/ppa
+sudo apt-get update
 PYVER="`python3 --version | awk '{print $2}' | cut -d. -f 2`"
 echo $PYVER
 if [[ $PYVER -lt 10 ]]
@@ -22,7 +24,7 @@ then
     ansible --version
     ansible-community --version
 else
-    sudo apt install -y ansible
+    sudo apt-get install -y ansible
     ansible --version
     ansible-community --version
 fi
