@@ -33,7 +33,7 @@ sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-
 sudo wget https://www.python.org/ftp/python/3.10.0/Python-3.10.0.tgz
 tar -xvf Python-3.10.0.tgz
 echo "Python3.10 installation will take 5+ minutes!"
-sudo Python-3.10.0/configure --enable-optimizations 1>/dev/null
+sudo Python-3.10.0/configure --enable-optimizations 1> /dev/null
 sudo make -j $(nproc) 1> /dev/null
 sudo make altinstall 1> /dev/null
 /usr/local/bin/python3.10 -m pip install --upgrade pip

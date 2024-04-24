@@ -4,7 +4,7 @@ sudo apt-get update -y
 sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev wget libbz2-dev -y
 sudo wget https://www.python.org/ftp/python/3.10.0/Python-3.10.0.tgz
 tar -xvf Python-3.10.0.tgz
-sudo Python-3.10.0/configure --enable-optimizations 1>/dev/null
+sudo Python-3.10.0/configure --enable-optimizations 1> /dev/null
 sudo make -j $(nproc) 1> /dev/null
 sudo make altinstall 1> /dev/null
 /usr/local/bin/python3.10 -m pip install --upgrade pip
