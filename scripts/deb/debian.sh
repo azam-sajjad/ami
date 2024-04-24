@@ -20,9 +20,12 @@ then
     ansible --version
     ansible-community --version
 else
-    sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev wget libbz2-dev -y 1> /dev/null
-    sudo apt install python3-pip
-    pip3 install ansible
+    # sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev wget libbz2-dev -y 1> /dev/null
+    # sudo apt install python3-pip
+    # pip3 install ansible
+    sudo apt -y install software-properties-common
+    sudo apt-add-repository -y ppa:ansible/ansible
+    sudo apt install -y ansible
     ansible --version
     ansible-community --version
 fi
