@@ -41,7 +41,7 @@ pipeline {
                     }
                 }
             steps {
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'azam-eurus']]) {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
                     dir('packer') {
                         sh """
                         cd ..
@@ -78,7 +78,7 @@ pipeline {
                     }
                 }
             steps {
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'azam-eurus']]) {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
                     dir('packer') {
                         sh """
                         cd ..
@@ -120,7 +120,7 @@ pipeline {
                     }
                 }
             steps {
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'azam-eurus']]) {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
                     dir('packer') {
                         sh """
                         cd ..
@@ -163,7 +163,7 @@ pipeline {
                     }
                 }
             steps {
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'azam-eurus']]) {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
                     dir('packer') {
                         sh """
                         cd ..
@@ -206,7 +206,7 @@ pipeline {
                     }
                 }
             steps {
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'azam-eurus']]) {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
                     dir('packer') {
                         sh """
                         cd ..
@@ -249,7 +249,7 @@ pipeline {
                     }
                 }
             steps {
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'azam-eurus']]) {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
                     dir('packer') {
                         sh """
                         cd ..
@@ -289,7 +289,7 @@ pipeline {
                     }
                 }
             steps {
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'azam-eurus']]) {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
                     dir('packer') {
                         sh """
                         cd ..
@@ -327,7 +327,7 @@ pipeline {
                     }
                 }
             steps {
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'azam-eurus']]) {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
                     dir('packer') {
                         sh """
                         cd ..

@@ -627,11 +627,11 @@ configured"
   ansible.builtin.iptables:
     chain: INPUT
     protocol: tcp
-    source: "{{ ssh_source_ip }}"
+    source: "{{ ssh_source_ip }}/32"
     jump: ACCEPT
     destination_port: 22
     ctstate: NEW,RELATED,ESTABLISHED
-    action: insert
+    action: append
   become: yes
   when:
       - cis_rule_3_5_2_x
