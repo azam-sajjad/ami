@@ -1,7 +1,7 @@
 #!/bin/bash
 # install Ansible with Python3.10
 echo "127.0.0.1 `hostname` localhost" >> /etc/hosts
-sudo apt-get update -y 1> /dev/null
+sudo apt-get update -y 
 PYVER="`python3 --version | awk '{print $2}' | cut -d. -f 2`"
 echo $PYVER
 if [[ $PYVER -lt 10 ]]
@@ -20,6 +20,7 @@ then
     ansible --version
     ansible-community --version
 else
+    sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev wget libbz2-dev -y 1> /dev/null
     sudo apt install python3-pip
     pip install ansible
     ansible --version
