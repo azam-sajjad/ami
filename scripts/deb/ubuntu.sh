@@ -3,8 +3,6 @@
 sudo apt update && sudo apt -y upgrade
 sudo apt -y install software-properties-common
 sudo apt-add-repository -y ppa:ansible/ansible
-sudo add-apt-repository -y ppa:deadsnakes/ppa
-sudo add-apt-repository -y universe
 sudo apt -y update 
 sudo apt-get upgrade -y
 python3
