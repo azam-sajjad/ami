@@ -17,8 +17,10 @@ cd ..
 /usr/local/bin/python3.10 -m pip install --upgrade pip
 sudo apt install python3-pip -y 1> /dev/null
 sudo apt install python3-virtualenv -y 1> /dev/null
+sudo cd /tmp
 python3.10 -m venv venv-ansible
 ls -alh /home/admin
+ls -alh .
 source venv-ansible/bin/activate
 pip install ansible
 ansible --version
