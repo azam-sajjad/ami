@@ -10,9 +10,9 @@ echo "Python3.10 installation will take 5+ minutes!"
 ########################################################
 ########################################################
 cd Python-3.10.0
-sudo ./configure --enable-optimizations 1&2> /dev/null
-sudo make -j $(nproc) 1&2> /dev/null
-sudo make altinstall 1&2> /dev/null
+sudo ./configure --enable-optimizations 1> /dev/null
+sudo make -j $(nproc) 1> /dev/null
+sudo make altinstall 1> /dev/null
 cd ..
 /usr/local/bin/python3.10 -m pip install --upgrade pip
 sudo apt install python3-pip -y 1> /dev/null
