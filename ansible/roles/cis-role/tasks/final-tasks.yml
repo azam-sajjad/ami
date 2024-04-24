@@ -1,7 +1,6 @@
-# FOLLOWING TASKS ARE EXECUTED AT THE END AS THEY INFLUENCE BEHAVIOR OF OTHER TASKS
+# FOLLOWING TASKS ARE EXECUTED AT THE END
 # 1.1.2 - 1.1.5
 # 3.5.2.1
-# TMP is Packer's Working Directory, Packer does not work when TMP is Partitioned (deb)
 ---
 - name: "SCORED | 1.1.2 | PATCH | Ensure separate partition exists for /tmp | enable and start/restart tmp.mount"
   copy:
@@ -13,9 +12,10 @@
       force: true
       remote_src: true
   notify:
-      - systemd start tmp.mount
+      - systemd enable tmp.mount
   when:
       - cis_rule_1_1_2
+      - ansible_os_family == 'RedHat'
   tags:
       - level2
       - scored
@@ -38,8 +38,9 @@
       - "{{ tmp_mount_file[ansible_os_family] }}"
       - /etc/systemd/system/tmp.mount
   notify:
-      - systemd start tmp.mount
+      - systemd enable tmp.mount
   when:
+      - ansible_os_family == 'RedHat'
       - cis_rule_1_1_3
       - cis_rule_1_1_4
   tags:

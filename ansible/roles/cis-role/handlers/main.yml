@@ -3,14 +3,13 @@
 
 
 # Section1
-- name: systemd start tmp.mount
+- name: systemd enable tmp.mount
   become: true
   systemd:
       name: tmp.mount
       daemon_reload: false
       enabled: true
       masked: false
-      # state: stopped
   when: ansible_virtualization_type != "docker"
   ignore_errors: "{{ cis_ignore_remount_errors }}"
 
