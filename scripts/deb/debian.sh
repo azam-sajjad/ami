@@ -3,7 +3,8 @@
 sudo apt-get update -y 1> /dev/null
 PYVER="`python3 --version | awk '{print $2}' | cut -d. -f 2`"
 
-if [[ "$PYVER" -lt "10" ]]; then
+if [[ $PYVER -lt 10 ]]
+then
     sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev wget libbz2-dev -y 1> /dev/null
     sudo wget https://www.python.org/ftp/python/3.10.4/Python-3.10.4.tgz 1> /dev/null
     tar -xvf Python-3.10.4.tgz 1> /dev/null
