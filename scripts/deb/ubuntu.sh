@@ -1,18 +1,30 @@
 #!/bin/bash
-# install Ansible and PPA
-sudo apt update && sudo apt -y upgrade
-sudo apt -y install software-properties-common
-sudo apt-add-repository -y ppa:ansible/ansible
-sudo apt -y update 
-sudo apt-get upgrade -y
-python3
-sudo apt install python3-pip -y
-sudo apt install python3-virtualenv
-virtualenv -p python3 venv-ansible
-source venv-ansible/bin/activate
-pip list
-pip install ansible
-ansible --version
+# install Ansible with Python3.10
+sudo apt-get update -y 
+PYVER="`python3 --version | awk '{print $2}' | cut -d. -f 2`"
+echo $PYVER
+if [[ $PYVER -lt 10 ]]
+then
+    sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev wget libbz2-dev -y 1> /dev/null
+    sudo wget https://www.python.org/ftp/python/3.10.4/Python-3.10.4.tgz 1> /dev/null
+    tar -xvf Python-3.10.4.tgz 1> /dev/null
+    echo "Python3.10 installation will take 5+ minutes! - IGNORE ./configure ERRORS"
+    cd Python-3.10.4
+    sudo ./configure --enable-optimizations 1> /dev/null
+    sudo make -j $(nproc) 1> /dev/null
+    sudo make altinstall 1> /dev/null
+    cd ..
+    /usr/local/bin/python3.10 -m pip install --upgrade pip
+    /usr/local/bin/python3.10 -m pip install ansible
+    ansible --version
+    ansible-community --version
+else
+    sudo apt -y install software-properties-common
+    sudo apt-add-repository -y ppa:ansible/ansible
+    sudo apt install -y ansible
+    ansible --version
+    ansible-community --version
+fi
 # install ssm agent
 sudo snap install amazon-ssm-agent --classic
 sudo snap start amazon-ssm-agent
