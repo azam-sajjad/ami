@@ -629,6 +629,8 @@ configured"
     protocol: tcp
     source: "{{ ssh_source_ip }}"
     jump: ACCEPT
+    destination_port: 22
+    ctstate: NEW,RELATED,ESTABLISHED
     action: insert
   become: yes
   when:
