@@ -27,8 +27,8 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/azam-sajjad/ami.git'
+                git branch: 'ansible',
+                    url: 'https://github.com/scaleops/ami-hardening.git'
             }
         }
         stage('Building ECS Image') {
@@ -38,7 +38,7 @@ pipeline {
                     }
                 }
             steps {
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'azam-git']]) {
                     dir('packer') {
                         sh """
                         cd ..
@@ -75,7 +75,7 @@ pipeline {
                     }
                 }
             steps {
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'azam-git']]) {
                     dir('packer') {
                         sh """
                         cd ..
@@ -117,7 +117,7 @@ pipeline {
                     }
                 }
             steps {
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'azam-git']]) {
                     dir('packer') {
                         sh """
                         cd ..
@@ -160,7 +160,7 @@ pipeline {
                     }
                 }
             steps {
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'azam-git']]) {
                     dir('packer') {
                         sh """
                         cd ..
@@ -203,7 +203,7 @@ pipeline {
                     }
                 }
             steps {
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'azam-git']]) {
                     dir('packer') {
                         sh """
                         cd ..
@@ -246,7 +246,7 @@ pipeline {
                     }
                 }
             steps {
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'azam-git']]) {
                     dir('packer') {
                         sh """
                         cd ..
@@ -286,7 +286,7 @@ pipeline {
                     }
                 }
             steps {
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'azam-git']]) {
                     dir('packer') {
                         sh """
                         cd ..
@@ -324,7 +324,7 @@ pipeline {
                     }
                 }
             steps {
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'eurus-control']]) {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'azam-git']]) {
                     dir('packer') {
                         sh """
                         cd ..
