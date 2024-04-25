@@ -607,7 +607,7 @@ configured"
       - name: IPv6 inbound and established connections
         iptables:
             chain: OUTPUT
-            protocol: tcp
+            protocol: all
             ctstate: NEW,ESTABLISHED,RELATED
             jump: ACCEPT
         notify:
