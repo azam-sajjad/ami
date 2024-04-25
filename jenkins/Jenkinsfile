@@ -14,8 +14,7 @@ pipeline {
         """, name: 'VERSION'
         string defaultValue: 'scaleops', description: 'Modify Prefix - AMI Naming Convention -> <PREFIX>-<DISTRIBUTION><VERSION>-<DATE> e.g. scaleops-amazonLinux2023-01-04-2024', name: 'AMI_PREFIX'
         choice(name: 'FIREWALL', choices:['iptables', 'firewalld', 'ufw', 'nftables'], description:'Firewall to Setup for the AMI')
-        string defaultValue: '44.198.48.70', description: 'Allow SSH login only from a Specific IP Address', name: 'SSH_SOURCE_IP'
-        booleanParam defaultValue: false, description: 'Accept New SSH Connections from all Sources on Port 22 besides the Source IP listed above? (Check for Yes)', name: 'ACCEPT_NEW_SSH'
+        booleanParam defaultValue: true, description: 'Accept New SSH Connections on Port 22? (Check for Yes)', name: 'ACCEPT_NEW_SSH'
         booleanParam defaultValue: false, description: 'Enable IPv6? (Check for Yes)', name: 'IPV6'
         booleanParam defaultValue: true, description: 'Open Custom Ports for Services? (Check for Yes)', name: 'OPENPORTS'
         string defaultValue: '443', description: 'Open a Custom Port for Services', name: 'PORT1'
@@ -61,7 +60,6 @@ pipeline {
                         echo 'PORT2=$PORT2'
                         echo 'ACCEPT_NEW_SSH=$ACCEPT_NEW_SSH'
                         echo 'IPV6=$IPV6'
-                        echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
                         cd packer
                         echo '========================= Building ${params.DISTRIBUTION} AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl
@@ -98,7 +96,6 @@ pipeline {
                         echo 'PORT2=$PORT2'
                         echo 'ACCEPT_NEW_SSH=$ACCEPT_NEW_SSH'
                         echo 'IPV6=$IPV6'
-                        echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
                         cd packer
                         echo '========================= Building ${params.DISTRIBUTION} AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl
@@ -141,7 +138,6 @@ pipeline {
                         echo 'PORT2=$PORT2'
                         echo 'ACCEPT_NEW_SSH=$ACCEPT_NEW_SSH'
                         echo 'IPV6=$IPV6'
-                        echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
                         cd packer
                         echo '========================= Building Amazon Linux 2 AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl
@@ -184,7 +180,6 @@ pipeline {
                         echo 'PORT2=$PORT2'
                         echo 'ACCEPT_NEW_SSH=$ACCEPT_NEW_SSH'
                         echo 'IPV6=$IPV6'
-                        echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
                         cd packer
                         echo '========================= Building Amazon Linux 2023 AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl
@@ -227,7 +222,6 @@ pipeline {
                         echo 'PORT2=$PORT2'
                         echo 'ACCEPT_NEW_SSH=$ACCEPT_NEW_SSH'
                         echo 'IPV6=$IPV6'
-                        echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
                         cd packer
                         echo '========================= Building ${params.DISTRIBUTION} 7 AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl
@@ -270,7 +264,6 @@ pipeline {
                         echo 'PORT2=$PORT2'
                         echo 'ACCEPT_NEW_SSH=$ACCEPT_NEW_SSH'
                         echo 'IPV6=$IPV6'
-                        echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
                         cd packer
                         echo '========================= Building ${params.DISTRIBUTION} ${params.VERSION} Stream AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl
@@ -310,7 +303,6 @@ pipeline {
                         echo 'PORT2=$PORT2'
                         echo 'ACCEPT_NEW_SSH=$ACCEPT_NEW_SSH'
                         echo 'IPV6=$IPV6'
-                        echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
                         cd packer
                         echo '========================= Building ${params.DISTRIBUTION} ${params.VERSION} AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl
@@ -348,7 +340,6 @@ pipeline {
                         echo 'PORT2=$PORT2'
                         echo 'ACCEPT_NEW_SSH=$ACCEPT_NEW_SSH'
                         echo 'IPV6=$IPV6'
-                        echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
                         cd packer
                         echo '========================= Building ${params.DISTRIBUTION} ${params.VERSION} AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl

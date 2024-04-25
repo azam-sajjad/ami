@@ -15,7 +15,6 @@ cis_open_ports: true # Jenkins ENV Variable - OPENPORTS - Open Custom Ports
 cis_port1: ""        # Jenkins ENV Variable - PORT1
 cis_port2: ""        # Jenkins ENV Variable - PORT2 
 accept_new_ssh: true # Jenkins ENV Variable - ACCEPT_NEW_SSH - Accept New SSH Connections from Port 22
-ssh_source_ip: ""    # Jenkins ENV Variable - SSH_SOURCE_IP
 
 # IPv6 required
 cis_ipv6_required: false # Jenkins ENV Variable - IPV6
@@ -358,7 +357,6 @@ cis_rule_3_5_2_1: true # iptables Ensure default deny firewall policy
 cis_rule_3_5_2_2: true  # Ensure IPv4 loopback traffic is configured
 cis_rule_3_5_2_3: true  # NotScored Ensure IPv4 outbound & est. connections are configured
 cis_rule_3_5_2_4: true  # Ensure firewall rules exist for all open ports e.g. 22
-cis_rule_3_5_2_x: true  # Allow ssh from a Specific IP address
 # Active When cis_firewall = "ufw"
 cis_rule_3_5_3_1: true  # When cis_firewall == ufw - Ensure firewall is installed and started
 cis_rule_3_5_3_2: true  # When cis_firewall == ufw - Ensure default deny firewall policy
