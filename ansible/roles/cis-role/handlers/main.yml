@@ -66,6 +66,11 @@
     state: restarted
     enabled: yes
 
+- name: restart ufw
+  become: true
+  service:
+      name: ufw
+      state: restarted
 - name: restart firewalld
   become: true
   service:

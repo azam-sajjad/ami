@@ -598,13 +598,15 @@ configured"
 
 - name: "NOT SCORED | 3.5.2.3 | PATCH | Ensure IPv4 outbound and established connections are configured"
   block:
-      - name: IPv6 inbound and established connections
+      - name: IPv4 inbound and established connections
         iptables:
             chain: INPUT
             protocol: tcp
             ctstate: ESTABLISHED,RELATED
             jump: ACCEPT
-      - name: IPv6 inbound and established connections
+        when:
+            - not cis_section99|bool
+      - name: IPv4 inbound and established connections
         iptables:
             chain: OUTPUT
             protocol: all
@@ -639,6 +641,7 @@ configured"
       - cis_firewall == "iptables"
       - cis_setup_firewall
       - accept_new_ssh|bool
+      - not cis_section99|bool
   notify:
       - rpm-iptables save
       - deb-iptables save
@@ -758,6 +761,8 @@ configured"
       - cis_firewall == "ufw"
       - cis_setup_firewall
       - ansible_os_family == "Debian"
+      - accept_new_ssh|bool
+      - not cis_section99|bool
   tags:
       - level1
       - notscored
@@ -900,9 +905,28 @@ configured"
       - rule_3.5.4.4
 
 - name: "NOTSCORED | 3.5.4.5 | PATCH | Ensure outbound and established connections are configured"
-  shell: |
-      nft add rule inet {{ cis_nftables_table }} input ip protocol {{ item }} ct state established accept
-      nft add rule inet {{ cis_nftables_table }} output ip protocol {{ item }} ct state new,related,established accept
+  shell: "nft add rule inet {{ cis_nftables_table }} input ip protocol {{ item }} ct state established accept"
+  args:
+      executable: /bin/bash
+  loop:
+      - tcp
+      - udp
+      - icmp
+  changed_when: false
+  check_mode: false
+  when:
+      - cis_rule_3_5_4_5
+      - cis_firewall == "nftables"
+      - cis_setup_firewall
+      - accept_new_ssh|bool
+      - not cis_section99|bool
+  tags:
+      - level1
+      - notscored
+      - patch
+      - rule_3.5.4.5
+- name: "NOTSCORED | 3.5.4.5 | PATCH | Ensure outbound and established connections are configured"
+  shell: "nft add rule inet {{ cis_nftables_table }} output ip protocol {{ item }} ct state new,related,established accept"
   args:
       executable: /bin/bash
   loop:
@@ -1048,6 +1072,8 @@ configured"
       - cis_firewall == "firewalld"
       - cis_setup_firewall
       - ansible_os_family == "RedHat"
+      - accept_new_ssh|bool
+      - not cis_section99|bool
   notify: restart firewalld
   with_items: "{{ cis_firewall_services }}"
   tags:
@@ -1055,6 +1081,7 @@ configured"
       - scored
       - patch
       - rule_3.5.5.3
+
 
 ############################################################################################
 - name: "NOTSCORED | 3.7 | Disable IPv6"

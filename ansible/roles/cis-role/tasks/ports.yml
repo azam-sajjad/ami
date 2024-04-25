@@ -1,4 +1,6 @@
 ---
+#######################################################
+#iptables
 - name: "OPEN CUSTOM PORT | Allow Port1"
   iptables:
     chain: INPUT
@@ -34,3 +36,61 @@
 - name: show current state of the firewall
   ansible.builtin.debug:
     var: iptables_state.initial_state
+
+
+#######################################################
+#ufw
+- name: "OPEN CUSTOM PORT | Allow Port1 | ufw"
+  ufw:
+    rule: allow
+    port: "{{ cis_port1 }}"
+    proto: tcp
+  when:
+      - cis_firewall == "ufw"
+      - cis_setup_firewall
+      - ansible_os_family == "Debian"
+      - cis_port1 is defined
+  notify: restart ufw
+  tags: cis_open_port1
+
+- name: "OPEN CUSTOM PORT | Allow Port2 | ufw"
+  ufw:
+    rule: allow
+    port: "{{ cis_port2 }}"
+    proto: tcp
+  when:
+      - cis_firewall == "ufw"
+      - cis_setup_firewall
+      - ansible_os_family == "Debian"
+      - cis_port2 is defined
+  notify: restart ufw
+  tags: cis_open_port2
+#######################################################
+#firewalld
+- name: "OPEN CUSTOM PORT | Allow Port1 | firewalld"
+  firewalld:
+      permanent: yes
+      immediate: yes
+      service: "{{ cis_port1 }}"
+      state: enabled
+  when:
+      - cis_firewall == "firewalld"
+      - cis_setup_firewall
+      - ansible_os_family == "RedHat"
+      - cis_port1 is defined
+  tags: cis_open_port1
+
+- name: "OPEN CUSTOM PORT | Allow Port2 | firewalld"
+  firewalld:
+      permanent: yes
+      immediate: yes
+      service: "{{ cis_port2 }}"
+      state: enabled
+  notify: restart firewalld
+  when:
+      - cis_firewall == "firewalld"
+      - cis_setup_firewall
+      - ansible_os_family == "RedHat"
+      - cis_port2 is defined
+  notify: restart firewalld
+  tags: cis_open_port2
