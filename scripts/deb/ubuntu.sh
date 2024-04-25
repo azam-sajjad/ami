@@ -22,7 +22,7 @@ then
     ansible --version
     ansible-community --version
 else
-    sudo apt install ansible
+    sudo apt install ansible -y
     # /usr/bin/python3.10 -m pip install --upgrade pip
     # /usr/bin/python3.10 -m pip install ansible
     # sudo apt-get install -y ansible
