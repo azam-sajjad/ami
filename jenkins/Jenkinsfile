@@ -14,13 +14,13 @@ pipeline {
         """, name: 'VERSION'
         string defaultValue: 'scaleops', description: 'Modify Prefix - AMI Naming Convention -> <PREFIX>-<DISTRIBUTION><VERSION>-<DATE> e.g. scaleops-amazonLinux2023-01-04-2024', name: 'AMI_PREFIX'
         choice(name: 'FIREWALL', choices:['iptables', 'firewalld', 'ufw', 'nftables'], description:'Firewall to Setup for the AMI')
-        booleanParam defaultValue: true, description: 'Accept New SSH Connections on Port 22? (Check for Yes)', name: 'ACCEPT_NEW_SSH'
         booleanParam defaultValue: false, description: 'Enable IPv6? (Check for Yes)', name: 'IPV6'
+        booleanParam defaultValue: true, description: 'Accept New SSH Connections on Port 22? (Check for Yes)', name: 'ACCEPT_NEW_SSH'
         booleanParam defaultValue: true, description: 'Open Custom Ports for Services? (Check for Yes)', name: 'OPENPORTS'
         string defaultValue: '443', description: 'Open a Custom Port for Services', name: 'PORT1'
         string defaultValue: '80', description: 'Open a Custom Port for Services', name: 'PORT2'
         booleanParam defaultValue: true, description: 'Harden to 80+, Run Lynis Recommended Remediations e.g. install Malware Detector (tripwire,rkhunter), More Restrictive Permissions, Restrictive Network Parameters, which improves Score', name: 'LYNIS'
-        booleanParam defaultValue: true, description: 'Block ALL SSH Access, Level2 sshd_config, Remove Keys, /etc/hosts.deny', name: 'LOCKDOWN'
+        booleanParam defaultValue: false, description: 'Block ALL SSH Access, Level2 sshd_config, Remove Keys, /etc/hosts.deny', name: 'LOCKDOWN'
 
     }
     stages {
