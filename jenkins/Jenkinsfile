@@ -13,7 +13,6 @@ pipeline {
         Ubuntu      -> 18/20/22
         """, name: 'VERSION'
         string defaultValue: 'scaleops', description: 'Modify Prefix - AMI Naming Convention -> <PREFIX>-<DISTRIBUTION><VERSION>-<DATE> e.g. scaleops-amazonLinux2023-01-04-2024', name: 'AMI_PREFIX'
-        choice(name: 'FIREWALL', choices:['iptables', 'firewalld', 'ufw', 'nftables'], description:'Firewall to Setup for the AMI')
         booleanParam defaultValue: false, description: 'Enable IPv6? (Check for Yes)', name: 'IPV6'
         booleanParam defaultValue: true, description: 'Accept New SSH Connections on Port 22? (Check for Yes)', name: 'ACCEPT_NEW_SSH'
         booleanParam defaultValue: true, description: 'Open Custom Ports for Services? (Check for Yes)', name: 'OPENPORTS'
@@ -51,7 +50,6 @@ pipeline {
                         export DATE=`date +%d-%m-%Y`
                         export LINUX_FLAVOR="rpm"
                         export USERNAME="ec2-user"
-                        echo 'FIREWALL=$FIREWALL'
                         echo 'PARTITIONS=$PARTITIONS'
                         echo 'LYNIS=$LYNIS'
                         echo 'LOCKDOWN=$LOCKDOWN'
@@ -87,7 +85,6 @@ pipeline {
                         export DATE=`date +%d-%m-%Y`
                         export LINUX_FLAVOR="rpm"
                         export USERNAME="ec2-user"
-                        echo 'FIREWALL=$FIREWALL'
                         echo 'PARTITIONS=$PARTITIONS'
                         echo 'LYNIS=$LYNIS'
                         echo 'LOCKDOWN=$LOCKDOWN'
@@ -129,7 +126,6 @@ pipeline {
                         export DATE=`date +%d-%m-%Y`
                         export LINUX_FLAVOR="rpm"
                         export USERNAME="ec2-user"
-                        echo 'FIREWALL=$FIREWALL'
                         echo 'PARTITIONS=$PARTITIONS'
                         echo 'LYNIS=$LYNIS'
                         echo 'LOCKDOWN=$LOCKDOWN'
@@ -171,7 +167,6 @@ pipeline {
                         export DATE=`date +%d-%m-%Y`
                         export LINUX_FLAVOR="rpm"
                         export USERNAME="ec2-user"
-                        echo 'FIREWALL=$FIREWALL'
                         echo 'PARTITIONS=$PARTITIONS'
                         echo 'LYNIS=$LYNIS'
                         echo 'LOCKDOWN=$LOCKDOWN'
@@ -213,7 +208,6 @@ pipeline {
                         export DATE=`date +%d-%m-%Y`
                         export LINUX_FLAVOR="rpm"
                         export USERNAME="centos"
-                        echo 'FIREWALL=$FIREWALL'
                         echo 'PARTITIONS=$PARTITIONS'
                         echo 'LYNIS=$LYNIS'
                         echo 'LOCKDOWN=$LOCKDOWN'
@@ -255,7 +249,6 @@ pipeline {
                         export DATE=`date +%d-%m-%Y`
                         export LINUX_FLAVOR="rpm"
                         export USERNAME="ec2-user"
-                        echo 'FIREWALL=$FIREWALL'
                         echo 'PARTITIONS=$PARTITIONS'
                         echo 'LYNIS=$LYNIS'
                         echo 'LOCKDOWN=$LOCKDOWN'
@@ -294,7 +287,6 @@ pipeline {
                         export DATE=`date +%d-%m-%Y`
                         export LINUX_FLAVOR="deb"
                         export USERNAME="admin"
-                        echo 'FIREWALL=$FIREWALL'
                         echo 'PARTITIONS=$PARTITIONS'
                         echo 'LYNIS=$LYNIS'
                         echo 'LOCKDOWN=$LOCKDOWN'
@@ -331,7 +323,6 @@ pipeline {
                         export DATE=`date +%d-%m-%Y`
                         export LINUX_FLAVOR="deb"
                         export USERNAME="ubuntu"
-                        echo 'FIREWALL=$FIREWALL'
                         echo 'PARTITIONS=$PARTITIONS'
                         echo 'LYNIS=$LYNIS'
                         echo 'LOCKDOWN=$LOCKDOWN'

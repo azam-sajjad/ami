@@ -16,7 +16,7 @@ cis_port1: ""        # Jenkins ENV Variable - PORT1
 cis_port2: ""        # Jenkins ENV Variable - PORT2 
 accept_new_ssh: true # Jenkins ENV Variable - ACCEPT_NEW_SSH - Accept New SSH Connections from Port 22
 
-# IPv6 required
+# IPv6 Enable?
 cis_ipv6_required: false # Jenkins ENV Variable - IPV6
 reboot_machine_after_completion: false
 selinux_disable: false

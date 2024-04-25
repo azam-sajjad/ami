@@ -83,10 +83,6 @@ variable "ACCEPT_NEW_SSH" {
   type    = string
   default = env("ACCEPT_NEW_SSH")
 }
-variable "SSH_SOURCE_IP" {
-  type    = string
-  default = env("SSH_SOURCE_IP")
-}
 variable "LYNIS" {
   type    = string
   default = env("LYNIS")
@@ -94,10 +90,6 @@ variable "LYNIS" {
 variable "LOCKDOWN" {
   type    = string
   default = env("LOCKDOWN")
-}
-variable "FIREWALL" {
-  type    = string
-  default = env("FIREWALL")
 }
 
 ###########################################################
@@ -163,8 +155,7 @@ build {
                 "--extra-vars", "cis_port1=${var.PORT1}",
                 "--extra-vars", "cis_port2=${var.PORT2}",
                 "--extra-vars", "cis_ipv6_required=${var.IPV6}",
-                "--extra-vars", "ssh_source_ip=${var.ACCEPT_NEW_SSH}",
-                "--extra-vars", "cis_firewall=${var.FIREWALL}"
+                "--extra-vars", "accept_new_ssh=${var.ACCEPT_NEW_SSH}",
             ]
     }
     provisioner "shell" {
