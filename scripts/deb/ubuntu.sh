@@ -2,13 +2,10 @@
 # install Ansible with Python3.10
 sudo apt-get update -y 
 sudo apt -y install software-properties-common
-sudo apt-get install -y python-software-properties
 sudo apt-add-repository -y ppa:ansible/ansible
-sudo add-apt-repository -y ppa:deadsnakes/ppa
-sudo apt update
 sudo apt-get update
 PYVER="`python3 --version | awk '{print $2}' | cut -d. -f 2`"
-echo $PYVER
+echo "PYVER=$PYVER"
 if [[ $PYVER -lt 10 ]]
 then
     sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev wget libbz2-dev -y 1> /dev/null
