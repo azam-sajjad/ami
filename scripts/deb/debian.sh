@@ -19,8 +19,8 @@ then
     sudo make -j $(nproc) 1> /dev/null
     sudo make altinstall 1> /dev/null
     cd ..
-    /usr/local/bin/python3.10 -m pip install --upgrade pip
-    /usr/local/bin/python3.10 -m pip install ansible
+    /usr/bin/python3.10 -m pip install --upgrade pip
+    /usr/bin/python3.10 -m pip install ansible
     ansible --version
     ansible-community --version
 else
