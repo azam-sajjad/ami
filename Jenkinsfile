@@ -62,6 +62,9 @@ pipeline {
                         echo 'ACCEPT_NEW_SSH=$ACCEPT_NEW_SSH'
                         echo 'IPV6=$IPV6'
                         echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
+                        export PACKER_LOG=1
+                        export PACKER_LOG_PATH=$WORKSPACE/packer.log
+                        echo "packer log path:" $PACKER_LOG_PATH
                         cd packer
                         echo '========================= Building ${params.DISTRIBUTION} AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl
@@ -99,6 +102,9 @@ pipeline {
                         echo 'ACCEPT_NEW_SSH=$ACCEPT_NEW_SSH'
                         echo 'IPV6=$IPV6'
                         echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
+                        export PACKER_LOG=1
+                        export PACKER_LOG_PATH=$WORKSPACE/packer.log
+                        echo "packer log path:" $PACKER_LOG_PATH
                         cd packer
                         echo '========================= Building ${params.DISTRIBUTION} AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl
@@ -142,6 +148,9 @@ pipeline {
                         echo 'ACCEPT_NEW_SSH=$ACCEPT_NEW_SSH'
                         echo 'IPV6=$IPV6'
                         echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
+                        export PACKER_LOG=1
+                        export PACKER_LOG_PATH=$WORKSPACE/packer.log
+                        echo "packer log path:" $PACKER_LOG_PATH
                         cd packer
                         echo '========================= Building Amazon Linux 2 AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl
@@ -185,6 +194,9 @@ pipeline {
                         echo 'ACCEPT_NEW_SSH=$ACCEPT_NEW_SSH'
                         echo 'IPV6=$IPV6'
                         echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
+                        export PACKER_LOG=1
+                        export PACKER_LOG_PATH=$WORKSPACE/packer.log
+                        echo "packer log path:" $PACKER_LOG_PATH
                         cd packer
                         echo '========================= Building Amazon Linux 2023 AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl
@@ -228,6 +240,9 @@ pipeline {
                         echo 'ACCEPT_NEW_SSH=$ACCEPT_NEW_SSH'
                         echo 'IPV6=$IPV6'
                         echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
+                        export PACKER_LOG=1
+                        export PACKER_LOG_PATH=$WORKSPACE/packer.log
+                        echo "packer log path:" $PACKER_LOG_PATH
                         cd packer
                         echo '========================= Building ${params.DISTRIBUTION} 7 AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl
@@ -271,6 +286,9 @@ pipeline {
                         echo 'ACCEPT_NEW_SSH=$ACCEPT_NEW_SSH'
                         echo 'IPV6=$IPV6'
                         echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
+                        export PACKER_LOG=1
+                        export PACKER_LOG_PATH=$WORKSPACE/packer.log
+                        echo "packer log path:" $PACKER_LOG_PATH
                         cd packer
                         echo '========================= Building ${params.DISTRIBUTION} ${params.VERSION} Stream AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl
@@ -311,6 +329,9 @@ pipeline {
                         echo 'ACCEPT_NEW_SSH=$ACCEPT_NEW_SSH'
                         echo 'IPV6=$IPV6'
                         echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
+                        export PACKER_LOG=1
+                        export PACKER_LOG_PATH=$WORKSPACE/packer.log
+                        echo "packer log path:" $PACKER_LOG_PATH
                         cd packer
                         echo '========================= Building ${params.DISTRIBUTION} ${params.VERSION} AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl
@@ -349,6 +370,9 @@ pipeline {
                         echo 'ACCEPT_NEW_SSH=$ACCEPT_NEW_SSH'
                         echo 'IPV6=$IPV6'
                         echo 'SSH_SOURCE_IP=$SSH_SOURCE_IP'
+                        export PACKER_LOG=1
+                        export PACKER_LOG_PATH=$WORKSPACE/packer.log
+                        echo "packer log path:" $PACKER_LOG_PATH
                         cd packer
                         echo '========================= Building ${params.DISTRIBUTION} ${params.VERSION} AMI ========================='
                         /usr/bin/packer init aws.pkr.hcl

@@ -6,11 +6,11 @@ pipeline {
         choice(name: 'DISTRIBUTION', choices:['ECS', 'EKS', 'amazonLinux', 'CentOS', 'debian', 'ubuntu'], description:'Select Distribution for AMI')
         string description: """Major Release Version for Distribution
         SUPPORTED VERSIONS:
-        ECS/EKS     -> <Leave it Blank>
+        ECS/EKS     -> <Leave Blank>
         amazonLinux -> 2/2023
         CentOS      -> 7/8/9
-        Debian      -> 10/12
-        Ubuntu      -> 18/20
+        Debian      -> 10/11/12
+        Ubuntu      -> 18/20/22
         """, name: 'VERSION'
         string defaultValue: 'scaleops', description: 'Modify Prefix - AMI Naming Convention -> <PREFIX>-<DISTRIBUTION><VERSION>-<DATE> e.g. scaleops-amazonLinux2023-01-04-2024', name: 'AMI_PREFIX'
         choice(name: 'FIREWALL', choices:['iptables', 'firewalld', 'ufw', 'nftables'], description:'Firewall to Setup for the AMI')

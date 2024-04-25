@@ -5,6 +5,7 @@ sudo apt -y install software-properties-common
 sudo apt-get install -y python-software-properties
 sudo apt-add-repository -y ppa:ansible/ansible
 sudo add-apt-repository -y ppa:deadsnakes/ppa
+sudo apt update
 sudo apt-get update
 PYVER="`python3 --version | awk '{print $2}' | cut -d. -f 2`"
 echo $PYVER
@@ -24,8 +25,9 @@ then
     ansible --version
     ansible-community --version
 else
-    /usr/bin/python3.10 -m pip install --upgrade pip
-    /usr/bin/python3.10 -m pip install ansible
+    sudo apt install ansible
+    # /usr/bin/python3.10 -m pip install --upgrade pip
+    # /usr/bin/python3.10 -m pip install ansible
     # sudo apt-get install -y ansible
     ansible --version
     ansible-community --version
