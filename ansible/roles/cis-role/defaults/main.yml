@@ -48,7 +48,7 @@ cis_apply_upgrades: true
 ###########                                   ###########
 #########################################################
 # Ignore remount errors if you're building an image or are going to reboot anyway
-cis_ignore_remount_errors: false
+cis_ignore_remount_errors: true
 # Section 1 rules
 # Partition and Mount /home - /var - /var/log - /var/tmp Separate from ROOT
 
