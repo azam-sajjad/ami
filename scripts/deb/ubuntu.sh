@@ -32,4 +32,4 @@ fi
 # install ssm agent
 sudo snap install amazon-ssm-agent --classic
 sudo snap start amazon-ssm-agent
-sudo systemctl enable --now snap.amazon-ssm-agent.amazon-ssm-agent.service
+sudo systemctl enable snap.amazon-ssm-agent.amazon-ssm-agent.service
