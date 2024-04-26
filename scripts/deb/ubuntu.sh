@@ -27,6 +27,7 @@ then
     # cd ..
     sudo apt install python3-pip python3-setuptools python3-wheel --yes --quiet
     # /usr/local/bin/python3.10 -m pip install --upgrade pip
+    which python3.10
     python3.10 -m pip install ansible
     # export PATH="$PATH:$HOME/.local/bin:$HOME/bin"
     # which ansible-playbook
