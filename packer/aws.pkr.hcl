@@ -138,10 +138,10 @@ build {
         inline = ["sudo lsblk"]
     }
     provisioner "shell" {
-        inline = ["sudo mkdir -p /etc/ansible", "sudo cp /home/${var.username}/ami/ansible/ansible.cfg /etc/ansible/ansible.cfg"]
+        inline = ["chmod u+x /home/${var.username}/ami/scripts/${var.linux_flavor}/${var.distribution}.sh", "sudo bash /home/${var.username}/ami/scripts/${var.linux_flavor}/${var.distribution}.sh"]
     }
     provisioner "shell" {
-        inline = ["chmod u+x /home/${var.username}/ami/scripts/${var.linux_flavor}/${var.distribution}.sh", "sudo bash /home/${var.username}/ami/scripts/${var.linux_flavor}/${var.distribution}.sh"]
+        inline = ["sudo mkdir -p /etc/ansible", "sudo cp /home/${var.username}/ami/ansible/ansible.cfg /etc/ansible/ansible.cfg"]
     }
     provisioner "ansible-local" {
         playbook_file = "../ansible/playbook.yml"
