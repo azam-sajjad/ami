@@ -604,9 +604,7 @@ configured"
             protocol: tcp
             ctstate: ESTABLISHED,RELATED
             jump: ACCEPT
-        when:
-            - not cis_section99|bool
-      - name: IPv4 inbound and established connections
+      - name: IPv4 outbound and established connections
         iptables:
             chain: OUTPUT
             protocol: all
