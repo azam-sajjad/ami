@@ -228,6 +228,16 @@
     - scored
     - lynis
 
+- name: "Example1: Validate if a String or line is present in the file"
+  lineinfile:
+    path: /etc/postfix/main.cf
+    regexp: "^smtpd_banner " 
+    state: absent
+  tags:
+    - level1
+    - scored
+    - lynis
+
 - name: "SCORED | LYNIS | FIX | add block smtp vrfy command & smtp banner values to /etc/postfix/main.cf"
   blockinfile:
     path: /etc/postfix/main.cf
@@ -240,6 +250,12 @@
     - scored
     - lynis
 
+- name: "SCORED | LYNIS | FIX | postconf /dev/null"
+  command: "postconf > /dev/null"
+  tags:
+    - level1
+    - scored
+    - lynis
 ######################## MODPROBE - BLACKLIST ##############################################################
 - name: "Check if /etc/modprobe.d/blacklist.conf Exists."
   stat:
@@ -313,6 +329,8 @@
     - scored
     - lynis
 
+
+
 - name: "SCORED | LYNIS | FIX | reload sysctl"
   command: "sysctl --system"
   tags:
@@ -344,7 +362,17 @@
 - name: "SCORED | LYNIS | FIX | add a line to /etc/lynis/default.prf - to skip a test"
   lineinfile:
     path: /etc/lynis/default.prf
-    line: "skip-test=NETW-2705"
+    line: "skip-test=FIRE-4512"
+  tags:
+    - level1
+    - scored
+    - lynis
+
+
+- name: "SCORED | LYNIS | FIX | add umask to /etc/login.defs - to skip a test"
+  lineinfile:
+    path: /etc/login.defs
+    line: "umask 027"
   tags:
     - level1
     - scored
