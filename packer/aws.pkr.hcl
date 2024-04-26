@@ -165,7 +165,6 @@ build {
         source = "/home/${var.username}/ansible.log"
         destination = "${var.dir}/'$foldername1'/${var.distribution}${var.version}/'$foldername2'/"
         direction = "download"
-        type = "file"
     }
     provisioner "shell" {
         inline = ["chmod u+x /home/${var.username}/ami/scripts/cleanup/${var.linux_flavor}.sh", "sudo bash /home/${var.username}/ami/scripts//cleanup/${var.linux_flavor}.sh"]
