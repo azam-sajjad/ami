@@ -30,6 +30,7 @@ then
     which python3.8
     export ANSIBLE_PYTHON_INTERPRETER=/usr/bin/python3.8
     sudo apt install ansible -y
+    export ANSIBLE_PYTHON_INTERPRETER=/usr/bin/python3.8
     ansible --version
     ansible-community --version
     # python3.8 -m pip install --upgrade pip
