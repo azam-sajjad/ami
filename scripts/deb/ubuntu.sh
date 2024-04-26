@@ -37,7 +37,7 @@ then
     ansible --version
     ansible-community --version
     ansible localhost -m ping
-    sudo mv -r ~/.local/bin/ansible /usr/bin/ansible
+    sudo mv -r /home/ubuntu/.local/bin/ansible /usr/bin/ansible
     ansible --version
     ansible localhost -m ping
 else
