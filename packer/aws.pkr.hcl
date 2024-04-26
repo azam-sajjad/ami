@@ -147,7 +147,7 @@ build {
         playbook_file = "../ansible/playbook.yml"
         extra_arguments = [
                 "-v",
-                "--user ${var.username}"
+                "--user ${var.username}",
                 "--extra-vars", "username=${var.username}",
                 "--extra-vars", "cis_partitions=${var.PARTITIONS}",
                 "--extra-vars", "cis_open_custom_ports=${var.OPENPORTS}",
