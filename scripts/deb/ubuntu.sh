@@ -24,7 +24,7 @@ then
     /usr/local/bin/python3.10 -m pip install --upgrade pip
     /usr/local/bin/python3.10 -m pip install ansible --user ansible 
     export PATH="$PATH:$HOME/.local/bin:$HOME/bin"
-    which ansible
+    which ansible-playbook
     echo $PATH
     sudo echo $PATH
     ansible --version
