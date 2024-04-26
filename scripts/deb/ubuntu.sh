@@ -10,8 +10,8 @@ PYVER="`python3 --version | awk '{print $2}' | cut -d. -f 2`"
 echo "================= Python 3 Version Detected = 3.$PYVER ======================="
 if [[ $PYVER -lt 8 ]]
 then
-    sudo apt install python3.10 -y
-    sudo apt install python3.10-dev python3.10-venv -y
+    sudo apt install python3.8 -y
+    sudo apt install python3.8-dev python3.8-venv -y
     # sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.$PYVER 1
     # sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 2
     # sudo update-alternatives --config python3 | 2
@@ -26,9 +26,9 @@ then
     # sudo make altinstall 1> /dev/null
     # cd ..
     sudo apt install python3-pip python3-setuptools python3-wheel --yes --quiet
-    # /usr/local/bin/python3.10 -m pip install --upgrade pip
-    which python3.10
-    python3.10 -m pip install ansible
+    which python3.8
+    python3.8 -m pip install --upgrade pip
+    python3.8 -m pip install ansible
     # export PATH="$PATH:$HOME/.local/bin:$HOME/bin"
     # which ansible-playbook
     echo $PATH
