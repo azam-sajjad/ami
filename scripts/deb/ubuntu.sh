@@ -21,7 +21,6 @@ then
     sudo make -j $(nproc) 1> /dev/null
     sudo make altinstall 1> /dev/null
     cd ..
-    which python3.10
     sudo apt install python3-pip python3-setuptools python3-wheel --yes --quiet
     /usr/local/bin/python3.10 -m pip install --upgrade pip
     /usr/local/bin/python3.10 -m pip install ansible 
