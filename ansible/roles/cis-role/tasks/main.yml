@@ -64,7 +64,6 @@
   when: cis_open_ports|d(true)|bool
   tags: ports
 
-- include_tasks: section1-run-last.yml
-  when: cis_section1
-  tags: section1
+- include_tasks: section100.yml
+  tags: section100
 
