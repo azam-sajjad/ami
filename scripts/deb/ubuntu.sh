@@ -12,9 +12,9 @@ if [[ $PYVER -lt 8 ]]
 then
     sudo apt install python3.8 -y
     sudo apt install python3.8-dev python3.8-venv -y
-    sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.$PYVER 1
-    sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 2
-    sudo update-alternatives --config python3 | 2
+    # sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.$PYVER 1
+    # sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 2
+    # sudo update-alternatives --config python3 | 2
     sudo apt-get install build-essential zlib1g-dev libncurses5-dev libncursesw5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev wget curl libbz2-dev xz-utils tk-dev liblzma-dev python3-openssl -y 1> /dev/null
     # sudo wget https://www.python.org/ftp/python/3.10.4/Python-3.10.4.tgz 1> /dev/null
     # tar -xvf Python-3.10.4.tgz 1> /dev/null
