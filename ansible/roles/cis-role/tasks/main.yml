@@ -16,7 +16,7 @@
   tags:
       - always
 
-- include_tasks: section1-partitions.yml
+- include_tasks: section0.yml
   when: cis_partitions|d(true)|bool
   tags: partitions
 

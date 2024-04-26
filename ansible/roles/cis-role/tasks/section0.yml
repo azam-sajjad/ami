@@ -1,0 +1,317 @@
+---
+# Section0 Refers to Creating Partitions with an attached data Volume - by default, it creates /home /var /var/log /var/tmp partitions - Runs before any other section
+- name: "PRELIM | Run package cache update"
+  package:
+    update_cache: true
+  changed_when: false
+  when:
+      - cis_apply_upgrades
+  tags:
+      - level1
+      - scored
+      - partitions
+      
+- name: "PRELIM | Install Rsync and Parted"
+  package:
+    name: 
+      - rsync
+      - parted
+    state: present
+  tags:
+      - level1
+      - scored
+      - partitions
+
+##################################################################################################    
+- name: "SCORED | PARTITIONS | 1.1.13 | HOME | PATCH | Ensure separate partition exists for /home"
+  shell: mount | grep "on /home "
+  register: home_mounted
+  changed_when: false
+  failed_when: false
+  when:
+      - cis_rule_1_1_13
+  tags:
+      - level2
+      - scored
+      - patch
+      - rule_1.1.13
+
+- name: "PARTITIONS | 1.1.13 | HOME | Create /home Partition"
+  block:
+      - name: "PARTITIONS | 1.1.13 | HOME | Create /home Partition with Parted"
+        parted:
+            device: /dev/xvdb
+            part_type: primary
+            name: "GPT"
+            number: "{{ cis_home_part_number }}"
+            part_start: "{{ cis_home_part_size['start'] }}"
+            part_end: "{{ cis_home_part_size['end'] }}"
+            state: present
+            label: gpt
+            unit: GiB
+      - name: "PARTITIONS | 1.1.13 | HOME | Create /home Filesystem"
+        filesystem:
+            fstype: ext4
+            dev: "/dev/xvdb{{ cis_home_part_number }}"
+      - name: "PARTITIONS | 1.1.13 | HOME | Create /home Backup Directory"
+        file: 
+            path: /mnt/init/home
+            state: directory
+            owner: root
+            group: root
+      - name: "PARTITIONS | 1.1.13 | HOME | Mount Partition to /mnt/init/home"
+        mount:
+            fstype: ext4
+            src: /dev/xvdb1
+            path: /mnt/init/home
+            state: mounted
+            opts: defaults,noexec,nosuid,nodev
+      - name: "PARTITIONS | 1.1.13 | HOME | Sync /home to /mnt/init/home"
+        ansible.posix.synchronize:
+            src: /home/
+            dest: /mnt/init/home
+            archive: true
+            recursive: true
+        no_log: true
+        delegate_to: "{{ inventory_hostname }}"
+      - name: "PARTITIONS | 1.1.13 | HOME | Mount Partition to /mnt/init/home"
+        mount:
+            fstype: ext4
+            src: /dev/xvdb1
+            path: /home
+            state: mounted
+            opts: defaults,noexec,nosuid,nodev
+      - name: "PARTITIONS | 1.1.13 | HOME | Unmount /mnt/init/home"
+        mount:
+            path: /mnt/init/home
+            state: absent
+  when:
+      - home_mounted.stdout == ""
+      - cis_partition_home
+  tags:
+      - level1
+      - scored
+      - partitions
+      - rule_1.1.13
+
+
+
+################################################################################################
+- name: "SCORED | PARTITIONS | 1.1.6 | VAR | PATCH | Ensure separate partition exists for /var"
+  shell: mount | grep "on /var "
+  register: var_mounted
+  changed_when: false
+  failed_when: false
+  when:
+      - cis_rule_1_1_6
+  tags:
+      - level2
+      - scored
+      - patch
+      - rule_1.1.6
+- name: "PARTITIONS | 1.1.6 | VAR | Create /var Partition"
+  block:
+      - name: "PARTITIONS | 1.1.6 | VAR | Create /var Backup Partition"
+        file: 
+            path: /mnt/init/var
+            state: directory
+            owner: root
+            group: root
+            mode: "0755"
+      - name: "PARTITIONS | 1.1.6 | VAR | Create /var Partition with Parted"
+        parted:
+            device: /dev/xvdb
+            part_type: primary
+            name: "GPT"
+            number: "{{ cis_var_part_number }}"
+            part_start: "{{ cis_var_part_size['start'] }}"
+            part_end: "{{ cis_var_part_size['end'] }}"
+            state: present
+            label: gpt
+            unit: GiB
+      - name: "PARTITIONS | 1.1.6 | VAR | Create /var Filesystem"
+        filesystem:
+            fstype: ext4
+            dev: "/dev/xvdb{{ cis_var_part_number }}"
+      - name: "PARTITIONS | 1.1.6 | VAR | Mount Partition to /mnt/init/var"
+        mount:
+            fstype: ext4
+            src: /dev/xvdb2
+            path: /mnt/init/var
+            state: mounted
+            opts: defaults,nosuid,nodev
+      - name: "PARTITIONS | 1.1.6 | VAR | Sync /var to /mnt/init/var"
+        ansible.posix.synchronize:
+            src: /var/
+            dest: /mnt/init/var
+            archive: true
+            recursive: true
+        no_log: true
+        delegate_to: "{{ inventory_hostname }}"
+      - name: "PARTITIONS | 1.1.6 | VAR | Mount Partition to /mnt/init/var"
+        mount:
+            fstype: ext4
+            src: /dev/xvdb2
+            path: /var
+            state: mounted
+            opts: defaults,nosuid,nodev
+      - name: "PARTITIONS | 1.1.6 | VAR | Unmount /mnt/init/var"
+        mount:
+            path: /mnt/init/var
+            state: absent
+  when:
+      - var_mounted.stdout == ""
+      - cis_partition_var
+  tags:
+      - level1
+      - scored
+      - partitions
+      - rule_1.1.6       
+
+########################################################################################################
+- name: "SCORED | PARTITIONS | 1.1.11 | VAR_LOG | PATCH | Ensure separate partition exists for /var/log"
+  shell: mount | grep "on /var/log "
+  register: var_log_mounted
+  changed_when: false
+  failed_when: false
+  when:
+      - cis_rule_1_1_11
+  tags:
+      - level2
+      - scored
+      - patch
+      - rule_1.1.11
+- name: "PARTITIONS | 1.1.11 | VAR_LOG | Create /var/log Partition"
+  block:
+      - name: "PARTITIONS | 1.1.11 | VAR_LOG | Create /var/log Backup Partition"
+        file: 
+            path: /mnt/init/log
+            state: directory
+            owner: root
+            group: root
+            mode: "0755"
+      - name: "PARTITIONS | 1.1.11 | VAR_LOG | Create /var/log Partition with Parted"
+        parted:
+            device: /dev/xvdb
+            part_type: primary
+            name: "GPT"
+            number: "{{ cis_log_part_number }}"
+            part_start: "{{ cis_log_part_size['start'] }}"
+            part_end: "{{ cis_log_part_size['end'] }}"
+            state: present
+            label: gpt
+            unit: GiB
+      - name: "PARTITIONS | 1.1.11 | VAR_LOG | Create /var/log Filesystem"
+        filesystem:
+            fstype: ext4
+            dev: "/dev/xvdb{{ cis_log_part_number }}"
+      - name: "PARTITIONS | 1.1.11 | VAR_LOG | Mount /mnt/init/log Filesystem"
+        mount:
+            fstype: ext4
+            src: /dev/xvdb3
+            path: /mnt/init/log
+            state: mounted
+            opts: defaults,noexec,nosuid,nodev
+      - name: "PARTITIONS | 1.1.11 | VAR_LOG | Sync /var/log to /mnt/init/log"
+        ansible.posix.synchronize:
+            src: /var/log/
+            dest: /mnt/init/log
+            archive: true
+            recursive: true
+        no_log: true
+        delegate_to: "{{ inventory_hostname }}"
+      - name: "PARTITIONS | 1.1.11 | VAR_LOG | Mount /var/log Filesystem"
+        mount:
+            fstype: ext4
+            src: /dev/xvdb3
+            path: /var/log
+            state: mounted
+            opts: defaults,noexec,nosuid,nodev
+      - name: "PARTITIONS | 1.1.11 | VAR_LOG | Unmount /mnt/init/log"
+        mount:
+            path: /mnt/init/log
+            state: absent
+  when:
+      - var_log_mounted.stdout == ""
+      - cis_partition_var_log
+  tags:
+      - level1
+      - scored
+      - partitions
+      - rule_1.1.11
+
+
+
+########################################################################################################
+- name: "SCORED | PARTITIONS | 1.1.7 | VAR_TMP | PATCH | Ensure separate partition exists for /var/tmp"
+  shell: mount | grep "on /var/tmp "
+  register: var_tmp_mounted
+  changed_when: false
+  failed_when: false
+  when:
+      - cis_rule_1_1_7
+  tags:
+      - level2
+      - scored
+      - patch
+      - rule_1.1.7
+- name: "PARTITIONS | 1.1.7 | VAR_TMP | Create /var/tmp Partition"
+  block:
+      - name: "PARTITIONS | 1.1.7 | VAR_TMP | Create /var/tmp Backup Partition"
+        file: 
+            path: /mnt/init/tmp
+            state: directory
+            owner: root
+            group: root
+            mode: "0755"
+      - name: "PARTITIONS | 1.1.7 | VAR_TMP | Create /var/tmp Partition with Parted"
+        parted:
+            device: /dev/xvdb
+            part_type: primary
+            name: "GPT"
+            number: "{{ cis_tmp_part_number }}"
+            part_start: "{{ cis_tmp_part_size['start'] }}"
+            part_end: "{{ cis_tmp_part_size['end'] }}"
+            state: present
+            label: gpt
+            unit: GiB
+      - name: "PARTITIONS | 1.1.7 | VAR_TMP | Create /var/tmp Filesystem"
+        filesystem:
+            fstype: ext4
+            dev: "/dev/xvdb{{ cis_tmp_part_number }}"
+      - name: "PARTITIONS | 1.1.7 | VAR_TMP | Mount /mnt/init/tmp Filesystem"
+        mount:
+            fstype: ext4
+            src: /dev/xvdb4
+            path: /mnt/init/tmp
+            state: mounted
+            opts: defaults,noexec,nosuid,nodev
+      - name: "PARTITIONS | 1.1.7 | VAR_TMP | Sync /var/tmp to /mnt/init/tmp"
+        ansible.posix.synchronize:
+            src: /var/tmp/
+            dest: /mnt/init/tmp
+            archive: true
+            recursive: true
+        no_log: true
+        delegate_to: "{{ inventory_hostname }}"
+      - name: "PARTITIONS | 1.1.7 | VAR_TMP | Mount /var/tmp Filesystem"
+        mount:
+            fstype: ext4
+            src: /dev/xvdb4
+            path: /var/tmp
+            state: mounted
+            opts: defaults,noexec,nosuid,nodev
+      - name: "PARTITIONS | 1.1.7 | VAR_TMP | Unmount /mnt/init/tmp"
+        mount:
+            path: /mnt/init/tmp
+            state: absent
+  when:
+      - var_tmp_mounted.stdout == ""
+      - cis_partition_var_tmp
+  tags:
+      - level1
+      - scored
+      - partitions
+      - rule_1.1.7
+
+
