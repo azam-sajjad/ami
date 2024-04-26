@@ -14,11 +14,11 @@ pipeline {
         """, name: 'VERSION'
         string defaultValue: 'scaleops', description: 'Modify Prefix - AMI Naming Convention -> <PREFIX>-<DISTRIBUTION><VERSION>-<DATE> e.g. scaleops-amazonLinux2023-01-04-2024', name: 'AMI_PREFIX'
         choice(name: 'FIREWALL', choices:['iptables', 'firewalld', 'ufw'], description:'Firewall to Setup for the AMI')
-        booleanParam defaultValue: false, description: 'Enable IPv6? (Check for Yes)', name: 'IPV6'
         booleanParam defaultValue: true, description: 'Open Custom Ports for Services? (Check for Yes)', name: 'OPENPORTS'
         string defaultValue: '443', description: 'Open a Custom Port for Services', name: 'PORT1'
         string defaultValue: '80', description: 'Open a Custom Port for Services', name: 'PORT2'
         booleanParam defaultValue: true, description: 'Harden to 80+, Run Lynis Recommended Remediations e.g. install Malware Detector (tripwire,rkhunter), More Restrictive Permissions, Restrictive Network Parameters, which improves Score', name: 'LYNIS'
+        booleanParam defaultValue: false, description: 'Enable IPv6? (Check for Yes)', name: 'IPV6'
         booleanParam defaultValue: false, description: 'Disables NEW SSH Connection, Level2 sshd_config, Remove Keys, /etc/hosts.deny', name: 'LOCKDOWN'
 
     }
@@ -57,7 +57,6 @@ pipeline {
                         echo 'OPENPORTS=$OPENPORTS'
                         echo 'PORT1=$PORT1'
                         echo 'PORT2=$PORT2'
-                        echo 'ACCEPT_NEW_SSH=$ACCEPT_NEW_SSH'
                         echo 'IPV6=$IPV6'
                         cd packer
                         echo '========================= Building ${params.DISTRIBUTION} AMI ========================='
@@ -93,7 +92,6 @@ pipeline {
                         echo 'OPENPORTS=$OPENPORTS'
                         echo 'PORT1=$PORT1'
                         echo 'PORT2=$PORT2'
-                        echo 'ACCEPT_NEW_SSH=$ACCEPT_NEW_SSH'
                         echo 'IPV6=$IPV6'
                         cd packer
                         echo '========================= Building ${params.DISTRIBUTION} AMI ========================='
@@ -135,7 +133,6 @@ pipeline {
                         echo 'OPENPORTS=$OPENPORTS'
                         echo 'PORT1=$PORT1'
                         echo 'PORT2=$PORT2'
-                        echo 'ACCEPT_NEW_SSH=$ACCEPT_NEW_SSH'
                         echo 'IPV6=$IPV6'
                         cd packer
                         echo '========================= Building Amazon Linux 2 AMI ========================='
@@ -177,7 +174,6 @@ pipeline {
                         echo 'OPENPORTS=$OPENPORTS'
                         echo 'PORT1=$PORT1'
                         echo 'PORT2=$PORT2'
-                        echo 'ACCEPT_NEW_SSH=$ACCEPT_NEW_SSH'
                         echo 'IPV6=$IPV6'
                         cd packer
                         echo '========================= Building Amazon Linux 2023 AMI ========================='
@@ -219,7 +215,6 @@ pipeline {
                         echo 'OPENPORTS=$OPENPORTS'
                         echo 'PORT1=$PORT1'
                         echo 'PORT2=$PORT2'
-                        echo 'ACCEPT_NEW_SSH=$ACCEPT_NEW_SSH'
                         echo 'IPV6=$IPV6'
                         cd packer
                         echo '========================= Building ${params.DISTRIBUTION} 7 AMI ========================='
@@ -261,7 +256,6 @@ pipeline {
                         echo 'OPENPORTS=$OPENPORTS'
                         echo 'PORT1=$PORT1'
                         echo 'PORT2=$PORT2'
-                        echo 'ACCEPT_NEW_SSH=$ACCEPT_NEW_SSH'
                         echo 'IPV6=$IPV6'
                         cd packer
                         echo '========================= Building ${params.DISTRIBUTION} ${params.VERSION} Stream AMI ========================='
@@ -300,7 +294,6 @@ pipeline {
                         echo 'OPENPORTS=$OPENPORTS'
                         echo 'PORT1=$PORT1'
                         echo 'PORT2=$PORT2'
-                        echo 'ACCEPT_NEW_SSH=$ACCEPT_NEW_SSH'
                         echo 'IPV6=$IPV6'
                         cd packer
                         echo '========================= Building ${params.DISTRIBUTION} ${params.VERSION} AMI ========================='
@@ -337,7 +330,6 @@ pipeline {
                         echo 'OPENPORTS=$OPENPORTS'
                         echo 'PORT1=$PORT1'
                         echo 'PORT2=$PORT2'
-                        echo 'ACCEPT_NEW_SSH=$ACCEPT_NEW_SSH'
                         echo 'IPV6=$IPV6'
                         cd packer
                         echo '========================= Building ${params.DISTRIBUTION} ${params.VERSION} AMI ========================='
