@@ -24,7 +24,7 @@
     - lockdown
 
 - name: delete NEW SSH Login Rule on Input table
-  shell: iptables -D INPUT 1
+  shell: sudo iptables -D INPUT 1
   when:
       - cis_99_deny_ssh
   tags:
