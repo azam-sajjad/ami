@@ -272,29 +272,36 @@
       - filesystems
       - rule_1.1.1.8
 
-- name: "SCORED | 1.1.2 | PATCH | Ensure separate partition exists for /tmp | enable and start/restart tmp.mount"
-  copy:
-      src: "{{ tmp_mount_file[ansible_os_family] }}"
-      dest: /etc/systemd/system/tmp.mount
-      owner: root
-      group: root
-      mode: 0644
-      force: true
-      remote_src: true
-  notify:
-      - systemd enable tmp.mount
+
+
+
+
+- name: "SCORED | 1.1.6 | PATCH | Ensure separate partition exists for /var"
+  shell: mount | grep "on /var "
+  register: var_mounted
+  changed_when: false
+  failed_when: false
   when:
-      - cis_rule_1_1_2
-    #   - ansible_os_family == 'RedHat'
+      - cis_rule_1_1_6
   tags:
       - level2
       - scored
       - patch
-      - rule_1.1.2
+      - rule_1.1.6
+      
 
-
-
-
+- name: "SCORED | 1.1.7 | PATCH | Ensure separate partition exists for /var/tmp"
+  shell: mount | grep "on /var/tmp "
+  register: var_tmp_mounted
+  changed_when: false
+  failed_when: false
+  when:
+      - cis_rule_1_1_7
+  tags:
+      - level2
+      - scored
+      - patch
+      - rule_1.1.7
       
 
 - name:
