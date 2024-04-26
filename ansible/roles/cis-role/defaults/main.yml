@@ -646,9 +646,6 @@ tmp_mount_file:
 tmp_mount_options:
   RedHat: mode=1777,noatime,noexec,nodev,nosuid
   Debian: mode=1777,noatime,nodev,nosuid
-grub_command:
-  RedHat: grub2-mkconfig
-  Debian: grub-mkconfig
 grub_cfg:
   RedHat: /boot/grub2/grub.cfg
   Debian: /boot/grub/grub.cfg

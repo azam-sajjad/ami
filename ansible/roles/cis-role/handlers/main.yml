@@ -87,8 +87,17 @@
 # Section4
 - name: generate new grub config
   become: true
-  command: "'{{ grub_command[ansible_os_family] }}' -o '{{ grub_cfg[ansible_os_family] }}'"
+  command: grub2-mkconfig -o /boot/grub2/grub.cfg
   notify: fix permissions after generate new grub config handler
+  when:
+    - ansible_os_family == 'RedHat'
+
+- name: generate new grub config
+  become: true
+  command: grub-mkconfig -o /boot/grub/grub.cfg
+  notify: fix permissions after generate new grub config handler
+  when:
+    - ansible_os_family == 'Debian'
 
 - name: fix permissions after generate new grub config handler
   become: true
