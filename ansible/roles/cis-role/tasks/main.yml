@@ -64,4 +64,7 @@
   when: cis_open_ports|d(true)|bool
   tags: ports
 
+- include_tasks: section1-end.yml
+  when: cis_section1
+  tags: section1
 

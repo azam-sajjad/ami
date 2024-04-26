@@ -23,7 +23,6 @@ then
     /usr/local/bin/python3.10 -m pip install --upgrade pip
     /usr/local/bin/python3.10 -m pip install ansible 
     ls -alh /home/ubuntu
-    ls -alh /home/ubuntu/.ansible
     mkdir -p /home/ubuntu/.ansible/roles
     sudo chown -R ubuntu:ubuntu /home/ubuntu/.ansible
     ansible --version
