@@ -24,7 +24,7 @@ then
     /usr/local/bin/python3.10 -m pip install ansible 
     ls -alh /home/ubuntu
     ls -alh /home/ubuntu/.ansible
-    sudo mkdir -p /home/ubuntu/.ansible/roles
+    mkdir -p /home/ubuntu/.ansible/roles
     sudo chown -R ubuntu:ubuntu /home/ubuntu/.ansible
     ansible --version
     ansible-community --version
