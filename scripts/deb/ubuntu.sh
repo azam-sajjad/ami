@@ -29,6 +29,7 @@ then
     pip3 install boto3 --user 
     ls -alh /home/ubuntu
     sudo chown ubuntu:ubuntu -R /home/ubuntu
+    mkdir -p /home/ubuntu/.ansible/roles
     ls -alh /home/ubuntu
     ansible --version
     ansible-community --version
