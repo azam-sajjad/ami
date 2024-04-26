@@ -140,9 +140,9 @@ build {
     provisioner "shell" {
         inline = ["chmod u+x /home/${var.username}/ami/scripts/${var.linux_flavor}/${var.distribution}.sh", "sudo bash /home/${var.username}/ami/scripts/${var.linux_flavor}/${var.distribution}.sh"]
     }
-    provisioner "shell" {
-        inline = ["mkdir -p ~/.ansible/roles", "cp -r ~/ami/ansible/roles/* ~/.ansible/roles/"]
-    }
+    // provisioner "shell" {
+    //     inline = ["mkdir -p ~/.ansible/roles", "cp -r ~/ami/ansible/roles/* ~/.ansible/roles/"]
+    // }
     provisioner "ansible-local" {
         playbook_file = "../ansible/playbook.yml"
         extra_arguments = [
