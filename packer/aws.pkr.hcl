@@ -159,14 +159,6 @@ build {
                 "--extra-vars", "cis_firewall=${var.FIREWALL}"
             ]
     }
-    provisioner "shell-local" {
-        inline = ["foldername1=$(date +%Y%m%d)", "foldername2=$(date +%R)", "mkdir -p ${var.dir}/'$foldername'/${var.distribution}${var.version}/'$foldername2'"]
-    }
-    provisioner "file" {
-        source = "/home/${var.username}/ansible.log"
-        destination = "${var.dir}/'$foldername1'/${var.distribution}${var.version}/'$foldername2'/"
-        direction = "download"
-    }
     provisioner "shell" {
         inline = ["chmod u+x /home/${var.username}/ami/scripts/cleanup/${var.linux_flavor}.sh", "sudo bash /home/${var.username}/ami/scripts//cleanup/${var.linux_flavor}.sh"]
     }
