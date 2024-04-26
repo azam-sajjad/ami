@@ -647,7 +647,45 @@ configured"
       - patch
       - rule_3.5.2.3
 
+- name: "SCORED | 3.5.2.4 | PATCH | Ensure firewall rules exist for all open ports | OPEN CUSTOM PORT | Allow Port1"
+  iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: "{{ cis_port1 }}"
+    ctstate: NEW
+    jump: ACCEPT
+    action: append
+    comment: Allow Custom Port1
+  when: 
+      - cis_open_ports|bool
+      - cis_port1 is defined
+  tags: cis_open_port1
 
+- name: "SCORED | 3.5.2.4 | PATCH | Ensure firewall rules exist for all open ports | OPEN CUSTOM PORT | Allow Port2"
+  iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: "{{ cis_port2 }}"
+    ctstate: NEW
+    jump: ACCEPT
+    action: append
+    comment: Allow Custom Port2
+  when: 
+      - cis_open_ports|bool
+      - cis_port2 is defined
+  tags: cis_open_port2
+
+- name: get current state of the firewall
+  community.general.iptables_state:
+    state: saved
+    path: /tmp/iptables
+  check_mode: true
+  changed_when: false
+  register: iptables_state
+
+- name: show current state of the firewall
+  ansible.builtin.debug:
+    var: iptables_state.initial_state
 
 
 ########################## when cis_firewall =  ufw
@@ -779,6 +817,36 @@ configured"
       - patch
       - rule_3.5.3.2
 
+
+#ufw
+- name: "NOTSCORED | 3.5.3.5 | PATCH | Ensure firewall rules exist for all open ports | OPEN CUSTOM PORT | Allow Port1 | ufw"
+  ufw:
+    rule: allow
+    port: "{{ cis_port1 }}"
+    proto: tcp
+  when:
+      - cis_firewall == "ufw"
+      - cis_setup_firewall
+      - ansible_os_family == "Debian"
+      - cis_open_ports|bool
+      - cis_port1 is defined
+  notify: restart ufw
+  tags: cis_open_port1
+
+- name: "NOTSCORED | 3.5.3.5 | PATCH | Ensure firewall rules exist for all open ports | OPEN CUSTOM PORT | Allow Port2 | ufw"
+  ufw:
+    rule: allow
+    port: "{{ cis_port2 }}"
+    proto: tcp
+  when:
+      - cis_firewall == "ufw"
+      - cis_setup_firewall
+      - ansible_os_family == "Debian"
+      - cis_open_ports|bool
+      - cis_port2 is defined
+  notify: restart ufw
+  tags: cis_open_port2
+
 - name: "SCORED | 3.5.3.2 | PATCH | Ensure default deny firewall policy"
   ufw:
       rule: "{{ item.rule }}"
@@ -797,7 +865,6 @@ configured"
       - scored
       - patch
       - rule_3.5.3.2
-
 ########################## Firewalld
 
 
@@ -864,7 +931,7 @@ configured"
       - patch
       - rule_3.5.5.2
 
-- name: "SCORED | 3.5.5.3 | PATCH | Ensure firewall rules exist for all open ports | CUSTOM"
+- name: "SCORED | 3.5.5.3 | PATCH | Ensure firewall rules exist for all open ports | SSH"
   firewalld:
       service: "{{ item }}"
       state: enabled
@@ -883,7 +950,36 @@ configured"
       - scored
       - patch
       - rule_3.5.5.3
+#firewalld
+- name: "SCORED | 3.5.5.3 | PATCH | Ensure firewall rules exist for all open ports | OPEN CUSTOM PORT | Allow Port1 | firewalld"
+  firewalld:
+      permanent: yes
+      immediate: yes
+      service: "{{ cis_port1 }}"
+      state: enabled
+  when:
+      - cis_firewall == "firewalld"
+      - cis_setup_firewall
+      - ansible_os_family == "RedHat"
+      - cis_open_ports|bool
+      - cis_port1 is defined
+  tags: cis_open_port1
 
+- name: "SCORED | 3.5.5.3 | PATCH | Ensure firewall rules exist for all open ports | OPEN CUSTOM PORT | Allow Port2 | firewalld"
+  firewalld:
+      permanent: yes
+      immediate: yes
+      service: "{{ cis_port2 }}"
+      state: enabled
+  notify: restart firewalld
+  when:
+      - cis_firewall == "firewalld"
+      - cis_setup_firewall
+      - ansible_os_family == "RedHat"
+      - cis_open_ports|bool
+      - cis_port2 is defined
+  notify: restart firewalld
+  tags: cis_open_port2
 
 ############################################################################################
 - name: "NOTSCORED | 3.7 | Disable IPv6"

@@ -60,10 +60,6 @@
   when: cis_section99|d(false)|bool
   tags: lockdown
 
-- include_tasks: custom-ports.yml
-  when: cis_open_ports|d(true)|bool
-  tags: ports
-
 - include_tasks: section100.yml
   tags: section100
 
