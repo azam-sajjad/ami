@@ -32,7 +32,7 @@
 #       - notscored
 #       - patch
 #       - rule_4.1.1
-- name: "PRELIM | Run apt cache update"
+- name: "PRELIM | Run apt cache update fix"
   command: sudo apt-get update --fix-missing -y
   changed_when: false
   when:
