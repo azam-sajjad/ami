@@ -10,6 +10,7 @@ PYVER="`python3 --version | awk '{print $2}' | cut -d. -f 2`"
 echo "================= Python 3 Version Detected = 3.$PYVER ======================="
 if [[ $PYVER -lt 8 ]]
 then
+    echo "================= Setting up Python 3.8 for Ansible ======================="
     pip --version
     sudo apt install python3.8 -y
     sudo apt install python3.8-dev python3.8-venv -y
@@ -19,7 +20,6 @@ then
     # sudo apt-get install build-essential zlib1g-dev libncurses5-dev libncursesw5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev wget curl libbz2-dev xz-utils tk-dev liblzma-dev python3-openssl -y 1> /dev/null
     # sudo wget https://www.python.org/ftp/python/3.10.4/Python-3.10.4.tgz 1> /dev/null
     # tar -xvf Python-3.10.4.tgz 1> /dev/null
-    # echo "================= Setting up Python 3.10 for Ansible ======================="
     # echo "Python-3.10 installation will take 5+ minutes! - IGNORE ./configure ERRORS"
     # cd Python-3.10.4
     # sudo ./configure --enable-optimizations 1> /dev/null
@@ -37,7 +37,8 @@ then
     ansible --version
     ansible-community --version
     ansible localhost -m ping
-    sudo cp -r ~/.local/bin/ansible /usr/bin/ansible
+    sudo mv -r ~/.local/bin/ansible /usr/bin/ansible
+    ansible --version
     ansible localhost -m ping
 else
     sudo apt install ansible -y
