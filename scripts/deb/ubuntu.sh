@@ -28,16 +28,20 @@ then
     # cd ..
     sudo apt install python3-pip python3-setuptools python3-wheel --yes --quiet
     which python3.8
-    python3.8 -m pip install --upgrade pip
-    python3.8 -m pip install ansible
-    export PATH="$PATH:$HOME/.local/bin:$HOME/bin"
-    which ansible-playbook
-    echo $PATH
-    sudo echo $PATH
+    export ANSIBLE_PYTHON_INTERPRETER=/usr/bin/python3.8
+    sudo apt install ansible -y
     ansible --version
     ansible-community --version
-    ansible localhost -m ping
-    sudo mv -r /home/ubuntu/.local/bin/ansible /usr/bin/ansible
+    # python3.8 -m pip install --upgrade pip
+    # python3.8 -m pip install ansible
+    # export PATH="$PATH:$HOME/.local/bin:$HOME/bin"
+    # which ansible-playbook
+    # echo $PATH
+    # sudo echo $PATH
+    # ansible --version
+    # ansible-community --version
+    # ansible localhost -m ping
+    # sudo mv -r /home/ubuntu/.local/bin/ansible /usr/bin/ansible
     ansible --version
     ansible localhost -m ping
 else
