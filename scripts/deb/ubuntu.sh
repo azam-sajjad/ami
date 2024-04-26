@@ -27,12 +27,18 @@ then
     # sudo make altinstall 1> /dev/null
     # cd ..
     sudo apt install python3-pip python3-setuptools python3-wheel --yes --quiet
+    which python3
     which python3.8
     export ANSIBLE_PYTHON_INTERPRETER=/usr/bin/python3.8
     sudo apt install ansible -y
     export ANSIBLE_PYTHON_INTERPRETER=/usr/bin/python3.8
     ansible --version
     ansible-community --version
+    ansible-galaxy collection install ansible.posix
+    ansible-galaxy collection install community.general
+    sudo mkdir -p /usr/share/ansible/collections
+    sudo cp -r /root/.ansible/collections/ansible_collections /usr/share/ansible/collections/
+    sudo chmod -R a+rx /usr/share/ansible/collections/
     # python3.8 -m pip install --upgrade pip
     # python3.8 -m pip install ansible
     # export PATH="$PATH:$HOME/.local/bin:$HOME/bin"
