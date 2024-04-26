@@ -638,8 +638,6 @@ configured"
       - cis_rule_3_5_2_3
       - cis_firewall == "iptables"
       - cis_setup_firewall
-      - accept_new_ssh|bool
-      - not cis_section99|bool
   notify:
       - rpm-iptables save
       - deb-iptables save
@@ -776,8 +774,6 @@ configured"
       - cis_firewall == "ufw"
       - cis_setup_firewall
       - ansible_os_family == "Debian"
-      - accept_new_ssh|bool
-      - not cis_section99|bool
   tags:
       - level1
       - notscored
@@ -897,8 +893,6 @@ configured"
       - cis_firewall == "firewalld"
       - cis_setup_firewall
       - ansible_os_family == "RedHat"
-      - accept_new_ssh|bool
-      - not cis_section99|bool
   notify: restart firewalld
   with_items: "{{ cis_firewall_services }}"
   tags:

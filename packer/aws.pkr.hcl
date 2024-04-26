@@ -79,10 +79,6 @@ variable "IPV6" {
   type    = string
   default = env("IPV6")
 }
-variable "ACCEPT_NEW_SSH" {
-  type    = string
-  default = env("ACCEPT_NEW_SSH")
-}
 variable "LYNIS" {
   type    = string
   default = env("LYNIS")
@@ -159,7 +155,6 @@ build {
                 "--extra-vars", "cis_port1=${var.PORT1}",
                 "--extra-vars", "cis_port2=${var.PORT2}",
                 "--extra-vars", "cis_ipv6_required=${var.IPV6}",
-                "--extra-vars", "accept_new_ssh=${var.ACCEPT_NEW_SSH}",
                 "--extra-vars", "cis_firewall=${var.FIREWALL}"
             ]
     }
