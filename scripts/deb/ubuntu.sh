@@ -13,7 +13,7 @@ then
     sudo apt-get install build-essential zlib1g-dev libncurses5-dev libncursesw5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev wget curl libbz2-dev xz-utils tk-dev liblzma-dev python3-openssl -y 1> /dev/null
     sudo wget https://www.python.org/ftp/python/3.10.4/Python-3.10.4.tgz 1> /dev/null
     tar -xvf Python-3.10.4.tgz 1> /dev/null
-    echo "================= Need to Install Python 3.8 for Ansible ======================="
+    echo "================= Need to Install Python 3.10 for Ansible ======================="
     echo "Python-3.10 installation will take 5+ minutes! - IGNORE ./configure ERRORS"
     cd Python-3.10.4
     sudo ./configure --enable-optimizations 1> /dev/null
@@ -25,6 +25,7 @@ then
     /usr/local/bin/python3.10 -m pip install --upgrade pip
     /usr/local/bin/python3.10 -m pip install ansible 
     sudo pip3 install ansible
+    sudo chown ubuntu:ubuntu -R /home/ubuntu
     ansible --version
     ansible-community --version
 else
