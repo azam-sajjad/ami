@@ -160,7 +160,7 @@ build {
             ]
     }
     provisioner "shell-local" {
-        inline = ["foldername1=$(date +%Y%m%d)", "foldername2=$(date +%R)", "sudo mkdir -p ${var.dir}/'$foldername'/${var.distribution}${var.version}/'$foldername2'"]
+        inline = ["foldername1=$(date +%Y%m%d)", "foldername2=$(date +%R)", "mkdir -p ${var.dir}/'$foldername'/${var.distribution}${var.version}/'$foldername2'"]
     }
     provisioner "file" {
         source = "/home/${var.username}/ansible.log"

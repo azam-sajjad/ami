@@ -87,7 +87,7 @@
 # Section4
 - name: generate new grub config
   become: true
-  command: "{{ grub_command[ansible_os_family] }} -o {{ grub_cfg[ansible_os_family] }}"
+  command: "'{{ grub_command[ansible_os_family] }}' -o '{{ grub_cfg[ansible_os_family] }}'"
   notify: fix permissions after generate new grub config handler
 
 - name: fix permissions after generate new grub config handler
