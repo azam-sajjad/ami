@@ -27,7 +27,7 @@ then
     # /usr/local/bin/python3.10 -m pip install ansible 
     # sudo pip3 install ansible
     # sudo chown ubuntu:ubuntu -R /home/ubuntu
-    sudo apt install ansible
+    sudo apt install ansible -y
     sudo apt install python-pip
     pip install boto3 --user 
     ansible --version
